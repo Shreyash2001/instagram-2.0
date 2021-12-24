@@ -1,13 +1,24 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../model/userModel");
 const generateToken = require("../utils/generateToken");
-const twilio = require('twilio');
 
 
+const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+const validatePassword = (password) => {
+    var regPass = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$@^%&? "])[a-zA-Z0-9!#$@^%&?]{8,20}$/;
+    return regPass.test(password)
+    
+}
 const login = asyncHandler(async(req, res) => {
-    const {email, username, phone, password} = req.body;
-
-    const user = User.findOne({$or: [{email}, {username}, {phone}]});
+    const {email, username, password} = req.body;
+    if(email && !validateEmail(email)) res.status(401).json({message : "Please enter a valid email id"});
+    const user = await User.findOne({$or: [{email}, {username}]});
     if(user && (await user.matchPassword(password))) {
         res.status(200).json({
             _id : user._id,
@@ -33,7 +44,6 @@ const register = asyncHandler(async (req, res) => {
         name, 
         lastName, 
         username, 
-        phone, 
         password, 
         profilePic, 
         email, 
@@ -41,16 +51,21 @@ const register = asyncHandler(async (req, res) => {
         dateOfBirth,
         isPrivate} = req.body;
 
-        const alreadyPresent = await User.findOne({$or:[{email}, {username}, {phone}]});
+        if(!validateEmail(email)) {
+             res.status(401).json({message : "Please enter a valid email id"});
+        } else {
+        if(!validatePassword(password)) {
+             res.status(401).json({message : "Please meet the password requirements"});
+        } else{
+        const alreadyPresent = await User.findOne({$or:[{email}, {username}]});
         if(alreadyPresent) {
-            res.status(400).json({message:"User already exists!!!"});
+            res.status(401).json({message:"User already exists!!!"});
         } else {
             const user = await User.create({
                 name,
                 lastName,
                 username,
                 email,
-                phone,
                 password,
                 profilePic,
                 bio,
@@ -74,6 +89,9 @@ const register = asyncHandler(async (req, res) => {
                 res.status(400).json({message : "Something went wrong please try again in few seconds."})
             }
         }
+    }
+}
 });
+
 
 module.exports = {login, register}
