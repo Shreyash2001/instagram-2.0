@@ -1,0 +1,57 @@
+.registration {
+    display: flex;
+}
+
+.registration__left {
+    flex: 0.5;
+}
+
+.registration__right {
+    flex: 0.5;
+}
+
+.registration__rightContainerName {
+    display: flex;
+    align-items: center;
+}
+
+.registration__rightContainerName > div {
+    background-color: #f0eded;
+    width : 240px;
+    height: 40px; 
+    margin-right: 20px;  
+    margin-top: 20px;
+}
+
+.registration__rightContainerName > div > input {
+    padding: 0px 10px 0px 10px;
+    height: 40px;
+    width: 220px;
+    outline-width: 0;
+    border: none;
+    font-size: 16px;
+    background-color: #f0eded;
+}
+
+.registration__rightContainerUserName > div {
+    background-color: #f0eded;
+    width : 500px;
+    height: 45px; 
+    margin-right: 20px;  
+    margin-top: 30px;
+}
+
+.registration__rightContainerUserName > div > input {
+    padding: 0px 10px 0px 10px;
+    height: 40px;
+    width: 480px;
+    outline-width: 0;
+    border: none;
+    font-size: 16px;
+    background-color: #f0eded;
+}
+
+.registration__rightContainerButton > button {
+    background-image: linear-gradient(to left bottom, #f5e456, #ffc645, #ffa841, #ff8846, #fe6951, #fb6051, #f75751, #f34d52, #f65944, #f66536, #f47225, #ef800d) !important;
+
+}
