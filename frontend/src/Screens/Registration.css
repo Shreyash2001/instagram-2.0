@@ -6,8 +6,20 @@
     flex: 0.5;
 }
 
+.registration__left > div {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.registration__left > div > img {
+    width: 500px;
+    height: 500px;
+}
+
 .registration__right {
     flex: 0.5;
+    margin-top: 100px;
 }
 
 .registration__rightContainerName {
@@ -52,6 +64,10 @@
 }
 
 .registration__rightContainerButton > button {
-    background-image: linear-gradient(to left bottom, #f5e456, #ffc645, #ffa841, #ff8846, #fe6951, #fb6051, #f75751, #f34d52, #f65944, #f66536, #f47225, #ef800d) !important;
-
+    background-image: linear-gradient(to bottom, #ee0979, #ff6a00) !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    width: 350px !important;
+    padding: 10px;
+    margin: 20px 60px;
 }

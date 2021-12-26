@@ -5,7 +5,9 @@ function Registration() {
     return (
         <div className="registration">
            <div className="registration__left">
-
+            <div>
+                <img src="https://res.cloudinary.com/cqn/image/upload/v1640541759/vdbkoefdprxtsiswhjqc_ywbosn.jpg" alt="reels" />
+            </div>
            </div>
 
            <div className="registration__right">
