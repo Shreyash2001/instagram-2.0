@@ -1,30 +1,30 @@
-.registration {
+.login {
     display: flex;
 }
 
-.registration__left {
+.login__left {
     flex: 0.5;
     max-height: 98vh;
     padding: 20px;
 }
 
-.registration__left > div {
+.login__left > div {
     display: flex;
     padding: 20px;
     margin-left: 90px;
 }
 
-.registration__right {
+.login__right {
     flex: 0.5;
     margin-top: 100px;
 }
 
-.registration__rightContainerName {
+.login__rightContainerName {
     display: flex;
     align-items: center;
 }
 
-.registration__rightContainerName > div {
+.login__rightContainerName > div {
     background-color: #f0eded;
     width : 240px;
     height: 40px; 
@@ -32,7 +32,7 @@
     margin-top: 20px;
 }
 
-.registration__rightContainerName > div > input {
+.login__rightContainerName > div > input {
     padding: 0px 10px 0px 10px;
     height: 40px;
     width: 220px;
@@ -42,7 +42,7 @@
     background-color: #f0eded;
 }
 
-.registration__rightContainerUserName > div {
+.login__rightContainerUserName > div {
     background-color: #f0eded;
     width : 500px;
     height: 45px; 
@@ -50,7 +50,7 @@
     margin-top: 30px;
 }
 
-.registration__rightContainerUserName > div > input {
+.login__rightContainerUserName > div > input {
     padding: 0px 10px 0px 10px;
     height: 40px;
     width: 480px;
@@ -60,7 +60,7 @@
     background-color: #f0eded;
 }
 
-.registration__rightContainerButton > button {
+.login__rightContainerButton > button {
     background-image: linear-gradient(to bottom, #ee0979, #ff6a00) !important;
     color: #fff !important;
     font-size: 14px !important;
@@ -78,7 +78,7 @@
     }
     }
     
-    .registration__leftImage1 {
+    .login__leftImage1 {
        animation: scaling 5s infinite alternate;
        object-fit: cover;
         width: 250px;
@@ -88,7 +88,7 @@
         border-radius: 22px;
     }
     
-    .registration__leftImage2 {
+    .login__leftImage2 {
         animation: scaling 6s infinite alternate;
         object-fit: cover;
          width: 250px;
@@ -98,7 +98,7 @@
          border-radius: 22px;
      }
 
-     .registration__leftImage3 {
+     .login__leftImage3 {
         animation: scaling 5.5s infinite alternate;
         object-fit: cover;
          width: 250px;
@@ -108,7 +108,7 @@
          border-radius: 22px;
      }
 
-     .registration__leftImage4 {
+     .login__leftImage4 {
         animation: scaling 6s infinite alternate;
         object-fit: cover;
          width: 250px;
