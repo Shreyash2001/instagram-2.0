@@ -1,6 +1,10 @@
 import React from 'react'
 import './Registration.css'
 import Button from '@mui/material/Button';
+import PersonIcon from '@mui/icons-material/Person';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import EmailIcon from '@mui/icons-material/Email';
+import HttpsIcon from '@mui/icons-material/Https';
 
 function Registration() {
     return (
@@ -30,30 +34,36 @@ function Registration() {
 
                     <div className="registration__rightContainerName">
                         <div>
+                            <PersonIcon />
                             <input type="text" placeholder="First Name" />
                         </div>
                         <div>
+                            <PersonIcon />
                             <input type="text" placeholder="Last Name" />
                         </div>
                     </div>
 
                     <div className="registration__rightContainerUserName">
                         <div>
+                            <AccountCircleIcon />
                             <input type="text" placeholder="username" />
                         </div>
                     </div>
 
                     <div className="registration__rightContainerUserName">
                         <div>
+                            <EmailIcon />
                             <input type="text" placeholder="email" />
                         </div>
                     </div>
 
                     <div className="registration__rightContainerName">
                         <div>
+                            <HttpsIcon />
                             <input type="password" placeholder="Password" />
                         </div>
                         <div>
+                            <HttpsIcon />
                             <input type="password" placeholder="Confirm Password" />
                         </div>
                     </div>

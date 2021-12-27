@@ -25,11 +25,14 @@
 }
 
 .registration__rightContainerName > div {
+    display: flex;
+    align-items: center;
     background-color: #f0eded;
     width : 240px;
     height: 40px; 
     margin-right: 20px;  
     margin-top: 20px;
+    padding-left: 10px;
 }
 
 .registration__rightContainerName > div > input {
@@ -43,11 +46,14 @@
 }
 
 .registration__rightContainerUserName > div {
+    display: flex;
+    align-items: center;
     background-color: #f0eded;
     width : 500px;
     height: 45px; 
     margin-right: 20px;  
     margin-top: 30px;
+    padding-left: 10px;
 }
 
 .registration__rightContainerUserName > div > input {

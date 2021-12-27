@@ -1,6 +1,8 @@
 import React from 'react'
 import './Login.css'
 import Button from '@mui/material/Button';
+import EmailIcon from '@mui/icons-material/Email';
+import HttpsIcon from '@mui/icons-material/Https';
 
 function Login() {
     return (
@@ -30,16 +32,15 @@ function Login() {
 
                     <div className="login__rightContainerUserName">
                         <div>
+                            <EmailIcon />
                             <input type="text" placeholder="Enter email or username" />
                         </div>
                     </div>
 
                     <div className="login__rightContainerName">
                         <div>
+                            <HttpsIcon />
                             <input type="password" placeholder="Password" />
-                        </div>
-                        <div>
-                            <input type="password" placeholder="Confirm Password" />
                         </div>
                     </div>
                     
