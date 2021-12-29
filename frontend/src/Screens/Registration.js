@@ -1,12 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Registration.css'
 import Button from '@mui/material/Button';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import HttpsIcon from '@mui/icons-material/Https';
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from '../actions/userActions';
+
 
 function Registration() {
+    const [setFirstName, firstName] = useState("");
+    const [setLastName, lastName] = useState("");
+    const [setUserName, userName] = useState("");
+    const [setEmail, email] = useState("");
+    const [setPassword, password] = useState("");
+
+    const dispatch = useDispatch();
+    const {loading, success, error} = useSelector(state => state.userRegister);
+    const handleClick = () => {
+        dispatch(registerUser(firstName, lastName, userName, email, password));
+    };
+    console.log(firstName)
     return (
         <div className="registration">
            <div className="registration__left">
@@ -35,32 +51,32 @@ function Registration() {
                     <div className="registration__rightContainerName">
                         <div>
                             <PersonIcon />
-                            <input type="text" placeholder="First Name" />
+                            <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
                         </div>
                         <div>
                             <PersonIcon />
-                            <input type="text" placeholder="Last Name" />
+                            <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
                         </div>
                     </div>
 
                     <div className="registration__rightContainerUserName">
                         <div>
                             <AccountCircleIcon />
-                            <input type="text" placeholder="username" />
+                            <input type="text" placeholder="username" onChange={(e) => setUserName(e.target.value)} />
                         </div>
                     </div>
 
                     <div className="registration__rightContainerUserName">
                         <div>
                             <EmailIcon />
-                            <input type="text" placeholder="email" />
+                            <input type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
                         </div>
                     </div>
 
                     <div className="registration__rightContainerName">
                         <div>
                             <HttpsIcon />
-                            <input type="password" placeholder="Password" />
+                            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <div>
                             <HttpsIcon />
@@ -69,7 +85,11 @@ function Registration() {
                     </div>
                     
                     <div className="registration__rightContainerButton">
-                        <Button>Register</Button>
+                        <Button onClick={handleClick}>Register</Button>
+                    </div>
+
+                    <div className="registration__rightContainerLogin">
+                        <span>Have an account? <Link style={{color:"orange", textDecoration:"none"}} to="/login">Log in</Link></span>
                     </div>
 
                 </div>

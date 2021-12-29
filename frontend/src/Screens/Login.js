@@ -3,6 +3,7 @@ import './Login.css'
 import Button from '@mui/material/Button';
 import EmailIcon from '@mui/icons-material/Email';
 import HttpsIcon from '@mui/icons-material/Https';
+import { Link } from "react-router-dom"
 
 function Login() {
     return (
@@ -48,6 +49,10 @@ function Login() {
                         <Button>Login</Button>
                     </div>
 
+                    <div className="login__rightContainerLogin">
+                        <span>Don't have an account? <Link style={{color:"orange", textDecoration:"none"}} to="/register">Sign up</Link></span>
+                    </div>
+                    
                 </div>
            </div>
         </div>

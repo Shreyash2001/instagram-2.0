@@ -50,7 +50,7 @@ const register = asyncHandler(async (req, res) => {
         bio, 
         dateOfBirth,
         isPrivate} = req.body;
-
+        console.log(req);
         if(!validateEmail(email)) {
              res.status(401).json({message : "Please enter a valid email id"});
         } else {

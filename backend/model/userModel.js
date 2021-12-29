@@ -25,8 +25,7 @@ const userSchema = mongoose.Schema({
         unique : true
     },
     dateOfBirth : {
-        type : Number,
-        required : true
+        type : Number
     },
     profilePic : {
         type : String,

@@ -67,7 +67,10 @@
 }
 
 .registration__rightContainerButton > button {
-    background-image: linear-gradient(to bottom, #ee0979, #ff6a00) !important;
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
     color: #fff !important;
     font-size: 14px !important;
     width: 350px !important;
@@ -122,4 +125,17 @@
          max-height: 450px;
          height: 300px;
          border-radius: 22px;
+     }
+
+     .registration__rightContainerLogin {
+         width: 200px;
+         height: 30px;
+         border: 1px solid lightgray;
+         padding: 10px 5px 10px 20px;
+         margin-left: 120px;
+         margin-top: 20px;
+     }
+
+     .registration__rightContainerLogin > span {
+         font-size: 16px;
      }
