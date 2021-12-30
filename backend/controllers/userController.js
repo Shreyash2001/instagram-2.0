@@ -43,28 +43,27 @@ const register = asyncHandler(async (req, res) => {
     const {
         name, 
         lastName, 
-        username, 
+        userName, 
         password, 
         profilePic, 
         email, 
         bio, 
         dateOfBirth,
         isPrivate} = req.body;
-        console.log(req);
         if(!validateEmail(email)) {
              res.status(401).json({message : "Please enter a valid email id"});
         } else {
         if(!validatePassword(password)) {
              res.status(401).json({message : "Please meet the password requirements"});
         } else{
-        const alreadyPresent = await User.findOne({$or:[{email}, {username}]});
+        const alreadyPresent = await User.findOne({$or:[{email}, {userName}]});
         if(alreadyPresent) {
             res.status(401).json({message:"User already exists!!!"});
         } else {
             const user = await User.create({
                 name,
                 lastName,
-                username,
+                userName,
                 email,
                 password,
                 profilePic,
@@ -78,7 +77,7 @@ const register = asyncHandler(async (req, res) => {
                     _id : user._id,
                     firstName : user.name,
                     lastName : user.lastName,
-                    userName : user.username,
+                    userName : user.userName, 
                     email : user.email,
                     profilePic : user.profilePic,
                     bio : user.bio,
