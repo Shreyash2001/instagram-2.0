@@ -5,9 +5,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import HttpsIcon from '@mui/icons-material/Https';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from '../actions/userActions';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 function Registration() {
@@ -16,17 +17,33 @@ function Registration() {
     const [userName, setUserName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     const dispatch = useDispatch();
     const {loading, success, error} = useSelector(state => state.userRegister);
-    const handleClick = () => {
-        dispatch(registerUser(firstName, lastName, userName, email, password));
+
+    const isFormComplete = () => {
+        if(firstName.length > 0 && lastName.length > 0 && userName.length > 0 && email.length > 0 && password.length > 0 && password === confirmPassword) {
+            return true;
+        } else {
+            return false;
+        }
     };
+
+    const handleClick = () => {
+        if(isFormComplete())
+        dispatch(registerUser(firstName, lastName, userName, email, password));
+        else 
+        console.log("error")
+    };
+
+    const navigate = useNavigate();
     useEffect(() => {
         if(success) {
-
+            navigate("/");
         }
-    }, [success])
+    }, [success, navigate]);
+
     return (
         <div className="registration">
            <div className="registration__left">
@@ -84,12 +101,18 @@ function Registration() {
                         </div>
                         <div>
                             <HttpsIcon />
-                            <input type="password" placeholder="Confirm Password" />
+                            <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                         </div>
                     </div>
                     
                     <div className="registration__rightContainerButton">
+                    { loading 
+                        ? 
+                        <Button>{<CircularProgress />}</Button>
+                        :
                         <Button onClick={handleClick}>Register</Button>
+                    }
+                        
                     </div>
 
                     <div className="registration__rightContainerLogin">

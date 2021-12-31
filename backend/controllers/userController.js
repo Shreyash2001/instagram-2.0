@@ -16,9 +16,9 @@ const validatePassword = (password) => {
     
 }
 const login = asyncHandler(async(req, res) => {
-    const {email, username, password} = req.body;
+    const {email, userName, password} = req.body;
     if(email && !validateEmail(email)) res.status(401).json({message : "Please enter a valid email id"});
-    const user = await User.findOne({$or: [{email}, {username}]});
+    const user = await User.findOne({$or: [{email}, {userName}]});
     if(user && (await user.matchPassword(password))) {
         res.status(200).json({
             _id : user._id,
