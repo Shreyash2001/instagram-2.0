@@ -8,7 +8,7 @@ import {
 } from "../constants/userConstants";
 import axios from "axios";
 
-export const registerUser = (name, lastName, userName, email, password) => async (dispatch) => {
+export const registerUser = (firstName, lastName, userName, email, password) => async (dispatch) => {
     try {
         dispatch({type : USER_REGISTER_REQUEST});
         const config = {
@@ -16,7 +16,7 @@ export const registerUser = (name, lastName, userName, email, password) => async
                 "Content-Type":"application/json"
             }
         };
-        const {data} = await axios.post("/api/users/register", {name, lastName, userName, email, password}, config);
+        const {data} = await axios.post("/api/users/register", {firstName, lastName, userName, email, password}, config);
         dispatch({
             type : USER_REGISTER_SUCCESS,
             payload : data
