@@ -17,6 +17,27 @@ const validatePassword = (password) => {
 }
 const login = asyncHandler(async(req, res) => {
     const {email, userName, password} = req.body;
+    if(userName.length > 0 && !validateEmail(userName)) {
+        const user = await User.findOne({userName});
+        if(user && (await user.matchPassword(password))) {
+            res.status(200).json({
+                _id : user._id,
+                firstName : user.firstName,
+                lastName : user.lastName,
+                userName : user.userName,
+                email : user.email,
+                profilePic : user.profilePic,
+                bio : user.bio,
+                following : user.following,
+                followers : user.followers,
+                isPrivate : user.isPrivate,
+                isAdmin : user.isAdmin,
+                token : generateToken(user._id)
+            });
+        } else {
+            res.status(401).json({message : "Invalid Email or Password"});
+        }
+    }
     if(email && !validateEmail(email)) res.status(401).json({message : "Please enter a valid email id"});
     const user = await User.findOne({$or: [{email}, {userName}]});
     if(user && (await user.matchPassword(password))) {

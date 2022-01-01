@@ -22,7 +22,7 @@ function Registration() {
     const [passwordError, setPasswordError] = useState(false);
 
     const dispatch = useDispatch();
-    const {loading, success, error} = useSelector(state => state.userRegister);
+    const {loading, success, error} = useSelector(state => state.userLogin);
 
     const isFormComplete = () => {
         if(firstName.length > 0 && lastName.length > 0 && userName.length > 0 && email.length > 0 && password.length > 0) {

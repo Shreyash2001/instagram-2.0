@@ -5,6 +5,7 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_REQUEST,
     USER_LOGIN_FAIL,
+    USER_LOGOUT,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -59,3 +60,10 @@ export const loginUser = (userName, email, password) => async (dispatch) => {
         });
     }
 };
+
+export const userLogout = () => async(dispatch) => {
+    localStorage.removeItem("Instagram-UserInfo");
+    dispatch({
+        type : USER_LOGOUT
+    })
+}
