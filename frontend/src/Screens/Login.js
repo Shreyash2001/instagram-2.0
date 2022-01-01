@@ -12,14 +12,27 @@ import { CircularProgress } from '@mui/material';
 function Login() {
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
-    const userName = email;
+    const [show, setShow] = useState(false);
 
+    const userName = email;
+    const check = "Please fill all the fields";
     const dispatch = useDispatch(); 
     const {loading, success, error} = useSelector(state => state.userLogin);
 
     const handleClick = () => {
+        if(isFormComplete())
         dispatch(loginUser(userName, email, password));
     }
+
+    const isFormComplete = () => {
+        if(userName.length > 0 && email.length > 0 && password.length > 0) {
+            return true;
+        } else {
+            setShow(true);
+            return false;
+        }
+    };
+
     const navigate = useNavigate();
     useEffect(() => {
         if(success) {
@@ -78,7 +91,19 @@ function Login() {
                     <div className="login__rightContainerLogin">
                         <span>Don't have an account? <Link style={{color:"orange", textDecoration:"none"}} to="/register">Sign up</Link></span>
                     </div>
-                    {error && <div>{error}</div>}
+                    {!error && show 
+                    && 
+                    <div className="login__rightContainerError">
+                    <span>{check}</span>
+                    </div>
+                    }
+
+                    {error 
+                    && 
+                    <div className="login__rightContainerError">
+                    <span>{error}</span>
+                    </div>
+                    }
                 </div>
            </div>
         </div>

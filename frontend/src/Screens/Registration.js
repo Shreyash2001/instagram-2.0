@@ -18,23 +18,36 @@ function Registration() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [show, setShow] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     const dispatch = useDispatch();
     const {loading, success, error} = useSelector(state => state.userRegister);
 
     const isFormComplete = () => {
-        if(firstName.length > 0 && lastName.length > 0 && userName.length > 0 && email.length > 0 && password.length > 0 && password === confirmPassword) {
+        if(firstName.length > 0 && lastName.length > 0 && userName.length > 0 && email.length > 0 && password.length > 0) {
             return true;
         } else {
+            setShow(true);
+            setPasswordError(false);
             return false;
         }
     };
 
+    const passwordMatch = () => {
+        if(password === confirmPassword)
+            return true; 
+        else {
+            setPasswordError(true);
+            setShow(false);
+            return false;
+            }
+    }
+    const check = "Please fill all the fields";
+    const passwordCheck = "Password did not match";
     const handleClick = () => {
-        if(isFormComplete())
+        if(isFormComplete() && passwordMatch())
         dispatch(registerUser(firstName, lastName, userName, email, password));
-        else 
-        console.log("error")
     };
 
     const navigate = useNavigate();
@@ -108,7 +121,7 @@ function Registration() {
                     <div className="registration__rightContainerButton">
                     { loading 
                         ? 
-                        <Button>{<CircularProgress />}</Button>
+                        <Button>{<CircularProgress style={{color:"#fff"}} />}</Button>
                         :
                         <Button onClick={handleClick}>Register</Button>
                     }
@@ -118,8 +131,26 @@ function Registration() {
                     <div className="registration__rightContainerLogin">
                         <span>Have an account? <Link style={{color:"orange", textDecoration:"none"}} to="/login">Log in</Link></span>
                     </div>
+                    {passwordError 
+                    && 
+                    <div className="registration__rightContainerError">
+                    <span>{passwordCheck}</span>
+                    </div>
+                    }
 
-                {error && <h1>{error}</h1>}
+                    {show 
+                    && 
+                    <div className="registration__rightContainerError">
+                    <span>{check}</span>
+                    </div>
+                    }
+
+                    {error 
+                    && 
+                    <div className="registration__rightContainerError">
+                    <span>{error}</span>
+                    </div>
+                    }
                 </div>
            </div>
         </div>

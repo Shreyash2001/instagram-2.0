@@ -139,3 +139,42 @@
      .registration__rightContainerLogin > span {
          font-size: 16px;
      }
+
+     .registration__rightContainerError {
+        height: 30px;
+        width: 250px;
+        padding: 10px;
+        margin: 20px 10px 10px 100px;
+        background-color: #ff2d2d;
+        border-radius: 15px;
+        animation-name: stretch;
+        animation-duration: 450ms; 
+        animation-timing-function: ease-out; 
+        animation-delay: 0;
+        animation-direction: alternate;
+        /* animation-iteration-count: infinite; */
+        animation-fill-mode: none;
+        animation-play-state: running;
+     }
+
+     @keyframes stretch {
+        0% {
+          transform: scale(0.5);
+          border-radius: 22px;
+        }
+        50% {
+            border-radius: 22px;
+        }
+        100% {
+          transform: scale(1.0);
+          border-radius: 22px;
+        }
+      }
+
+      .registration__rightContainerError > span {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        font-size: 16px;
+        color: #fff;
+      }
