@@ -1,0 +1,15 @@
+.preferences {
+    display: flex;
+    justify-content: center;
+}
+
+.preferences__container {
+    padding: 10px;
+    border: 1px solid black;
+    max-width: 850px;
+}
+
+.preferences__containerCards {
+    display: flex;
+    flex-wrap: wrap;
+}

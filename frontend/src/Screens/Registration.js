@@ -53,7 +53,7 @@ function Registration() {
     const navigate = useNavigate();
     useEffect(() => {
         if(success) {
-            navigate("/");
+            navigate("/preferences");
         }
     }, [success, navigate]);
 

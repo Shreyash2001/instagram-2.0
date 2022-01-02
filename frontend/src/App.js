@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 import Login from './Screens/Login';
+import Preferences from './Screens/Preferences';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<App />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Registration />} />
+      <Route path="/preferences" element={<Preferences />} />
     </Routes>
   </BrowserRouter>
   );

@@ -1,0 +1,67 @@
+.preferencesCard {
+    padding: 10px 30px;
+}
+
+.preferencesCard > div {
+    width: 200px;
+    height: 250px;
+    position: relative;
+}
+
+.preferencesCard > div > img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 22px;
+}
+
+.preferencesCard > div > div {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: #222;
+    width: 238px;
+    border-radius: 22px;
+    padding: 10px 10px 20px 0;
+    height: 20px;
+    opacity: 0.1;
+}
+
+.preferencesCard > div > span {
+    font-size: 12px;
+    color: #fff;
+    position: absolute;
+    bottom: 45px;
+    left: 16px;
+    width: 218px;
+    opacity: 0.8;
+}
+
+.preferencesCard > div > h1 {
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    bottom: 0px;
+    left: 16px;
+    width: 218px;
+}
+
+.preferencesCard__tick {
+    z-index: 100;
+    width: 200px;
+    height: 250px;
+    background-color: #222;
+    opacity: 0.5;
+    padding: 10px;
+    position: absolute;
+    border-radius: 22px;
+}
+
+.preferencesCard__tickImage {
+    position: absolute;
+    z-index: 100;
+    width: 80px;
+    height: 80px;   
+    top: 100px;
+    left: 100px;
+}
