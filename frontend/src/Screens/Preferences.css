@@ -17,6 +17,23 @@
     margin-bottom: 20px;
 }
 
+.preferences__containerTopButton {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.preferences__containerTopButton > button {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
+    color: #fff !important;
+    font-size: 14px !important;
+    width: 250px !important;
+    text-transform: inherit !important;
+}
+
 .preferences__container {
     padding: 10px;
     max-width: 850px;
