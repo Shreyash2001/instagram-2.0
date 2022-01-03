@@ -1,57 +1,83 @@
 .preferencesCard {
     padding: 10px 30px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
-.preferencesCard > div {
+.preferencesCard__container {
     width: 200px;
-    height: 250px;
+    height: 280px;
     position: relative;
 }
 
-.preferencesCard > div > img {
+.preferencesCard__containerImage {
     width: 250px;
-    height: 250px;
+    height: 280px;
     object-fit: cover;
     border-radius: 22px;
 }
 
-.preferencesCard > div > div {
+
+.preferencesCard__containerInfo {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+    border-radius: 22px;
+    padding: 10px 10px 20px 0;
+    height: 20px;
+}
+
+.preferencesCard__containerBlur {
     position: absolute;
     bottom: 0px;
     left: 0px;
     background-color: #222;
     width: 238px;
-    border-radius: 22px;
-    padding: 10px 10px 20px 0;
+    border-radius: 20px;
+    padding: 20px 10px 20px 0;
     height: 20px;
-    opacity: 0.1;
+    opacity: 0.2;
+    z-index: -1;
 }
 
-.preferencesCard > div > span {
+.preferencesCard__containerBlurTrue {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: #222;
+    width: 240px;
+    border-radius: 22px;
+    padding: 240px 10px 20px 0;
+    height: 20px;
+    opacity: 0.3;
+    z-index: 100;
+}
+
+.preferencesCard__containerInfoFollowers {
     font-size: 12px;
     color: #fff;
     position: absolute;
-    bottom: 45px;
-    left: 16px;
+    bottom: 40px;
+    left: 58px;
     width: 218px;
     opacity: 0.8;
 }
 
-.preferencesCard > div > h1 {
+.preferencesCard__containerInfoName {
     font-size: 20px;
     color: #fff;
     position: absolute;
     bottom: 0px;
-    left: 16px;
+    left: 55px;
     width: 218px;
 }
 
 .preferencesCard__tick {
-    z-index: 100;
     width: 200px;
     height: 250px;
-    background-color: #222;
-    opacity: 0.5;
     padding: 10px;
     position: absolute;
     border-radius: 22px;
@@ -59,9 +85,9 @@
 
 .preferencesCard__tickImage {
     position: absolute;
-    z-index: 100;
-    width: 80px;
-    height: 80px;   
+    z-index: 10;
+    width: 50px;
+    height: 50px;   
     top: 100px;
     left: 100px;
 }
