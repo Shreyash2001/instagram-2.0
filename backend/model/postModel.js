@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const postSchema = mongoose.Schema({
+const PostSchema = mongoose.Schema({
     postedBy : {
-        type : mongoose.Schema.Types.ObjectId,
+        type : mongoose.Types.ObjectId,
         ref : "User"
     },
     image : {
@@ -18,16 +18,16 @@ const postSchema = mongoose.Schema({
         required : true
     },
     likes : [{
-        type : mongoose.Schema.Types.ObjectId,
+        type : mongoose.Types.ObjectId,
         ref : "User"
     }],
     report : [{
-        type : mongoose.Schema.Types.ObjectId,
+        type : mongoose.Types.ObjectId,
         ref : "User"
     }]
 }, {
     timestamps : true
 });
 
-const Post = mongoose.model("Post", postSchema);
-module.export = Post;
+const Post = mongoose.model("Post", PostSchema);
+module.exports = Post;
