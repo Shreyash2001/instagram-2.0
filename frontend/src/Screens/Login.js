@@ -17,7 +17,7 @@ function Login() {
     const userName = email;
     const check = "Please fill all the fields";
     const dispatch = useDispatch(); 
-    const {loading, success, error} = useSelector(state => state.userLogin);
+    const data = useSelector(state => state.userLogin);
 
     const handleClick = () => {
         if(isFormComplete())
@@ -35,10 +35,10 @@ function Login() {
 
     const navigate = useNavigate();
     useEffect(() => {
-        if(success) {
+        if(data?.success || data?._id !== undefined) {
             navigate("/");
         }
-    }, [success, navigate])
+    }, [data, navigate])
 
     return (
         <div className="login">
@@ -80,7 +80,7 @@ function Login() {
                     </div>
                     
                     <div className="login__rightContainerButton">
-                    { loading 
+                    { data?.loading 
                         ? 
                         <Button>{<CircularProgress style={{color: "#fff"}} />}</Button>
                         :
@@ -91,17 +91,17 @@ function Login() {
                     <div className="login__rightContainerLogin">
                         <span>Don't have an account? <Link style={{color:"orange", textDecoration:"none"}} to="/register">Sign up</Link></span>
                     </div>
-                    {!error && show 
+                    {!data?.error && show 
                     && 
                     <div className="login__rightContainerError">
                     <span>{check}</span>
                     </div>
                     }
 
-                    {error 
+                    {data?.error 
                     && 
                     <div className="login__rightContainerError">
-                    <span>{error}</span>
+                    <span>{data?.error}</span>
                     </div>
                     }
                 </div>

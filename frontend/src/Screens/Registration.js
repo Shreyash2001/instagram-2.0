@@ -22,7 +22,7 @@ function Registration() {
     const [passwordError, setPasswordError] = useState(false);
 
     const dispatch = useDispatch();
-    const {loading, success, error} = useSelector(state => state.userLogin);
+    const data = useSelector(state => state.userLogin);
 
     const isFormComplete = () => {
         if(firstName.length > 0 && lastName.length > 0 && userName.length > 0 && email.length > 0 && password.length > 0) {
@@ -52,10 +52,10 @@ function Registration() {
 
     const navigate = useNavigate();
     useEffect(() => {
-        if(success) {
+        if(data?.success || data?._id !== undefined) {
             navigate("/preferences");
         }
-    }, [success, navigate]);
+    }, [data, navigate]);
 
     return (
         <div className="registration">
@@ -119,7 +119,7 @@ function Registration() {
                     </div>
                     
                     <div className="registration__rightContainerButton">
-                    { loading 
+                    { data?.loading 
                         ? 
                         <Button>{<CircularProgress style={{color:"#fff"}} />}</Button>
                         :
@@ -145,10 +145,10 @@ function Registration() {
                     </div>
                     }
 
-                    {error 
+                    {data?.error 
                     && 
                     <div className="registration__rightContainerError">
-                    <span>{error}</span>
+                    <span>{data?.error}</span>
                     </div>
                     }
                 </div>
