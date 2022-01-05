@@ -113,5 +113,14 @@ const register = asyncHandler(async (req, res) => {
 }
 });
 
+const getTopUser = asyncHandler(async(req, res) => {
+    const user = await User.find({followers : {$size : 1000}});
+    if(user) {
+        res.status(200).json(user);
+    } else {
+        res.status(500).json({message : "Something went wrong"})
+    }
+})
 
-module.exports = {login, register}
+
+module.exports = {login, register, getTopUser};

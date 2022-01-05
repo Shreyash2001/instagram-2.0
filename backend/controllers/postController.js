@@ -20,4 +20,15 @@ const createPost = asyncHandler(async(req, res) => {
     }
 });
 
-module.exports = {createPost};
+
+const getPost = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.user._id);
+    const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1});
+    if(post) {
+        res.status(200).json(post);
+    } else {
+        res.status(400).json({message : "You have not posted anything"});
+    }
+});
+
+module.exports = {createPost, getPost};
