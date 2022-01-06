@@ -6,6 +6,9 @@ import {
     USER_LOGIN_REQUEST,
     USER_LOGIN_FAIL,
     USER_LOGOUT,
+    GET_TOP_USERS_REQUEST,
+    GET_TOP_USERS_SUCCESS,
+    GET_TOP_USERS_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -65,5 +68,28 @@ export const userLogout = () => async(dispatch) => {
     localStorage.removeItem("Instagram-UserInfo");
     dispatch({
         type : USER_LOGOUT
-    })
-}
+    });
+};
+
+export const getTopUsersAction = () => async(dispatch) => {
+    try {
+        dispatch({
+            type : GET_TOP_USERS_REQUEST
+        });
+        const config = {
+            headers : {
+                "Content-Type":"application/json"
+            }
+        };
+        const {data} = await axios.get("/api/users/preferences", config);
+        dispatch({
+            type: GET_TOP_USERS_SUCCESS,
+            payload : data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_TOP_USERS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    };  
+};
