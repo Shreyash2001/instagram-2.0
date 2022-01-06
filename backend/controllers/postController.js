@@ -12,8 +12,10 @@ const createPost = asyncHandler(async(req, res) => {
     }; 
 
     var post = await Post.create(postData);
+    await User.findByIdAndUpdate(req.user._id, {$addToSet : {posts : post._id}}, {new : true});
     post = await User.populate(post, {path: "postedBy"});
     if(post) {
+        
         res.status(201).json(post);
     } else {
         res.status(400).json({message : "Something went wrong"});

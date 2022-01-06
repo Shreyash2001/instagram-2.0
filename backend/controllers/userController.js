@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const Post = require("../model/postModel");
 const User = require("../model/userModel");
 const generateToken = require("../utils/generateToken");
 
@@ -28,6 +29,7 @@ const login = asyncHandler(async(req, res) => {
                 email : user.email,
                 profilePic : user.profilePic,
                 bio : user.bio,
+                posts: user.posts,
                 following : user.following,
                 followers : user.followers,
                 isPrivate : user.isPrivate,
@@ -49,8 +51,9 @@ const login = asyncHandler(async(req, res) => {
             email : user.email,
             profilePic : user.profilePic,
             bio : user.bio,
+            posts: user.posts,
             following : user.following,
-            followers : user.followers,
+            followers : user.followers, 
             isPrivate : user.isPrivate,
             isAdmin : user.isAdmin,
             token : generateToken(user._id)
@@ -98,11 +101,15 @@ const register = asyncHandler(async (req, res) => {
                     _id : user._id,
                     firstName : user.firstName,
                     lastName : user.lastName,
-                    userName : user.userName, 
+                    userName : user.userName,
                     email : user.email,
                     profilePic : user.profilePic,
                     bio : user.bio,
+                    posts: user.posts,
+                    following : user.following,
+                    followers : user.followers,
                     isPrivate : user.isPrivate,
+                    isAdmin : user.isAdmin,
                     token : generateToken(user._id)
                 })
             } else {
@@ -114,13 +121,14 @@ const register = asyncHandler(async (req, res) => {
 });
 
 const getTopUser = asyncHandler(async(req, res) => {
-    const user = await User.find({followers : {$size : 1000}});
+    var user = await User.find({followers : {$size : 0}});
+    user = await Post.populate(user, {path : "posts"});
     if(user) {
         res.status(200).json(user);
     } else {
-        res.status(500).json({message : "Something went wrong"})
+        res.status(500).json({message : "Something went wrong"});
     }
-})
+});
 
 
 module.exports = {login, register, getTopUser};

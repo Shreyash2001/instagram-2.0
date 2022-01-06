@@ -34,16 +34,20 @@ const userSchema = mongoose.Schema({
         type : String,
         default : "Hi Instagram user here."
     },
+    posts : [{
+        type : mongoose.Types.ObjectId,
+        ref : "Post"
+    }],
     likes : [{
-        type : mongoose.Schema.Types.ObjectId,
+        type : mongoose.Types.ObjectId,
         ref : "Post"
     }],
     following : [{
-        type : mongoose.Schema.Types.ObjectId,
+        type : mongoose.Types.ObjectId,
         ref : "User"
     }],
     followers : [{
-        type : mongoose.Schema.Types.ObjectId,
+        type : mongoose.Types.ObjectId,
         ref : "User"
     }],
     isPrivate : {
