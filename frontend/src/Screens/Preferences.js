@@ -8,7 +8,7 @@ import "./Preferences.css";
 function Preferences() {
     const [button, setButton] = useState(false);
     const {preferences} = useSelector(state => state.countPreferences);
-    const {loading, top, error} = useSelector(state => state.topUsers);
+    const { top } = useSelector(state => state.topUsers);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -41,8 +41,10 @@ function Preferences() {
                         <PreferencesCard 
                             key = {data._id}
                             name = {data.firstName}
-                            image = {data.posts[0].image}
+                            images = {data.posts}
                             id = {data._id}
+                            profilePic = {data.profilePic}
+                            followers = {data.followers}
                         />
                     ))
                 }

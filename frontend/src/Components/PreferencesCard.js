@@ -3,8 +3,10 @@ import "./PreferencesCard.css";
 import Avatar from '@mui/material/Avatar';
 import { useDispatch } from 'react-redux';
 import { countPreferencesAction } from '../actions/countPreferencesActions';
+import Flickity from "react-flickity-component";
+import "./flickity.css";
 
-function PreferencesCard({name, image, id}) {
+function PreferencesCard({name, images, id, profilePic, followers}) {
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
     const handleClick = () => {
@@ -19,14 +21,19 @@ function PreferencesCard({name, image, id}) {
             <div className="preferencesCard__tick">
                     <img className="preferencesCard__tickImage" src="https://res.cloudinary.com/cqn/image/upload/v1641142317/Daco_4675609_di9inc.png" alt="tick" />
                 </div>
-                <img className="preferencesCard__containerImage" src={image} alt={name} />
+                <Flickity options={{autoPlay: 3000}}>
+                {images?.map(image => (
+                <img className="preferencesCard__containerImage" src={image.image} alt={name} />
+                ))}
+
+            </Flickity>
                 
                 <div className="preferencesCard__containerInfo">
                 <div>
-                    <Avatar />
+                    <Avatar src={profilePic} />
                 </div>
                 <div>
-                    <span className="preferencesCard__containerInfoFollowers">21K Followers</span>
+                    <span className="preferencesCard__containerInfoFollowers">{followers.length} Followers</span>
                     <h1 className="preferencesCard__containerInfoName">{name}</h1>
                 </div>
                 </div>
@@ -37,15 +44,20 @@ function PreferencesCard({name, image, id}) {
         :
         <div onClick={handleClick} className="preferencesCard">
             <div className="preferencesCard__container">
-                <img className="preferencesCard__containerImage" src={image} alt={name} />
+            <Flickity options={{autoPlay: 15523000}}>
+                {images?.map(image => (
+                <img className="preferencesCard__containerImage" src={image.image} alt={name} />
+                ))}
+
+            </Flickity>
 
                 
                 <div className="preferencesCard__containerInfo">
                 <div>
-                    <Avatar />
+                    <Avatar src={profilePic} />
                 </div>
                 <div>
-                    <span className="preferencesCard__containerInfoFollowers">21K Followers</span>
+                    <span className="preferencesCard__containerInfoFollowers">{followers.length} Followers</span>
                     <h1 className="preferencesCard__containerInfoName">{name}</h1>
                 </div>
                 </div>
