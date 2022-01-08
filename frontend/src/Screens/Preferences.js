@@ -14,6 +14,8 @@ function Preferences() {
     useEffect(() => {
         if(preferences.length > 2) {
             setButton(true);
+        } else {
+            setButton(false);
         }
     }, [preferences]);
 

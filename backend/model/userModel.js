@@ -27,8 +27,7 @@ const userSchema = mongoose.Schema({
         type : Number
     },
     profilePic : {
-        type : String,
-        default : "https://res.cloudinary.com/cqn/image/upload/v1617109193/user_vxeov4.png"
+        type : String
     },
     bio : {
         type : String,

@@ -21,8 +21,8 @@ https://flickity.metafizzy.co
   
   .flickity-slider {
     position: absolute;
-    left : 26px;
-    width: 85%;
+    left : 24px !important;
+    width: 80%;
     height: 280px;
   }
 
