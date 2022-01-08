@@ -18,7 +18,7 @@ const validatePassword = (password) => {
 }
 const login = asyncHandler(async(req, res) => {
     const {email, userName, password} = req.body;
-    if(userName.length > 0 && !validateEmail(userName)) {
+    if(userName != undefined && userName.length > 0 && !validateEmail(userName)) {
         const user = await User.findOne({userName});
         if(user && (await user.matchPassword(password))) {
             res.status(200).json({
@@ -121,7 +121,7 @@ const register = asyncHandler(async (req, res) => {
 });
 
 const getTopUser = asyncHandler(async(req, res) => {
-    var user = await User.find({followers : {$size : 0}});
+    var user = await User.find({followers : {$size : 0}}).select("-password");
     user = await Post.populate(user, {path : "posts"});
     if(user) {
         res.status(200).json(user);
@@ -130,5 +130,19 @@ const getTopUser = asyncHandler(async(req, res) => {
     }
 });
 
+const followUnfollowUser = asyncHandler(async(req, res) => {
+    if(req.body.preferences) {
+        req.body.preferences.forEach(async(preference) => {
+            await User.findByIdAndUpdate(req.user._id, {$addToSet: {following : preference}}, {new : true}) 
+        });
+        const user = await User.findById(req.user._id);
+        res.status(200).json(user);
+    } else {
+        var isLiked = user.followers.find(x => x === req.user._id);
+        const options = isLiked ? "$pull" : "$addToSet";
 
-module.exports = {login, register, getTopUser};
+    }
+    
+})
+
+module.exports = {login, register, getTopUser, followUnfollowUser};
