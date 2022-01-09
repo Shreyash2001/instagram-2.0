@@ -138,10 +138,17 @@ const followUnfollowUser = asyncHandler(async(req, res) => {
         const user = await User.findById(req.user._id);
         res.status(200).json(user);
     } else {
-        var isLiked = user.followers.find(x => x === req.user._id);
-        const options = isLiked ? "$pull" : "$addToSet";
-
-    }
+        var user = await User.findById(req.user._id);
+        const isFollower = user.following.includes(req.body.userId);
+        const options = isFollower ? "$pull" : "$addToSet";
+        user = await User.findByIdAndUpdate(req.user._id, {[options] : {following: req.body.userId}}, {new : true});
+        await User.findByIdAndUpdate(req.body.userId, {[options] : {followers: req.user._id}}, {new : true});
+        if(user) {
+            res.status(201).json(user);
+        } else {
+            res.status(500).json({message : "Something went wrong"});
+        }
+    };
     
 })
 
