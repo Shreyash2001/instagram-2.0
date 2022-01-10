@@ -1,4 +1,4 @@
-import { COUNT_PREFERENCES, REMOVE_COUNT_PREFERENCES } from "../constants/preferencesConstants";
+import { ADD_PREFERENCES_FAIL, ADD_PREFERENCES_LOADING, ADD_PREFERENCES_SUCCESS, COUNT_PREFERENCES, REMOVE_COUNT_PREFERENCES } from "../constants/preferencesConstants";
 
 export const countPreferences = (state = {preferences : []}, action) => {
     switch (action.type) {
@@ -25,5 +25,27 @@ export const countPreferences = (state = {preferences : []}, action) => {
             };
         default:
             return state;
-    }
-}
+    };
+};
+
+export const addPreferencesReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADD_PREFERENCES_LOADING:
+            return {
+                loadingPreferences : true
+            };
+        case ADD_PREFERENCES_SUCCESS:
+            return {
+                loadingPreferences : false,
+                success : true,
+                userData : action.payload
+            };
+        case ADD_PREFERENCES_FAIL:
+            return {
+                loadingPreferences : false,
+                error : action.payload
+            };
+        default:
+            return state;
+    };
+};

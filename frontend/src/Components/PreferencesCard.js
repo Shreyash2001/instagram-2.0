@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./PreferencesCard.css";
 import Avatar from '@mui/material/Avatar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { countPreferencesAction, removeCountPreferencesAction } from '../actions/countPreferencesActions';
 import Flickity from "react-flickity-component";
 import "./flickity.css";
@@ -18,6 +18,7 @@ function PreferencesCard({name, images, id, profilePic, followers}) {
     }
     return (
         <>
+        
         {show ?  <div onClick={handleClick} className="preferencesCard">
             <div className="preferencesCard__container">
             <div className="preferencesCard__tick">
@@ -49,7 +50,7 @@ function PreferencesCard({name, images, id, profilePic, followers}) {
             <div className="preferencesCard__container">
             <Flickity options={{autoPlay: 3000}}>
                 {images?.map(image => (
-                <img className="preferencesCard__containerImage" src={image.image} alt={name} />
+                <img key={image._id} className="preferencesCard__containerImage" src={image.image} alt={name} />
                 ))}
 
             </Flickity>

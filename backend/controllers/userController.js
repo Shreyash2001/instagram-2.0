@@ -133,15 +133,16 @@ const getTopUser = asyncHandler(async(req, res) => {
 const followUnfollowUser = asyncHandler(async(req, res) => {
     if(req.body.preferences) {
         req.body.preferences.forEach(async(preference) => {
-            await User.findByIdAndUpdate(req.user._id, {$addToSet: {following : preference}}, {new : true}) 
+            await User.findByIdAndUpdate(req.user._id, {$addToSet: {following : preference}}, {new : true});
+            await User.findByIdAndUpdate(preference, {$addToSet: {followers : req.user._id}}, {new : true});
         });
-        const user = await User.findById(req.user._id);
+        const user = await User.findById(req.user._id).select("-password");
         res.status(200).json(user);
     } else {
         var user = await User.findById(req.user._id);
         const isFollower = user.following.includes(req.body.userId);
         const options = isFollower ? "$pull" : "$addToSet";
-        user = await User.findByIdAndUpdate(req.user._id, {[options] : {following: req.body.userId}}, {new : true});
+        user = await User.findByIdAndUpdate(req.user._id, {[options] : {following: req.body.userId}}, {new : true}).select("-password");
         await User.findByIdAndUpdate(req.body.userId, {[options] : {followers: req.user._id}}, {new : true});
         if(user) {
             res.status(201).json(user);
