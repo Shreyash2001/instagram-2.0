@@ -1,0 +1,114 @@
+.homeLeft {
+    background-color: #fff;
+    height: 97vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homeLeft__containerLogo > img {
+    width: 120px;
+    height: 60px;
+}
+
+.homeLeft__containerProfileAvatar {
+    background:
+    radial-gradient(white 60%, transparent 0),
+    linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+    padding: 5px;
+    border-radius: 70%;
+    width: 100px; 
+}
+
+.homeLeft__containerProfileName > p {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 10px 0 0 -10px;
+    padding: 0;
+}
+
+.homeLeft__containerProfileName > span {
+    color: rgb(189, 186, 186);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.homeLeft__containerProfileInfo {
+    display: flex;
+    align-items: center;
+    margin-left: -20px;
+    margin-top: 20px;
+}
+
+.homeLeft__containerProfileInfoPosts {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homeLeft__containerProfileInfoPosts > h1 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.homeLeft__containerProfileInfoPosts > span {
+    font-size: 12px;
+    color: rgb(189, 186, 186);
+    font-weight: 700;
+}
+
+.homeLeft__containerProfileInfoFollowers {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homeLeft__containerProfileInfoFollowers > h1 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.homeLeft__containerProfileInfoFollowers > span {
+    font-size: 12px;
+    color: rgb(189, 186, 186);
+    font-weight: 700;
+}
+
+.homeLeft__containerProfileInfoFollowing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homeLeft__containerProfileInfoFollowing > h1 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.homeLeft__containerProfileInfoFollowing > span {
+    font-size: 12px;
+    color: rgb(189, 186, 186);
+    font-weight: 700;
+}
+
+.homeLeft__containerOptions > div {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-right: -60px;
+}
+
+.homeLeft__containerOptions > div > span {
+    margin-left: 30px;
+    font-size: 18px;
+    color: rgb(189, 186, 186);
+}

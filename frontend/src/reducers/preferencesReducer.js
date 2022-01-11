@@ -43,7 +43,7 @@ export const addPreferencesReducer = (state = {}, action) => {
         case ADD_PREFERENCES_FAIL:
             return {
                 loadingPreferences : false,
-                error : action.payload
+                errorPreferences : action.payload
             };
         default:
             return state;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./PreferencesCard.css";
 import Avatar from '@mui/material/Avatar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { countPreferencesAction, removeCountPreferencesAction } from '../actions/countPreferencesActions';
 import Flickity from "react-flickity-component";
 import "./flickity.css";

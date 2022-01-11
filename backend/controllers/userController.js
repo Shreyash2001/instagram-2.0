@@ -121,7 +121,7 @@ const register = asyncHandler(async (req, res) => {
 });
 
 const getTopUser = asyncHandler(async(req, res) => {
-    var user = await User.find({followers : {$size : 0}}).select("-password");
+    var user = await User.find({followers : {$size : 1}}).select("-password");
     user = await Post.populate(user, {path : "posts"});
     if(user) {
         res.status(200).json(user);

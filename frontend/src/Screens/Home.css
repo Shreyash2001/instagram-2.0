@@ -1,0 +1,19 @@
+.home {
+    background-color: #eaeded;
+    height: 100vh;
+    display: flex;
+}
+
+.home__left {
+    flex: 0.3;
+}
+
+
+.home__middle {
+    flex: 0.7;
+}
+
+
+.home__right {
+    flex: 0.3;
+}

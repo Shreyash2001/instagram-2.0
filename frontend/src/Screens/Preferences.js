@@ -14,8 +14,8 @@ import { useNavigate } from 'react-router-dom';
 function Preferences() {
     const [button, setButton] = useState(false);
     const {preferences} = useSelector(state => state.countPreferences);
-    const { top, loading } = useSelector(state => state.topUsers);
-    const {loadingPreferences, error, success} = useSelector(state => state.preferencesData);
+    const { top, loading, error } = useSelector(state => state.topUsers);
+    const {loadingPreferences, errorPreferences, success} = useSelector(state => state.preferencesData);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -83,6 +83,7 @@ function Preferences() {
                 }
                     
                 </div>
+                {errorPreferences && <div style={{color:"red"}}>{errorPreferences}</div>}
                 {error && <div style={{color:"red"}}>{error}</div>}
             </div>
         </div>
