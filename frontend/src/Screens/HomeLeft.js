@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./HomeLeft.css";
 import { Avatar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
@@ -8,8 +8,19 @@ import SendIcon from '@mui/icons-material/Send';
 import ComputerIcon from '@mui/icons-material/Computer';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogout } from '../actions/userActions';
+import { Link, useNavigate } from 'react-router-dom';
 
 function HomeLeft() {
+    const {userInfo} = useSelector(state => state.userLogin);
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(userLogout());
+    }
+
     return (
         <div className="homeLeft">
 
@@ -20,26 +31,26 @@ function HomeLeft() {
 
                 <div className="homeLeft__containerProfile">
                     <div className="homeLeft__containerProfileAvatar">
-                        <Avatar style={{width:"100px", height:"100px"}} src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/tommy-shelby-cillian-murphy-peaky-blinders-1569234705.jpg?crop=0.737xw:0.493xh;0.263xw,0.0276xh&resize=480:*" />
+                        <Avatar style={{width:"100px", height:"100px"}} src={userInfo?.profilePic} />
                     </div>
                     <div className="homeLeft__containerProfileName">
-                        <p>Cillian Murphy</p>
-                        <span>@cillian_murphy</span>
+                        <p>{userInfo?.firstName} {userInfo?.lastName}</p>
+                        <span>@{userInfo?.userName}</span>
                     </div>
 
                     <div className="homeLeft__containerProfileInfo">
                         <div className="homeLeft__containerProfileInfoPosts">
-                            <h1>500</h1>
+                            <h1>{userInfo?.posts.length}</h1>
                             <span>POSTS</span>
                         </div>
 
                         <div className="homeLeft__containerProfileInfoFollowers">
-                            <h1>500</h1>
+                            <h1>{userInfo?.followers.length}</h1>
                             <span>FOLLOWERS</span>
                         </div>
 
                         <div className="homeLeft__containerProfileInfoFollowing">
-                            <h1>500</h1>
+                            <h1>{userInfo?.following.length}</h1>
                             <span>FOLLOWING</span>
                         </div>
                     </div>
@@ -47,42 +58,48 @@ function HomeLeft() {
                 </div>
 
                 <div className="homeLeft__containerOptions">
-                    <div>
+                    <Link to="/">
                         <HomeIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>Feed</span>
-                    </div>
+                    </Link>
 
-                    <div>
+                    <Link to="/explore">
                         <TravelExploreIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>Explore</span>
-                    </div>
+                    </Link>
 
-                    <div>
+                    <Link to="/favorites">
                         <BookmarkBorderIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>Favorites</span>
-                    </div>
+                    </Link>
 
-                    <div>
+                    <Link to="/message">
                         <SendIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>Direct</span>
-                    </div>
+                    </Link>
 
-                    <div>
+                    <Link to="/live">
                         <ComputerIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>IG TV</span>
-                    </div>
+                    </Link>
 
-                    <div>
+                    <Link to="/stats">
                         <EqualizerIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>Stats</span>
-                    </div>
+                    </Link>
 
-                    <div>
+                    <Link to="/settings">
                         <SettingsIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>Setting</span>
-                    </div>
+                    </Link>
+
+                    <Link to="/login" onClick={handleClick}>
+                        <LogoutIcon style={{color:"rgb(189, 186, 186)"}} />
+                        <span>Log out</span> 
+                    </Link>
 
                 </div>
+
             </div>
         </div>
     )

@@ -99,16 +99,22 @@
     font-weight: 700;
 }
 
-.homeLeft__containerOptions > div {
+.homeLeft__containerOptions > a {
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 25px;
     cursor: pointer;
-    margin-right: -60px;
+    margin-left: -25px;
+    text-decoration: none;
 }
 
-.homeLeft__containerOptions > div > span {
+.homeLeft__containerOptions > a > span {
     margin-left: 30px;
     font-size: 18px;
     color: rgb(189, 186, 186);
+}
+
+.homeLeft__containerOptions > a:hover span, 
+.homeLeft__containerOptions > a:hover svg {
+    color: #f13d6a !important;
 }
