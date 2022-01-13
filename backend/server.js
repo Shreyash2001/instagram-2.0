@@ -4,12 +4,14 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
+const storyRoutes = require("./routes/storyRoutes");
 
 
 app.use(express.json());  
 dotenv.config();
 connectDB();
 
+app.use("/api/stories", storyRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 

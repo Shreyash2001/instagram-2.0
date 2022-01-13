@@ -49,6 +49,10 @@ const userSchema = mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : "User"
     }],
+    stories : [{
+        type : mongoose.Types.ObjectId,
+        ref : "Story"
+    }],
     isPrivate : {
         type : Boolean,
         default : false

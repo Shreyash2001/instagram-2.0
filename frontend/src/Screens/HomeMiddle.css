@@ -36,3 +36,13 @@
     text-transform: inherit !important;
     border-radius: 22px;
 }
+
+.homeMiddle__posts {
+    padding: 20px 80px;
+}
+
+.homeMiddle__postsContainerStoriesHeading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
