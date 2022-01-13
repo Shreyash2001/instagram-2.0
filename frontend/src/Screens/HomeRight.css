@@ -1,0 +1,61 @@
+.homeRight {
+    background-color: #fff;
+    height: 97vh;
+    padding: 10px;
+    align-items: center;
+}
+
+.homeRight__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    padding-top: 10px;
+}
+
+.homeRight__trending {
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
+.homeRight__trendingHeading > h3{
+    font-size: 18px;
+}
+
+.homeRight__trendingFeeds {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.homeRight__trendingFeeds > img {
+    width: 110px;
+    height: 90px;
+    border-radius: 12px;
+    object-fit: cover;
+    padding: 3px;
+}
+
+.homeRight__Suggestions {
+    margin-top: 10px;
+}
+
+.homeRight__SuggestionsListAvatar {
+    display: flex;
+    align-items: center;
+}
+
+.homeRight__SuggestionsList {
+    margin-top: 20px;
+}
+
+.homeRight__SuggestionsListName > h4 {
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.homeRight__SuggestionsListName > span {
+    color: rgb(189, 186, 186);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 10px;
+}

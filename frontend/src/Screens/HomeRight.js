@@ -1,10 +1,62 @@
 import React from 'react';
 import "./HomeRight.css";
+import SendIcon from '@mui/icons-material/Send';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Avatar } from '@mui/material';
 
 function HomeRight() {
+    const elements = [1, 2, 3, 4, 5];
     return (
         <div className="homeRight">
-            <p>Right</p>
+            <div className="homeRight__top">
+                <div>
+                    <SendIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
+                </div>
+                <div>
+                    <NotificationsNoneIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
+                </div>
+                <div>
+                    <AccountCircleIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
+                </div>
+            </div>
+
+            <div className="homeRight__trending">
+                <div className="homeRight__trendingHeading">
+                    <h3>Trending Feeds</h3>
+                </div>
+                <div className="homeRight__trendingFeeds">
+                    <img src="https://s3.amazonaws.com/photos.bcheights.com/wp-content/uploads/2019/10/03123602/peaky-blinders-online.jpg" alt="feed" />
+                    <img src="https://deadline.com/wp-content/uploads/2020/07/batman-e1615677263885.jpg?w=1024" alt="feed"  />
+                    <img src="https://static01.nyt.com/images/2021/03/11/arts/11nft-explain-1/11nft-explain-1-mediumSquareAt3X.jpg" alt="feed"  />
+                    <img src="https://static3.srcdn.com/wordpress/wp-content/uploads/2020/09/House-of-the-Dragon-Title.jpg" alt="feed"  />
+                </div>
+            </div>
+
+            <div className="homeRight__trending">
+                <div className="homeRight__trendingHeading">
+                    <h3>Suggestions</h3>
+                </div>
+                <div className="homeRight__Suggestions">
+                {elements.map((element) => 
+                <div className="homeRight__SuggestionsList">
+                        <div className="homeRight__SuggestionsListAvatar">
+                            <Avatar />
+                            <div className="homeRight__SuggestionsListName">
+                                <h4>First Last Name</h4>
+                                <span>@username</span>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>)}
+                    
+                </div>
+            </div>
+
+            <div>
+
+            </div>
         </div>
     )
 }
