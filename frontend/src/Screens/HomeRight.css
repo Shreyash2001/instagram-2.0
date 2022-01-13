@@ -35,6 +35,12 @@
     padding: 3px;
 }
 
+.homeRight__SuggestionsList {
+    cursor: pointer;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
 .homeRight__Suggestions {
     margin-top: 10px;
 }
@@ -42,6 +48,7 @@
 .homeRight__SuggestionsListAvatar {
     display: flex;
     align-items: center;
+    margin-top: 20px;
 }
 
 .homeRight__SuggestionsList {

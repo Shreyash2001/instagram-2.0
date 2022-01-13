@@ -3,22 +3,22 @@ import "./HomeRight.css";
 import SendIcon from '@mui/icons-material/Send';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Avatar } from '@mui/material';
+import { Avatar, IconButton, Link } from '@mui/material';
 
 function HomeRight() {
     const elements = [1, 2, 3, 4, 5];
     return (
         <div className="homeRight">
             <div className="homeRight__top">
-                <div>
+                <IconButton>
                     <SendIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
-                </div>
-                <div>
+                </IconButton>
+                <IconButton>
                     <NotificationsNoneIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
-                </div>
-                <div>
+                </IconButton>
+                <IconButton>
                     <AccountCircleIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
-                </div>
+                </IconButton>
             </div>
 
             <div className="homeRight__trending">
@@ -39,7 +39,7 @@ function HomeRight() {
                 </div>
                 <div className="homeRight__Suggestions">
                 {elements.map((element) => 
-                <div className="homeRight__SuggestionsList">
+                <Link to={`/profile/${element}`} className="homeRight__SuggestionsList">
                         <div className="homeRight__SuggestionsListAvatar">
                             <Avatar />
                             <div className="homeRight__SuggestionsListName">
@@ -49,7 +49,7 @@ function HomeRight() {
                             
                         </div>
                         
-                    </div>)}
+                    </Link>)}
                     
                 </div>
             </div>
