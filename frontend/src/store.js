@@ -12,7 +12,7 @@ const reducer = combineReducers({
 });
 
 const userInfoFromStorage = localStorage.getItem("Instagram-UserInfo") ? JSON.parse(localStorage.getItem("Instagram-UserInfo")) : {};
-console.log(userInfoFromStorage)
+
 const initialState = {
     userLogin: {userInfo: userInfoFromStorage}
 };

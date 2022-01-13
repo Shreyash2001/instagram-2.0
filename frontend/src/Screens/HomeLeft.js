@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import "./HomeLeft.css";
 import { Avatar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
@@ -21,6 +21,13 @@ function HomeLeft() {
         dispatch(userLogout());
     }
 
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(Object.keys(userInfo)?.length === 0) {
+            navigate("/login");
+        }
+    }, [navigate, userInfo]);
+
     return (
         <div className="homeLeft">
 
@@ -40,17 +47,17 @@ function HomeLeft() {
 
                     <div className="homeLeft__containerProfileInfo">
                         <div className="homeLeft__containerProfileInfoPosts">
-                            <h1>{userInfo?.posts.length}</h1>
+                            <h1>{userInfo?.posts?.length}</h1>
                             <span>POSTS</span>
                         </div>
 
                         <div className="homeLeft__containerProfileInfoFollowers">
-                            <h1>{userInfo?.followers.length}</h1>
+                            <h1>{userInfo?.followers?.length}</h1>
                             <span>FOLLOWERS</span>
                         </div>
 
                         <div className="homeLeft__containerProfileInfoFollowing">
-                            <h1>{userInfo?.following.length}</h1>
+                            <h1>{userInfo?.following?.length}</h1>
                             <span>FOLLOWING</span>
                         </div>
                     </div>

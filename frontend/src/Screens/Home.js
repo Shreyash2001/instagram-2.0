@@ -4,7 +4,8 @@ import HomeLeft from './HomeLeft';
 import HomeMiddle from './HomeMiddle';
 import HomeRight from './HomeRight';
 
-function HomeProfileScreen() {
+function Home() {
+    
     return (
         <div className="home">
             <div className="home__left">
@@ -22,4 +23,4 @@ function HomeProfileScreen() {
     )
 }
 
-export default HomeProfileScreen
+export default Home
