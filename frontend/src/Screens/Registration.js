@@ -5,7 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import HttpsIcon from '@mui/icons-material/Https';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from '../actions/userActions';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -50,12 +50,12 @@ function Registration() {
         dispatch(registerUser(firstName, lastName, userName, email, password));
     };
 
-    const navigate = useNavigate();
+    const history = useHistory();
     useEffect(() => {
         if(data?.success || data?._id !== undefined) {
-            navigate("/preferences");
+            history.push("/preferences");
         }
-    }, [data, navigate]);
+    }, [data, history]);
 
     return (
         <div className="registration">

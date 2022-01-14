@@ -6,7 +6,7 @@ import HttpsIcon from '@mui/icons-material/Https';
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../actions/userActions';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 
 function Login() {
@@ -33,12 +33,12 @@ function Login() {
         }
     };
 
-    const navigate = useNavigate();
+    const history = useHistory();
     useEffect(() => {
         if(data?.success || data?._id !== undefined) {
-            navigate("/");
+            history.push("/");
         }
-    }, [data, navigate])
+    }, [data, history])
 
     return (
         <div className="login">

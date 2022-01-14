@@ -8,6 +8,7 @@ import {
     GET_TOP_USERS_REQUEST,
     GET_TOP_USERS_SUCCESS,
     GET_TOP_USERS_FAIL,
+    USER_LOGOUT,
 } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -56,8 +57,15 @@ export const userLoginReducer = (state = {}, action) => {
     }
 };
 
-export const userLogout = () => {
-    return {};
+export const userLogoutReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_LOGOUT:
+            return {
+                success : true
+            }
+        default:
+            return state;
+    }
 };
 
 export const getTopUser = (state = {}, action) => {

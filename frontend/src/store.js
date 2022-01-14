@@ -1,11 +1,12 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
-import { getTopUser, userLoginReducer } from "./reducers/userReducer";
+import { getTopUser, userLoginReducer, userLogoutReducer } from "./reducers/userReducer";
 import { addPreferencesReducer, countPreferences } from "./reducers/preferencesReducer";
 
 const reducer = combineReducers({
     userLogin : userLoginReducer,
+    userLogout : userLogoutReducer,
     topUsers : getTopUser,
     countPreferences : countPreferences,
     preferencesData : addPreferencesReducer,

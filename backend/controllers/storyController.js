@@ -1,6 +1,5 @@
 const Story = require("../model/storiesModel");
 const User = require("../model/userModel");
-
 const asyncHandler = require("express-async-handler");
 
 const addStories = asyncHandler(async(req, res) => {
@@ -11,10 +10,7 @@ const addStories = asyncHandler(async(req, res) => {
         tags : tags
     });
     if(story) {
-        tags.forEach(async(tag) => {
-            await User.findByIdAndUpdate(req.user._id, {$addToSet : {stories: tag}}, {new : true});
-        });
-        const user = await User.findById(req.user._id);
+        const user = await User.findByIdAndUpdate(req.user._id, {$addToSet : {stories: story._id}}, {new : true}).select("-password");
         if(user) {
             res.status(201).json(user);
         } else {

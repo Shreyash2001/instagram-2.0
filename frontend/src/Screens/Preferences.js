@@ -8,7 +8,7 @@ import "./Preferences.css";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import CircularProgress from '@mui/material/CircularProgress';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 function Preferences() {
@@ -16,7 +16,7 @@ function Preferences() {
     const {preferences} = useSelector(state => state.countPreferences);
     const { top, loading, error } = useSelector(state => state.topUsers);
     const {loadingPreferences, errorPreferences, success} = useSelector(state => state.preferencesData);
-    const navigate = useNavigate();
+    const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,9 +33,9 @@ function Preferences() {
 
     useEffect(() => {
         if(success) {
-            navigate("/")
+            history.push("/")
         } 
-    }, [success, navigate]);
+    }, [success, history]);
 
     return (
         <div className="preferences">

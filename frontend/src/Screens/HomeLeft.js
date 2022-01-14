@@ -11,22 +11,24 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../actions/userActions';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function HomeLeft() {
     const {userInfo} = useSelector(state => state.userLogin);
+    const {success} = useSelector(state => state.userLogout);
     const dispatch = useDispatch();
 
     const handleClick = () => {
         dispatch(userLogout());
+        window.location = "/login";
     }
 
-    const navigate = useNavigate();
+    const history = useHistory();
     useEffect(() => {
         if(Object.keys(userInfo)?.length === 0) {
-            navigate("/login");
+            history.push("/login");
         }
-    }, [navigate, userInfo]);
+    }, [history, userInfo, success]);
 
     return (
         <div className="homeLeft">
@@ -100,7 +102,7 @@ function HomeLeft() {
                         <span>Setting</span>
                     </Link>
 
-                    <Link to="/login" onClick={handleClick}>
+                    <Link to="/" onClick={handleClick}>{/* used / in logout because using window.location for going to logout screen */}
                         <LogoutIcon style={{color:"rgb(189, 186, 186)"}} />
                         <span>Log out</span> 
                     </Link>
