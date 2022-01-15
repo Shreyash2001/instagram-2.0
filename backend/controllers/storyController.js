@@ -8,9 +8,9 @@ const addStories = asyncHandler(async(req, res) => {
         user : req.user._id,
         file : file,
         tags : tags
-    });
+    }); 
     if(story) {
-        const user = await User.findByIdAndUpdate(req.user._id, {$addToSet : {stories: story._id}}, {new : true}).select("-password");
+        const user = await User.findByIdAndUpdate(req.user._id, {$addToSet : {stories: story._id}}, {new : true}).select("-password").populate("stories");
         if(user) {
             res.status(201).json(user);
         } else {
