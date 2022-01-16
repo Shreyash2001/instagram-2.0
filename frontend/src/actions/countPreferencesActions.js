@@ -29,10 +29,10 @@ export const addPreferencesAction = (preferences) => async(dispatch, getState) =
             type: ADD_PREFERENCES_LOADING
         });
 
-        const {userLogin} = getState();
+        const {userLogin:{userInfo}} = getState();
         const config = {
             headers : {
-                Authorization : `Bearer ${userLogin.token}`
+                Authorization : `Bearer ${userInfo.token}`
             }
         };
         const {data} = await axios.post("/api/users/follow", {preferences}, config);

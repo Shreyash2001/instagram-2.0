@@ -14,11 +14,25 @@ const addStories = asyncHandler(async(req, res) => {
         if(user) {
             res.status(201).json(user);
         } else {
-            res.status(500).json({message : "Not able to save the story in users"})
+            res.status(500).json({message : "Not able to save the story in users"});
         }
     } else {
-        res.status(500).json({message : "Something went wrong"})
+        res.status(500).json({message : "Something went wrong"});
     }
 });
 
-module.exports = {addStories}
+const getStories = asyncHandler(async(req, res) => {
+    var stories = {};
+    const users = await User.findById(req.user._id).select("followers following").populate({path : "followers following stories"});
+    // const topUsers = await User.find({isPrivate : false})
+    stories.users = users;
+
+    console.log(stories)
+    if(users) {
+        res.status(200).json(users);
+    } else {
+        res.status(500).json({message: "Unable to fetch stories at the moment"});
+    }
+})
+
+module.exports = {addStories, getStories}

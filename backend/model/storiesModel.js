@@ -12,7 +12,11 @@ const StoriesSchema = mongoose.Schema({
     tags : [{
         type : mongoose.Types.ObjectId,
         ref : "User"
-    }]
+    }],
+    seen : [{
+        type : mongoose.Types.ObjectId,
+        ref : "User"
+    }],
 }, {
     timestamps : true
 });

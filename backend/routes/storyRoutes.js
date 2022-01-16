@@ -1,8 +1,10 @@
 const express = require("express");
+const { route } = require("express/lib/application");
 const router = express.Router();
-const { addStories } = require("../controllers/storyController");
+const { addStories, getStories } = require("../controllers/storyController");
 const protect = require("../middleware/authMiddleware");
 
 router.route("/create").put(protect, addStories);
+router.route("/all").get(protect, getStories);
 
 module.exports = router;
