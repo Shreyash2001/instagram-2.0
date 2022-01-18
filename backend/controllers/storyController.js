@@ -22,9 +22,8 @@ const addStories = asyncHandler(async(req, res) => {
 });
 
 const getStories = asyncHandler(async(req, res) => {
-    var stories = {};
     // const users = await User.findById(req.user._id).select("followers following").populate({path : "followers following stories"});
-    const users = await User.findById(req.user._id).populate({
+    const users = await User.findById(req.user._id).select("followers following stories").populate({
         path : "followers following stories",
         model: "User",
         populate: {

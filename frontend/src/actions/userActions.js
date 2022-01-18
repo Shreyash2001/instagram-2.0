@@ -66,6 +66,7 @@ export const loginUser = (userName, email, password) => async (dispatch) => {
 
 export const userLogout = () => async(dispatch) => {
     localStorage.removeItem("Instagram-UserInfo");
+    localStorage.removeItem("Instagram-Stories");
     dispatch({
         type : USER_LOGOUT
     });

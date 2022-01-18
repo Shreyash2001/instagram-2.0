@@ -1,21 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./HomeMiddle.css";
 import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { getStoriesAction } from '../actions/storiesAction';
+
 
 function HomeMiddle() {
     const [show, setShow] = useState(false);
-    const {userInfo} = useSelector(state => state.userLogin);
+    const[story,setStory] = useState([]);
+    
+    const dispatch = useDispatch();
 
     const handleShowClick = () => {
         setShow(!show);
     }
+    
+    useEffect(() => {
+        if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+            dispatch(getStoriesAction());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if(localStorage.getItem("Instagram-Stories") !== undefined){
+            JSON.parse(localStorage.getItem("Instagram-Stories"))?.followers?.map((follower) => (
+                follower?.stories?.map((ele) => (
+                    setStory((arr) => [...arr, ele?.file])
+                ))))
+        }
+    }, []);
+
     return (
         <div className="homeMiddle">
-            <div className="homeMiddle__search">
+            <div className="homeMiddle__search"> 
                 <div>
                     <SearchIcon style={{color:"rgb(189, 186, 186)"}} />
                     <input type="search" placeholder="Search"  />
@@ -47,14 +66,16 @@ function HomeMiddle() {
                         }</>
                     </div>
 
-                    {/* <div>
+                    <div>
+                        {story.length !== 0 && 
                         <Stories 
-                            stories={userInfo?.stories}
+                            stories={story}
                             defaultInterval={1500}
                             width={432}
                             height={768}
-                        />
-                    </div> */}
+                        /> }
+                            
+                    </div>
                 </div>
             </div>
         </div>
