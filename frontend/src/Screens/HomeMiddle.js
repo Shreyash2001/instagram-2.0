@@ -60,10 +60,20 @@ function HomeMiddle() {
                     </div>
 
                     <div>
-                        {data && data.length === 0 &&
+                        {data?.length !== 0 && 
+                            
+                            data?.map((val) => (
+                                console.log(val)
+                            ))
+                         
+                        }
+                    </div>
+
+                    <div>
+                        {data && data.length !== 0 &&
                             data?.map((val) => (
                                 <Stories 
-                                stories={val[0]?.story}
+                                stories={val}
                                 defaultInterval={1500}
                                 width={432}
                                 height={768}

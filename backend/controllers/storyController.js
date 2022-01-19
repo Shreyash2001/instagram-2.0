@@ -41,13 +41,9 @@ const getStories = asyncHandler(async(req, res) => {
             const list = [];
             follower.stories.map((story) => {
                 if(follower._id.toString() === story.user.toString()) {
-                    list.push({
-                        id: follower._id,
-                        firstName: follower.firstName,
-                        lastName: follower.lastName,
-                        profilePic: follower.profilePic,
-                        story: story.file
-                    })
+                    list.push(
+                        story.file
+                    )
                 }
                 
             })
