@@ -33,7 +33,27 @@ const getStories = asyncHandler(async(req, res) => {
     })
 
     if(users) {
-        res.status(200).json(users);
+        const map = [];
+        var myMap = new Map();
+        var keyObj = {};
+
+        users.followers.map((follower) => {
+            const list = [];
+            follower.stories.map((story) => {
+                if(follower._id.toString() === story.user.toString()) {
+                    list.push({
+                        id: follower._id,
+                        firstName: follower.firstName,
+                        lastName: follower.lastName,
+                        profilePic: follower.profilePic,
+                        story: story.file
+                    })
+                }
+                
+            })
+            map.push(list);
+        });
+        res.status(200).json(map);
     } else {
         res.status(500).json({message: "Unable to fetch stories at the moment"});
     }

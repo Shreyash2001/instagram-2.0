@@ -4,33 +4,26 @@ import { Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getStoriesAction } from '../actions/storiesAction';
 
 
 function HomeMiddle() {
     const [show, setShow] = useState(false);
-    const[story,setStory] = useState([]);
+
     
     const dispatch = useDispatch();
-
+    const {data} = useSelector(state => state.storyInfo);
+    console.log(data)
     const handleShowClick = () => {
         setShow(!show);
     }
     
     useEffect(() => {
-        if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+        // if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
     }, [dispatch]);
 
-    useEffect(() => {
-        if(localStorage.getItem("Instagram-Stories") !== undefined){
-            JSON.parse(localStorage.getItem("Instagram-Stories"))?.followers?.map((follower) => (
-                follower?.stories?.map((ele) => (
-                    setStory((arr) => [...arr, ele?.file])
-                ))))
-        }
-    }, []);
 
     return (
         <div className="homeMiddle">
@@ -67,13 +60,16 @@ function HomeMiddle() {
                     </div>
 
                     <div>
-                        {story.length !== 0 && 
-                        <Stories 
-                            stories={story}
-                            defaultInterval={1500}
-                            width={432}
-                            height={768}
-                        /> }
+                        {data && data.length === 0 &&
+                            data?.map((val) => (
+                                <Stories 
+                                stories={val[0]?.story}
+                                defaultInterval={1500}
+                                width={432}
+                                height={768}
+                            />
+                            ))
+                         }
                             
                     </div>
                 </div>
