@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeMiddle.css";
-import { Button } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
@@ -13,14 +13,15 @@ function HomeMiddle() {
 
     
     const dispatch = useDispatch();
-    const {data} = useSelector(state => state.storyInfo);
+    var {data} = useSelector(state => state.storyInfo);
+    data = JSON.parse(localStorage.getItem("Instagram-Stories"));
     console.log(data)
     const handleShowClick = () => {
         setShow(!show);
     }
     
     useEffect(() => {
-        // if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+        if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
     }, [dispatch]);
 
@@ -46,41 +47,48 @@ function HomeMiddle() {
                             <PlayArrowIcon />
                         </div>
                     </div>
+
+                    <div className="homeMiddle__postsContainerStoriesMain">
                     <div onClick={handleShowClick} className="homeMiddle__postsContainerStoriesCreate">
                         <img className="homeMiddle__postsContainerStoriesCreateImage" src="https://res.cloudinary.com/cqn/image/upload/v1642171910/1200px-Plus_symbol.svg_ncdooz.png" alt="add story icon" />
                         <>{show ? 
                             <svg className="homeMiddle__postsContainerStoriesCreateSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
-                                <circle cx="50" cy="50" r="40" />
+                                <circle cx="40" cy="40" r="30" />
                             </svg>
                             :
                             <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
-                                <circle cx="50" cy="50" r="40" />
+                                <circle cx="40" cy="40" r="30" />
                             </svg>
                         }</>
                     </div>
 
-                    <div>
-                        {data?.length !== 0 && 
-                            
+                    <div className="homeMiddle__postsContainerStoriesMainInfo">
+                        {
                             data?.map((val) => (
-                                console.log(val)
+                                <div style={{position:"relative", marginLeft:"20px"}}>
+                                    <div className="homeMiddle__story">
+                                    <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
+                                    <circle cx="40" cy="40" r="30" />
+                                    </svg>
+                                    <Avatar className="homeMiddle__storyImage" src={val?.image} />
+                                    </div>
+                                    <span className="homeMiddle__storyName">{val?.name}</span>
+                                </div>
                             ))
-                         
                         }
-                    </div>
 
-                    <div>
-                        {data && data.length !== 0 &&
+                        {/* {data && data.length !== 0 &&
                             data?.map((val) => (
                                 <Stories 
-                                stories={val}
+                                stories={val?.list}
                                 defaultInterval={1500}
                                 width={432}
                                 height={768}
                             />
                             ))
-                         }
+                         } */}
                             
+                    </div>
                     </div>
                 </div>
             </div>

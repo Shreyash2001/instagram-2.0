@@ -1,6 +1,7 @@
 const Story = require("../model/storiesModel");
 const User = require("../model/userModel");
 const asyncHandler = require("express-async-handler");
+const { defaultMaxListeners } = require("nodemailer/lib/xoauth2");
 
 const addStories = asyncHandler(async(req, res) => {
     const {tags, file} = req.body;
@@ -34,11 +35,11 @@ const getStories = asyncHandler(async(req, res) => {
 
     if(users) {
         const map = [];
-        var myMap = new Map();
-        var keyObj = {};
 
         users.followers.map((follower) => {
+            var data = {};
             const list = [];
+
             follower.stories.map((story) => {
                 if(follower._id.toString() === story.user.toString()) {
                     list.push(
@@ -47,7 +48,13 @@ const getStories = asyncHandler(async(req, res) => {
                 }
                 
             })
-            map.push(list);
+            data = {
+                _id : follower._id,
+                list: list,
+                name: follower.firstName + " " + follower.lastName,
+                image: follower.profilePic
+            }
+            map.push(data);
         });
         res.status(200).json(map);
     } else {
