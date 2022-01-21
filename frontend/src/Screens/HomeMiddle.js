@@ -6,10 +6,13 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStoriesAction } from '../actions/storiesAction';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 
 function HomeMiddle() {
     const [show, setShow] = useState(false);
+    const [showStory, setShowStory] = useState(false);
 
     
     const dispatch = useDispatch();
@@ -19,6 +22,23 @@ function HomeMiddle() {
     const handleShowClick = () => {
         setShow(!show);
     }
+
+    const handleShowStory = () => {
+        setShowStory(true);
+    }
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 432,
+        height: 600
+      };
+      
+        const [open, setOpen] = React.useState(false);
+        const handleOpen = () => setOpen(true);
+        const handleClose = () => setOpen(false);
     
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
@@ -60,13 +80,14 @@ function HomeMiddle() {
                                 <circle cx="40" cy="40" r="30" />
                             </svg>
                         }</>
+                        <span className="homeMiddle__postsContainerStoriesMainCreate">Create Story</span>
                     </div>
 
                     <div className="homeMiddle__postsContainerStoriesMainInfo">
                         {
                             data?.map((val) => (
                                 <div style={{position:"relative", marginLeft:"20px"}}>
-                                    <div className="homeMiddle__story">
+                                    <div onClick={handleShowStory} className="homeMiddle__story">
                                     <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
                                     <circle cx="40" cy="40" r="30" />
                                     </svg>
@@ -92,6 +113,30 @@ function HomeMiddle() {
                     </div>
                 </div>
             </div>
+            <div>
+        <Button onClick={handleOpen}>Open modal</Button>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style} style={{display:"flex", alignItems:"center"}}>
+            {data && data.length !== 0 &&
+                            data?.map((val) => (
+                                <div style={{padding:"10px"}}>
+                                <Stories 
+                                stories={val?.list}
+                                defaultInterval={1500}
+                                width={432}
+                                height={600}
+                                />
+                                </div>
+                            ))
+                         }
+            </Box>
+        </Modal>
+        </div>
         </div>
     );
 };
