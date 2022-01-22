@@ -36,7 +36,7 @@ function HomeMiddle() {
         height: 600
       };
       
-        const [open, setOpen] = React.useState(false);
+        const [open, setOpen] = useState(false);
         const handleOpen = () => setOpen(true);
         const handleClose = () => setOpen(false);
     
@@ -87,7 +87,7 @@ function HomeMiddle() {
                         {
                             data?.map((val) => (
                                 <div style={{position:"relative", marginLeft:"20px"}}>
-                                    <div onClick={handleShowStory} className="homeMiddle__story">
+                                    <div onClick={handleOpen} className="homeMiddle__story">
                                     <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
                                     <circle cx="40" cy="40" r="30" />
                                     </svg>
@@ -114,7 +114,6 @@ function HomeMiddle() {
                 </div>
             </div>
             <div>
-        <Button onClick={handleOpen}>Open modal</Button>
         <Modal
             open={open}
             onClose={handleClose}
@@ -122,6 +121,7 @@ function HomeMiddle() {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style} style={{display:"flex", alignItems:"center"}}>
+            
             {data && data.length !== 0 &&
                             data?.map((val) => (
                                 <div style={{padding:"10px"}}>
