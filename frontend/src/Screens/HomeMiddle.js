@@ -12,7 +12,8 @@ import Modal from '@mui/material/Modal';
 
 function HomeMiddle() {
     const [show, setShow] = useState(false);
-    const [showStory, setShowStory] = useState(false);
+    const [story, setStory] = useState({});
+    // const [showStory, setShowStory] = useState(false);
 
     
     const dispatch = useDispatch();
@@ -23,28 +24,35 @@ function HomeMiddle() {
         setShow(!show);
     }
 
-    const handleShowStory = () => {
-        setShowStory(true);
-    }
+    // const handleShowStory = () => {
+    //     setShowStory(true);
+    // }
 
     const style = {
         position: 'absolute',
-        top: '50%',
+        top: '49%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 432,
-        height: 600
+        width: 352,
+        height: 600,
       };
       
         const [open, setOpen] = useState(false);
         const handleOpen = () => setOpen(true);
         const handleClose = () => setOpen(false);
+
+        const handleStory = (id) => {
+            handleOpen();
+            const result = data?.find(({_id}) => _id === id);
+            setStory(result);
+        }
     
     useEffect(() => {
-        // if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+        if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
     }, [dispatch]);
-
+    
+    console.log(story)
 
     return (
         <div className="homeMiddle">
@@ -87,7 +95,7 @@ function HomeMiddle() {
                         {
                             data?.map((val) => (
                                 <div style={{position:"relative", marginLeft:"20px"}}>
-                                    <div onClick={handleOpen} className="homeMiddle__story">
+                                    <div onClick={() => handleStory(val?._id)} className="homeMiddle__story">
                                     <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
                                     <circle cx="40" cy="40" r="30" />
                                     </svg>
@@ -98,11 +106,11 @@ function HomeMiddle() {
                             ))
                         }
 
-                        {data && data.length !== 0 &&
+                        {/* {data && data.length !== 0 &&
                             data?.map((val) => (
                                 console.log(val?.list)
                             ))
-                         }
+                         } */}
                             
                     </div>
                     </div>
@@ -114,21 +122,18 @@ function HomeMiddle() {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            style={{backgroundColor:"#222"}}
         >
-            <Box sx={style} style={{display:"flex", alignItems:"center"}}>
+            <Box sx={style}>
             
-            {data && data.length !== 0 &&
-                            data?.map((val) => (
-                                <div style={{padding:"10px"}}>
-                                <Stories 
-                                stories={val?.list}
-                                defaultInterval={1500}
-                                width={432}
-                                height={600}
-                                />
-                                </div>
-                            ))
-                         }
+                <div>
+                <Stories 
+                stories={story?.list}
+                defaultInterval={1500}
+                width={402}
+                height={650}
+                />
+                </div>
             </Box>
         </Modal>
         </div>
