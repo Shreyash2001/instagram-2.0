@@ -18,7 +18,7 @@ function HomeMiddle() {
     const dispatch = useDispatch();
     var {data} = useSelector(state => state.storyInfo);
     data = JSON.parse(localStorage.getItem("Instagram-Stories"));
-    console.log(data)
+
     const handleShowClick = () => {
         setShow(!show);
     }
@@ -41,7 +41,7 @@ function HomeMiddle() {
         const handleClose = () => setOpen(false);
     
     useEffect(() => {
-        if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+        // if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
     }, [dispatch]);
 
@@ -98,16 +98,11 @@ function HomeMiddle() {
                             ))
                         }
 
-                        {/* {data && data.length !== 0 &&
+                        {data && data.length !== 0 &&
                             data?.map((val) => (
-                                <Stories 
-                                stories={val?.list}
-                                defaultInterval={1500}
-                                width={432}
-                                height={768}
-                            />
+                                console.log(val?.list)
                             ))
-                         } */}
+                         }
                             
                     </div>
                     </div>
