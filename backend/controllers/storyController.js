@@ -68,7 +68,7 @@ const getStories = asyncHandler(async(req, res) => {
             const list = [];
 
             ele.stories.map((story) => {
-                if(ele._id.toString() === story.user.toString()) {
+                if(ele.isPrivate === false) {
                     list.push({
                         url: story.file,
                         header: {
