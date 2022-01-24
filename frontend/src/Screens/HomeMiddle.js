@@ -13,7 +13,6 @@ import Modal from '@mui/material/Modal';
 function HomeMiddle() {
     const [show, setShow] = useState(false);
     const [story, setStory] = useState({});
-    // const [showStory, setShowStory] = useState(false);
 
     
     const dispatch = useDispatch();
@@ -24,9 +23,6 @@ function HomeMiddle() {
         setShow(!show);
     }
 
-    // const handleShowStory = () => {
-    //     setShowStory(true);
-    // }
 
     const style = {
         position: 'absolute',
@@ -93,7 +89,9 @@ function HomeMiddle() {
 
                     <div className="homeMiddle__postsContainerStoriesMainInfo">
                         {
-                            data?.map((val) => (
+                            data?.map((val) => {
+                                if(val?.list?.length > 0) {
+                                return ( 
                                 <div style={{position:"relative", marginLeft:"20px"}}>
                                     <div onClick={() => handleStory(val?._id)} className="homeMiddle__story">
                                     <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
@@ -103,7 +101,9 @@ function HomeMiddle() {
                                     </div>
                                     <span className="homeMiddle__storyName">{val?.name}</span>
                                 </div>
-                            ))
+                                )
+                                }
+                            })
                         }
 
                         {/* {data && data.length !== 0 &&

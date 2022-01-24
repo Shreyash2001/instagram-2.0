@@ -63,6 +63,33 @@ const getStories = asyncHandler(async(req, res) => {
             map.push(data);
         });
 
+        users.following.map((ele) => {
+            var data = {};
+            const list = [];
+
+            ele.stories.map((story) => {
+                if(ele._id.toString() === story.user.toString()) {
+                    list.push({
+                        url: story.file,
+                        header: {
+                            heading: ele.firstName + " " + ele.lastName,
+                            subheading: ele.username,
+                            profileImage: ele.profilePic
+                        }
+                    }
+                    )
+                }
+                
+            })
+            data = {
+                _id : ele._id,
+                list: list,
+                name: ele.firstName + " " + ele.lastName,
+                image: ele.profilePic
+            }
+            map.push(data);
+        });
+
         res.status(200).json(map);
     } else {
         res.status(500).json({message: "Unable to fetch stories at the moment"});
