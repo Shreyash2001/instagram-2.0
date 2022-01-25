@@ -21,8 +21,16 @@ function HomeMiddle() {
 
     const handleShowClick = () => {
         setShow(!show);
+        handleOpen();
+        setStory({});
+        stopStoryLoader();
     }
 
+    const stopStoryLoader = () => {
+        setTimeout(() => {
+            setShow(false)
+        }, 2000);
+    }
 
     const style = {
         position: 'absolute',
@@ -31,6 +39,7 @@ function HomeMiddle() {
         transform: 'translate(-50%, -50%)',
         width: 352,
         height: 600,
+        outline:'none'
       };
       
         const [open, setOpen] = useState(false);
@@ -125,7 +134,20 @@ function HomeMiddle() {
             style={{backgroundColor:"#222"}}
         >
             <Box sx={style}>
-            
+            {story && Object.keys(story).length === 0 
+            ? 
+                <div className="homeMiddle__addStory">
+                    <div className="homeMiddle__addStoryTop">
+                        <span>Add New Story</span>
+                    </div>
+
+                    <div className="homeMiddle__addStoryMiddle">
+                        <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
+                        <Button>Select from device</Button>
+                    </div>
+
+                </div>
+            :
                 <div>
                 <Stories 
                 stories={story?.list}
@@ -134,6 +156,7 @@ function HomeMiddle() {
                 height={650}
                 />
                 </div>
+            }
             </Box>
         </Modal>
         </div>

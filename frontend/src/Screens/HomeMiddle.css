@@ -76,7 +76,7 @@
 .homeMiddle__storyName {
     color: gray;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 700;
     margin-left: 10px;
     margin-right: 10px;
     position: absolute;
@@ -144,4 +144,45 @@ to{
     transform:rotate(6deg);
     stroke-dasharray: 8;
 }
+}
+
+.homeMiddle__addStory {
+    width: 432px;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 22px;
+}
+
+.homeMiddle__addStoryTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid lightgray;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.homeMiddle__addStoryMiddle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.homeMiddle__addStoryMiddle > img {
+    width: 160px;
+    height: 140px;
+}
+
+.homeMiddle__addStoryMiddle > button {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
+    color: #fff !important;
+    font-size: 18px !important;
+    width: 250px !important;
+    padding: 5px;
+    margin: 30px 0px;
+    text-transform: inherit !important;
 }

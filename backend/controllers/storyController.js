@@ -1,7 +1,6 @@
 const Story = require("../model/storiesModel");
 const User = require("../model/userModel");
 const asyncHandler = require("express-async-handler");
-const { defaultMaxListeners } = require("nodemailer/lib/xoauth2");
 
 const addStories = asyncHandler(async(req, res) => {
     const {tags, file} = req.body;
