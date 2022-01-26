@@ -52,6 +52,10 @@ function HomeMiddle() {
             const result = data?.find(({_id}) => _id === id);
             setStory(result);
         }
+
+        const onSuccess = res => {
+            console.log("Success", res);
+          };
     
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
@@ -137,18 +141,32 @@ function HomeMiddle() {
             <Box sx={style}>
             {story && Object.keys(story).length === 0 
             ? 
+
+            <div className="homeMiddle__addStory">
+                    <div className="homeMiddle__addStoryTop">
+                        <span>Add New Story</span>
+                    </div>
+
+                    <div className="homeMiddle__addStoryMiddle">
+                        <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
+                        <IKContext
+                            publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
+                            urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9"
+                            transformationPosition="path"
+                            authenticationEndpoint="http://localhost:5000/auth"
+                            >
+
+                            <label>
+                            <span>Select from this device</span>
+                            <IKUpload fileName="my-story" onSuccess={onSuccess} />
+                            </label>
+                            </IKContext>
+                    </div>
+
+                </div>
+
+
                 
-
-
-                <IKContext
-                publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
-                urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9"
-                transformationPosition="path"
-                authenticationEndpoint="http://localhost:5000/story/upload">
-
-
-                <IKUpload fileName="my-upload" />
-                </IKContext>
             :
                 <div>
                 <Stories 
