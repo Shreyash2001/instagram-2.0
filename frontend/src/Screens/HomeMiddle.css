@@ -174,7 +174,7 @@ to{
     height: 140px;
 }
 
-.homeMiddle__addStoryMiddle > button {
+.homeMiddle__addStoryMiddle > label {
     background-image: linear-gradient(to right,var(--tw-gradient-stops));
     --tw-gradient-from: #f97316;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
@@ -182,7 +182,17 @@ to{
     color: #fff !important;
     font-size: 18px !important;
     width: 250px !important;
-    padding: 5px;
+    padding: 10px;
     margin: 30px 0px;
     text-transform: inherit !important;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.homeMiddle__addStoryMiddle > label > span {
+    margin-left: 50px;
+}
+
+.homeMiddle__addStoryMiddle > label > input[type="file"] {
+    display: none;
 }

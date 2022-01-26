@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getStoriesAction } from '../actions/storiesAction';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
 
 
 function HomeMiddle() {
@@ -136,17 +137,18 @@ function HomeMiddle() {
             <Box sx={style}>
             {story && Object.keys(story).length === 0 
             ? 
-                <div className="homeMiddle__addStory">
-                    <div className="homeMiddle__addStoryTop">
-                        <span>Add New Story</span>
-                    </div>
+                
 
-                    <div className="homeMiddle__addStoryMiddle">
-                        <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
-                        <Button>Select from device</Button>
-                    </div>
 
-                </div>
+                <IKContext
+                publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
+                urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9"
+                transformationPosition="path"
+                authenticationEndpoint="http://localhost:5000/story/upload">
+
+
+                <IKUpload fileName="my-upload" />
+                </IKContext>
             :
                 <div>
                 <Stories 
