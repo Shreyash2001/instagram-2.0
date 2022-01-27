@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getStoriesAction } from '../actions/storiesAction';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { IKImage, IKContext, IKUpload } from 'imagekitio-react';
+import { IKContext, IKUpload } from 'imagekitio-react';
 
 
 function HomeMiddle() {
     const [show, setShow] = useState(false);
     const [story, setStory] = useState({});
-
+    const [sendStory, setSendStory] = useState({});
     
     const dispatch = useDispatch();
     var {data} = useSelector(state => state.storyInfo);
@@ -55,6 +55,11 @@ function HomeMiddle() {
 
         const onSuccess = res => {
             console.log("Success", res);
+            const data = {
+                url : res.url,
+                fileId : res.fileId
+            }
+            setSendStory(data);
           };
     
     useEffect(() => {
@@ -62,7 +67,6 @@ function HomeMiddle() {
             dispatch(getStoriesAction());
     }, [dispatch]);
     
-    console.log(story)
 
     return (
         <div className="homeMiddle">

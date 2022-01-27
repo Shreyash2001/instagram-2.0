@@ -34,6 +34,13 @@ app.get('/auth', function (req, res) {
     res.send(result);
   });
 
+app.delete("/delete", function(req, res) {
+  imagekit.deleteFile(req.body.fileId, function(error, result) {
+    if(error) console.log(error);
+    else console.log(result);
+});
+});
+
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server started successfully on Port ${port}`));
