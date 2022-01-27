@@ -9,6 +9,9 @@ const StoriesSchema = mongoose.Schema({
         type: String,
         required : true
     },
+    fileId : {
+        type: String
+    },
     tags : [{
         type : mongoose.Types.ObjectId,
         ref : "User"

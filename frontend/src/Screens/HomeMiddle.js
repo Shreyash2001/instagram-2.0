@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStoriesAction } from '../actions/storiesAction';
+import { addStoryAction, getStoriesAction } from '../actions/storiesAction';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { IKContext, IKUpload } from 'imagekitio-react';
@@ -60,6 +60,7 @@ function HomeMiddle() {
                 fileId : res.fileId
             }
             setSendStory(data);
+            dispatch(addStoryAction(data))
           };
     
     useEffect(() => {
@@ -145,7 +146,7 @@ function HomeMiddle() {
             <Box sx={style}>
             {story && Object.keys(story).length === 0 
             ? 
-
+            
             <div className="homeMiddle__addStory">
                     <div className="homeMiddle__addStoryTop">
                         <span>Add New Story</span>

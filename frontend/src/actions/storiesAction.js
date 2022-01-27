@@ -1,5 +1,11 @@
 import axios from "axios";
-import { GET_ALL_STORIES_FAIL, GET_ALL_STORIES_LOADING, GET_ALL_STORIES_SUCCESS } from "../constants/storyConstants"
+import { 
+    ADD_STORY_FAIL, ADD_STORY_LOADING, 
+    ADD_STORY_SUCCESS, 
+    GET_ALL_STORIES_FAIL, 
+    GET_ALL_STORIES_LOADING, 
+    GET_ALL_STORIES_SUCCESS 
+} from "../constants/storyConstants"
 
 export const getStoriesAction = () => async(dispatch, getState) => {
     try {
@@ -22,6 +28,32 @@ export const getStoriesAction = () => async(dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: GET_ALL_STORIES_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+};
+
+export const addStoryAction = ({url, fileId}) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: ADD_STORY_LOADING
+        });
+        const {userLogin:{userInfo}} = getState();
+        const config = {
+            headers: {
+                Authorization : `Bearer ${userInfo.token}`
+            }
+        };
+
+        const {data} = axios.put("/api/stories/create", {url, fileId}, config);
+        dispatch({
+            type: ADD_STORY_SUCCESS,
+            payload: data
+        });
+
+    } catch (error) {
+        dispatch({
+            type: ADD_STORY_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         })
     }

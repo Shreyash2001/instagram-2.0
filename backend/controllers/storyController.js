@@ -3,11 +3,12 @@ const User = require("../model/userModel");
 const asyncHandler = require("express-async-handler");
 
 const addStories = asyncHandler(async(req, res) => {
-    const {tags, file} = req.body;
+    const {tags, file, fileId} = req.body;
     const story = await Story.create({
         user : req.user._id,
         file : file,
-        tags : tags
+        tags : tags,
+        fileId: fileId
     }); 
     if(story) {
         const user = await User.findByIdAndUpdate(req.user._id, {$addToSet : {stories: story._id}}, {new : true}).select("-password").populate("stories");
