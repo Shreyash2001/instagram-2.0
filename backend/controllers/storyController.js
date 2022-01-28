@@ -3,10 +3,10 @@ const User = require("../model/userModel");
 const asyncHandler = require("express-async-handler");
 
 const addStories = asyncHandler(async(req, res) => {
-    const {tags, file, fileId} = req.body;
+    const {tags, url, fileId} = req.body;
     const story = await Story.create({
         user : req.user._id,
-        file : file,
+        file : url,
         tags : tags,
         fileId: fileId
     }); 
@@ -24,17 +24,36 @@ const addStories = asyncHandler(async(req, res) => {
 
 const getStories = asyncHandler(async(req, res) => {
     // const users = await User.findById(req.user._id).select("followers following").populate({path : "followers following stories"});
-    const users = await User.findById(req.user._id).select("followers following stories").populate({
-        path : "followers following stories",
+    const users = await User.findById(req.user._id).select("followers following stories firstName lastName profilePic userName").populate({
+        path : "followers following",
         model: "User",
         populate: {
             path: "stories",
             model: "Story"
-        }
-    })
+        },
+    });
 
     if(users) {
         const map = [];
+        const myList = [];
+        users.stories.map((story) => {
+            myList.push({
+                url: story.file,
+                header: {
+                    heading: users.firstName + " " + users.lastName,
+                    subheading: users.username,
+                    profileImage: users.profilePic
+                }
+            }
+            )
+        });
+        const myData = {
+            _id : users._id,
+            list: myList,
+            name : users.firstName + " " + users.lastName,
+            image : users.profilePic
+        }
+        map.push(myData);
 
         users.followers.map((follower) => {
             var data = {};
@@ -94,6 +113,6 @@ const getStories = asyncHandler(async(req, res) => {
     } else {
         res.status(500).json({message: "Unable to fetch stories at the moment"});
     }
-})
+});
 
 module.exports = {addStories, getStories}
