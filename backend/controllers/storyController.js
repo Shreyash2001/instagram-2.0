@@ -33,10 +33,12 @@ const getStories = asyncHandler(async(req, res) => {
         },
     });
 
+    const myStory = await User.findById(req.user._id).select("stories").populate({path: "stories", model: "Story"})
+
     if(users) {
         const map = [];
         const myList = [];
-        users.stories.map((story) => {
+        myStory.stories.map((story) => {
             myList.push({
                 url: story.file,
                 header: {

@@ -64,7 +64,7 @@ function HomeMiddle() {
           };
     
     useEffect(() => {
-        // if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+        if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
     }, [dispatch]);
     
