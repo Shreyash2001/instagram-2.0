@@ -176,9 +176,10 @@ function HomeMiddle() {
                 <div>
                 <Stories 
                 stories={story?.list}
-                defaultInterval={1500}
+                defaultInterval={2000}
                 width={402}
                 height={650}
+                keyboardNavigation = {true}
                 />
                 </div>
             }

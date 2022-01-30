@@ -1,6 +1,7 @@
 const Story = require("../model/storiesModel");
 const User = require("../model/userModel");
 const asyncHandler = require("express-async-handler");
+const moment = require('moment');
 
 const addStories = asyncHandler(async(req, res) => {
     const {tags, url, fileId} = req.body;
@@ -39,11 +40,14 @@ const getStories = asyncHandler(async(req, res) => {
         const map = [];
         const myList = [];
         myStory.stories.map((story) => {
+            var myDate = new Date(story.updatedAt);
+            var result = myDate.getTime();
+
             myList.push({
                 url: story.file,
                 header: {
                     heading: users.firstName + " " + users.lastName,
-                    subheading: users.username,
+                    subheading: moment(result).fromNow(),
                     profileImage: users.profilePic
                 }
             }
@@ -62,12 +66,14 @@ const getStories = asyncHandler(async(req, res) => {
             const list = [];
 
             follower.stories.map((story) => {
+                var myDate = new Date(story.updatedAt);
+                var result = myDate.getTime();
                 if(follower._id.toString() === story.user.toString()) {
                     list.push({
                         url: story.file,
                         header: {
                             heading: follower.firstName + " " + follower.lastName,
-                            subheading: follower.username,
+                            subheading: moment(result).fromNow(),
                             profileImage: follower.profilePic
                         }
                     }
@@ -89,12 +95,14 @@ const getStories = asyncHandler(async(req, res) => {
             const list = [];
 
             ele.stories.map((story) => {
+                var myDate = new Date(story.updatedAt);
+                var result = myDate.getTime();
                 if(ele.isPrivate === false) {
                     list.push({
                         url: story.file,
                         header: {
                             heading: ele.firstName + " " + ele.lastName,
-                            subheading: ele.username,
+                            subheading: moment(result).fromNow(),
                             profileImage: ele.profilePic
                         }
                     }
