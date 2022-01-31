@@ -4,12 +4,11 @@ const asyncHandler = require("express-async-handler");
 const moment = require('moment');
 
 const addStories = asyncHandler(async(req, res) => {
-    const {tags, url, fileId} = req.body;
     const story = await Story.create({
         user : req.user._id,
-        file : url,
-        tags : tags,
-        fileId: fileId
+        file : req.body.story.file,
+        tags : req.body.story.tags,
+        fileId: req.body.story.fileId
     }); 
     if(story) {
         const user = await User.findByIdAndUpdate(req.user._id, {$addToSet : {stories: story._id}}, {new : true}).select("-password").populate("stories");
@@ -34,8 +33,7 @@ const getStories = asyncHandler(async(req, res) => {
         },
     });
 
-    const myStory = await User.findById(req.user._id).select("stories").populate({path: "stories", model: "Story"})
-
+    const myStory = await User.findById(req.user._id).select("stories").populate({path: "stories", model: "Story"});
     if(users) {
         const map = [];
         const myList = [];

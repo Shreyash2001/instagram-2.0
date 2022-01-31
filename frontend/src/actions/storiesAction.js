@@ -33,7 +33,7 @@ export const getStoriesAction = () => async(dispatch, getState) => {
     }
 };
 
-export const addStoryAction = ({url, fileId}) => async(dispatch, getState) => {
+export const addStoryAction = (story) => async(dispatch, getState) => {
     try {
         dispatch({
             type: ADD_STORY_LOADING
@@ -44,8 +44,8 @@ export const addStoryAction = ({url, fileId}) => async(dispatch, getState) => {
                 Authorization : `Bearer ${userInfo.token}`
             }
         };
-
-        const {data} = axios.put("/api/stories/create", {url, fileId}, config);
+        console.log(story)
+        const {data} = axios.put("/api/stories/create", {story}, config);
         dispatch({
             type: ADD_STORY_SUCCESS,
             payload: data

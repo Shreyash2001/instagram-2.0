@@ -18,6 +18,7 @@ function HomeMiddle() {
     
     const dispatch = useDispatch();
     var {data} = useSelector(state => state.storyInfo);
+    const {loading, success} = useSelector(state => state.currentStoryInfo)
     data = JSON.parse(localStorage.getItem("Instagram-Stories"));
 
     const handleShowClick = () => {
@@ -54,19 +55,25 @@ function HomeMiddle() {
         }
 
         const onSuccess = res => {
-            console.log("Success", res);
             const data = {
-                url : res.url,
+                file : res.url,
                 fileId : res.fileId
             }
             setSendStory(data);
-            dispatch(addStoryAction(data))
+            
+          };
+
+          const uploadStory = () => {
+            dispatch(addStoryAction(sendStory));
+            dispatch(getStoriesAction());
           };
     
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
-    }, [dispatch]);
+
+        if(success) handleClose();
+    }, [dispatch, success]);
     
 
     return (
@@ -146,12 +153,22 @@ function HomeMiddle() {
             <Box sx={style}>
             {story && Object.keys(story).length === 0 
             ? 
-            
             <div className="homeMiddle__addStory">
                     <div className="homeMiddle__addStoryTop">
                         <span>Add New Story</span>
                     </div>
 
+                    {
+                        sendStory && Object.keys(sendStory).length !== 0
+                        ?
+                        <div className="uploadStory">
+                            <img src={sendStory.file} alt="" /> 
+                            <div>
+                            <Button onClick={uploadStory}>Upload Story</Button>
+                            </div>
+                        </div>
+                        :
+                    
                     <div className="homeMiddle__addStoryMiddle">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
                         <IKContext
@@ -167,7 +184,7 @@ function HomeMiddle() {
                             </label>
                             </IKContext>
                     </div>
-
+                    }
                 </div>
 
 
