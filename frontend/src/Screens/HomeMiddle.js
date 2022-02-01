@@ -18,7 +18,7 @@ function HomeMiddle() {
     
     const dispatch = useDispatch();
     var {data} = useSelector(state => state.storyInfo);
-    const {loading, success} = useSelector(state => state.currentStoryInfo)
+    const {success} = useSelector(state => state.currentStoryInfo)
     data = JSON.parse(localStorage.getItem("Instagram-Stories"));
 
     const handleShowClick = () => {
@@ -142,14 +142,15 @@ function HomeMiddle() {
                     </div>
                 </div>
             </div>
+
             <div>
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            style={{backgroundColor:"#222"}}
-        >
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                style={{backgroundColor:"#222"}}
+            >
             <Box sx={style}>
             {story && Object.keys(story).length === 0 
             ? 

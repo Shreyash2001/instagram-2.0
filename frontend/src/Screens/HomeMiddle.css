@@ -204,6 +204,12 @@ to{
     object-fit: cover;
 }
 
+.uploadStory > div {
+    position: absolute;
+    top: 515px;
+    left: 81px;
+}
+ 
 .uploadStory > div > button {
     background-image: linear-gradient(to right,var(--tw-gradient-stops));
     --tw-gradient-from: #f97316;
@@ -214,4 +220,5 @@ to{
     width: 150px !important;
     padding: 10px;
     margin: 20px 60px;
+    text-transform: inherit !important;
 }
