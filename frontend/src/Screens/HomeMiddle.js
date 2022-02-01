@@ -15,6 +15,7 @@ function HomeMiddle() {
     const [show, setShow] = useState(false);
     const [story, setStory] = useState({});
     const [sendStory, setSendStory] = useState({});
+    const [idx, setIdx] = useState(0);
     
     const dispatch = useDispatch();
     var {data} = useSelector(state => state.storyInfo);
@@ -48,12 +49,21 @@ function HomeMiddle() {
         const handleOpen = () => setOpen(true);
         const handleClose = () => setOpen(false);
 
-        const handleStory = (id) => {
+        const handleStory = (id, i) => {
             handleOpen();
             const result = data?.find(({_id}) => _id === id);
             setStory(result);
+            setIdx(i);
         }
 
+        const nextStory = () => {
+            
+            if(data[idx + 1] !== undefined) {
+                setStory(data[idx + 1]);
+                setIdx(idx + 1)
+            }
+        }
+        console.log(story)
         const onSuccess = res => {
             const data = {
                 file : res.url,
@@ -118,11 +128,11 @@ function HomeMiddle() {
 
                     <div className="homeMiddle__postsContainerStoriesMainInfo">
                         {
-                            data?.map((val) => {
+                            data?.map((val, i) => {
                                 if(val?.list?.length > 0) {
                                 return ( 
                                 <div style={{position:"relative", marginLeft:"20px"}}>
-                                    <div onClick={() => handleStory(val?._id)} className="homeMiddle__story">
+                                    <div onClick={() => handleStory(val?._id, i++)} className="homeMiddle__story">
                                     <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
                                     <circle cx="40" cy="40" r="30" />
                                     </svg>
@@ -194,7 +204,7 @@ function HomeMiddle() {
 
                 
             :
-                <div>
+                <div className="story">
                 <Stories 
                 stories={story?.list}
                 defaultInterval={2000}
@@ -202,6 +212,7 @@ function HomeMiddle() {
                 height={650}
                 keyboardNavigation = {true}
                 />
+                <Button onClick={nextStory}>Click</Button>
                 </div>
             }
             </Box>

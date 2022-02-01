@@ -222,3 +222,13 @@ to{
     margin: 20px 60px;
     text-transform: inherit !important;
 }
+
+.story {
+    position: relative;
+}
+
+.story > button {
+    position: absolute !important;
+    top: 250px !important;
+    left: 420px !important;
+}
