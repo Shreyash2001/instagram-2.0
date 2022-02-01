@@ -72,7 +72,10 @@ function HomeMiddle() {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
 
-        if(success) handleClose();
+        if(success) {
+            handleClose();
+            setSendStory(false);
+        }
     }, [dispatch, success]);
     
 
