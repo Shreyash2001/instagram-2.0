@@ -63,7 +63,7 @@ function HomeMiddle() {
                 setIdx(idx + 1)
             }
         }
-        console.log(story)
+        console.log(idx)
         const onSuccess = res => {
             const data = {
                 file : res.url,
@@ -212,7 +212,7 @@ function HomeMiddle() {
                 height={650}
                 keyboardNavigation = {true}
                 />
-                <Button onClick={nextStory}>Click</Button>
+                {idx !== data.length - 1 && <Button onClick={nextStory}>Click</Button>}
                 </div>
             }
             </Box>
