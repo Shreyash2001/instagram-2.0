@@ -9,6 +9,8 @@ import { addStoryAction, getStoriesAction } from '../actions/storiesAction';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { IKContext, IKUpload } from 'imagekitio-react';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 
 function HomeMiddle() {
@@ -57,13 +59,19 @@ function HomeMiddle() {
         }
 
         const nextStory = () => {
-            
             if(data[idx + 1] !== undefined) {
                 setStory(data[idx + 1]);
                 setIdx(idx + 1)
             }
         }
-        console.log(idx)
+
+        const prevStory = () => {
+            if(data[idx - 1] !== undefined) {
+                setStory(data[idx - 1]);
+                setIdx(idx - 1)
+            }
+        }
+        
         const onSuccess = res => {
             const data = {
                 file : res.url,
@@ -210,9 +218,10 @@ function HomeMiddle() {
                 defaultInterval={2000}
                 width={402}
                 height={650}
-                keyboardNavigation = {true}
-                />
-                {idx !== data.length - 1 && <Button onClick={nextStory}>Click</Button>}
+                keyboardNavigation = {true} 
+                /> 
+                {idx !== data.length - 1 && <div className="nextStory__button" onClick={nextStory}><ArrowForwardIosIcon style={{color:"gray", margin:"8px", fontSize:"16px"}} /></div>}
+                {idx !== 0 && <div className="nextStory__buttonPrev" onClick={prevStory}><ArrowBackIosIcon style={{color:"gray", margin:"8px", fontSize:"16px"}} /></div>}
                 </div>
             }
             </Box>

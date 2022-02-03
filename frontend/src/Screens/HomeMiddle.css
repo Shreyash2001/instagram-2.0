@@ -227,8 +227,26 @@ to{
     position: relative;
 }
 
-.story > button {
+.nextStory__button {
     position: absolute !important;
     top: 250px !important;
     left: 420px !important;
+    border-radius: 55% !important;
+    width: 30px !important;
+    height: 30px !important;
+    background-color: rgba(255, 255, 255, 0.822) !important;
+    padding: 0px !important;
+    cursor: pointer;
+}
+
+.nextStory__buttonPrev {
+    position: absolute !important;
+    top: 250px !important;
+    left: -50px !important;
+    border-radius: 55% !important;
+    width: 30px !important;
+    height: 30px !important;
+    background-color: rgba(255, 255, 255, 0.822) !important;
+    padding: 0px !important;
+    cursor: pointer;
 }
