@@ -108,12 +108,19 @@ function HomeMiddle() {
           sideScroll(document.getElementById("topRated"),'left',10,1500,20);
       }
       const [showScroll, setShowScroll] = useState(false);
+      const [showScrollRight, setShowScrollRight] = useState(false);
       const scrollEvent = (e) => {
         const target = e.target;
         if(target.scrollLeft > 0) {
             setShowScroll(true);
         } else {
             setShowScroll(false);
+        }
+
+        if(target.scrollLeft < 740) {
+            setShowScrollRight(true);
+        } else {
+            setShowScrollRight(false);
         }
         console.log('Current scroll position:', target.scrollLeft);
     }
@@ -157,6 +164,12 @@ function HomeMiddle() {
                         && 
                         <div className="story_arrow" onClick={scrollOnClickLeftTopRated}>
                             <ArrowBackIosIcon style={{fontSize:"15px", marginLeft:"10px", marginTop:"7px"}} />
+                        </div> 
+                    }
+                    {
+                        showScrollRight &&
+                            <div className="story_arrowRight" onClick={scrollOnClickRightTopRated}>
+                            <ArrowForwardIosIcon style={{fontSize:"15px", marginLeft:"10px", marginTop:"7px"}} />
                         </div>
                     }
                     <div onClick={handleShowClick} className="homeMiddle__postsContainerStoriesCreate" style={{marginRight:"100px"}}>
