@@ -20,7 +20,7 @@ export const getStoriesAction = () => async(dispatch, getState) => {
         }
 
         var {data} = await axios.get("/api/stories/all", config);
-        
+
         data = data.filter((val) => val.list.length > 0)
         localStorage.setItem("Instagram-Stories", JSON.stringify(data));
         dispatch({

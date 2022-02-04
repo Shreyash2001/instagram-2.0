@@ -50,6 +50,12 @@
 .homeMiddle__postsContainerStoriesMain {
     display: flex;
     align-items: center;
+    overflow-x: scroll;
+    width: 800px;
+}
+
+.homeMiddle__postsContainerStoriesMain::-webkit-scrollbar {
+    display: none;
 }
 
 .homeMiddle__postsContainerStoriesMainInfo {

@@ -85,6 +85,33 @@ function HomeMiddle() {
             dispatch(addStoryAction(sendStory));
             dispatch(getStoriesAction());
           };
+
+          function sideScroll(element,direction,speed,distance,step){
+            var scrollAmount = 0;
+             var slideTimer = setInterval(function(){
+                 if(direction === 'left'){
+                     element.scrollLeft -= step;
+                 } else {
+                     element.scrollLeft += step;
+                 }
+                 scrollAmount += step;
+                 if(scrollAmount >= distance){
+                     window.clearInterval(slideTimer);
+                 }
+             }, speed);
+         }
+  
+         const scrollOnClickRightTopRated = () => {
+          sideScroll(document.getElementById("topRated"),'right',10,1500,20); 
+      }
+      const scrollOnClickLeftTopRated = () => { 
+          sideScroll(document.getElementById("topRated"),'left',10,1500,20);
+      }
+      
+      const scrollEvent = (e) => {
+        const target = e.target;
+        console.log('Current scroll position:', target.scrollLeft);
+    }
     
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
@@ -119,8 +146,8 @@ function HomeMiddle() {
                         </div>
                     </div>
 
-                    <div className="homeMiddle__postsContainerStoriesMain">
-                    <div onClick={handleShowClick} className="homeMiddle__postsContainerStoriesCreate">
+                    <div onScroll={scrollEvent} className="homeMiddle__postsContainerStoriesMain">
+                    <div onClick={handleShowClick} className="homeMiddle__postsContainerStoriesCreate" style={{marginRight:"100px"}}>
                         <img className="homeMiddle__postsContainerStoriesCreateImage" src="https://res.cloudinary.com/cqn/image/upload/v1642171910/1200px-Plus_symbol.svg_ncdooz.png" alt="add story icon" />
                         <>{show ? 
                             <svg className="homeMiddle__postsContainerStoriesCreateSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
