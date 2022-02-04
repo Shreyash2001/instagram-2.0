@@ -256,3 +256,14 @@ to{
     padding: 0px !important;
     cursor: pointer;
 }
+
+.story_arrow {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 328px;
+    top: 200px;
+    background-color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+}

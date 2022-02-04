@@ -107,9 +107,14 @@ function HomeMiddle() {
       const scrollOnClickLeftTopRated = () => { 
           sideScroll(document.getElementById("topRated"),'left',10,1500,20);
       }
-      
+      const [showScroll, setShowScroll] = useState(false);
       const scrollEvent = (e) => {
         const target = e.target;
+        if(target.scrollLeft > 0) {
+            setShowScroll(true);
+        } else {
+            setShowScroll(false);
+        }
         console.log('Current scroll position:', target.scrollLeft);
     }
     
@@ -146,7 +151,14 @@ function HomeMiddle() {
                         </div>
                     </div>
 
-                    <div onScroll={scrollEvent} className="homeMiddle__postsContainerStoriesMain">
+                    <div id="topRated" onScroll={scrollEvent} className="homeMiddle__postsContainerStoriesMain">
+                    {
+                        showScroll 
+                        && 
+                        <div className="story_arrow" onClick={scrollOnClickLeftTopRated}>
+                            <ArrowBackIosIcon style={{fontSize:"15px", marginLeft:"10px", marginTop:"7px"}} />
+                        </div>
+                    }
                     <div onClick={handleShowClick} className="homeMiddle__postsContainerStoriesCreate" style={{marginRight:"100px"}}>
                         <img className="homeMiddle__postsContainerStoriesCreateImage" src="https://res.cloudinary.com/cqn/image/upload/v1642171910/1200px-Plus_symbol.svg_ncdooz.png" alt="add story icon" />
                         <>{show ? 
