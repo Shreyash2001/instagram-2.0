@@ -1,0 +1,11 @@
+.feedCard {
+    width: 600px;
+    height: 500px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.feedCard__info {
+    display: flex;
+    align-items: center;
+}

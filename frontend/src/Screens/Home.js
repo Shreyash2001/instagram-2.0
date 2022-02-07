@@ -1,4 +1,5 @@
 import React from 'react';
+import Feed from './Feed';
 import "./Home.css";
 import HomeLeft from './HomeLeft';
 import HomeMiddle from './HomeMiddle';
@@ -14,6 +15,7 @@ function Home() {
 
             <div className="home__middle">
                 <HomeMiddle />
+                <Feed />
             </div>
 
             <div className="home__right">

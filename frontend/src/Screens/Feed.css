@@ -1,0 +1,20 @@
+.feed {
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.feed__top {
+    float: right;
+}
+
+.feed__button {
+    border-radius: 22px !important;
+    width: 50px !important;
+    background-color: #eaeded !important;
+    color: #222 !important;
+    text-transform: inherit !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin-right: 20px !important;
+}
