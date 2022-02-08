@@ -30,9 +30,9 @@ function Carousel({initialIndex}) {
     flickityRef={c => (flkty = c)}
     options={{ initialIndex: initialIndex }}
   >
-    <img src="http://placeimg.com/640/480/animals/sepia" />
-    <img src="http://placeimg.com/640/480/nature/sepia" />
-    <img src="http://placeimg.com/640/480/architecture/sepia" />
+    <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" />
+    <img src="https://wallpaperaccess.com/full/393735.jpg" />
+    <img src="https://m.media-amazon.com/images/I/8192Yt4zAfL._SL1500_.jpg" />
   </Flickity>
   )
 }

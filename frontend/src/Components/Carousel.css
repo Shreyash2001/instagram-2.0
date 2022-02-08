@@ -9,14 +9,13 @@
   .flickity-viewport {
     overflow: hidden;
     position: relative;
-    width: 500px;
-    height: 400px;
+    width: 550px;
+    height: 400px !important;
   }
   
   .flickity-slider {
     position: absolute;
-    width: 400px;
-    height: 50px;
+    width: 550px;
   }
   
   /* draggable */
@@ -47,6 +46,7 @@
     background: hsla(0, 0%, 100%, 0.75);
     border: none;
     color: #333;
+    display: block !important;
   }
   
   .flickity-button:hover {
@@ -72,12 +72,13 @@
   
   .flickity-button-icon {
     fill: #333;
+    display: block !important;
   }
   
   /* ---- previous/next buttons ---- */
   
   .flickity-prev-next-button {
-    top: 50%;
+    top: 70%;
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -86,10 +87,10 @@
   }
   
   .flickity-prev-next-button.previous {
-    left: 10px;
+    left: -20px;
   }
   .flickity-prev-next-button.next {
-    right: 10px;
+    right: -325px;
   }
   /* right to left */
   .flickity-rtl .flickity-prev-next-button.previous {
