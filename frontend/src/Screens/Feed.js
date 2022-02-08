@@ -16,6 +16,8 @@ function Feed() {
         </div>
         <div>
             <FeedCard />
+            <FeedCard />
+            <FeedCard />
         </div>
     </div>
   );

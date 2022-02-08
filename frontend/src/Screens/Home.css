@@ -11,6 +11,11 @@
 
 .home__middle {
     flex: 0.8;
+    overflow-y: auto;
+}
+
+.home__middle::-webkit-scrollbar {
+    display: none;
 }
 
 
