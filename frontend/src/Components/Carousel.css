@@ -9,13 +9,14 @@
   .flickity-viewport {
     overflow: hidden;
     position: relative;
-    width: 550px;
+    width: 600px;
     height: 400px !important;
+    border-radius: 8px !important;
   }
   
   .flickity-slider {
     position: absolute;
-    width: 550px;
+    width: 600px;
   }
   
   /* draggable */
@@ -90,7 +91,7 @@
     left: -20px;
   }
   .flickity-prev-next-button.next {
-    right: -325px;
+    right: -375px;
   }
   /* right to left */
   .flickity-rtl .flickity-prev-next-button.previous {

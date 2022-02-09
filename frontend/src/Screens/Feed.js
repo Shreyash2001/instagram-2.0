@@ -14,7 +14,7 @@ function Feed() {
             </div>
         </div>
         </div>
-        <div>
+        <div className="feed__cards">
             <FeedCard />
             <FeedCard />
             <FeedCard />
