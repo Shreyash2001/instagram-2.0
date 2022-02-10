@@ -32,4 +32,50 @@
     height: 400px;
 }
 
+.feed__belowImage {
+    display: flex;
+    align-items: center;
+}
+
+.feed__likeContainer {
+    display: flex;
+    align-items: center;
+}
+
+.feed__like {
+    margin-right: 50px;
+}
+
+.like {
+    animation: like .8s ease-out;
+    transition: all .3s;
+    font-size: 28px !important;
+    border: 1px light gray !important;
+}
+
+@keyframes like {
+    0% {
+      transform: scale(1,1);
+    }
+    50% {
+      transform: scale(.5,.5);
+    }
+    100% {
+      transform: scale(1,1);
+    }
+}
+
+.feed__comment {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+
+.feed__share {
+    display: flex;
+    align-items: center;
+    margin-right: 80px;
+}
+
 
