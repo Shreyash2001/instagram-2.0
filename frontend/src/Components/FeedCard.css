@@ -78,4 +78,37 @@
     margin-right: 80px;
 }
 
+.feed__caption {
+    width: 500px;
+    margin: 10px 0px 20px 10px;
+
+}
+
+.feed__addComments {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.feed__enterComment {
+    display: flex;
+    align-items: center;
+    width: 510px;
+    height: 40px;
+    background-color: #eaeded73;
+    border-radius: 22px;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.feed__enterComment > input {
+    width: 450px;
+    height: 20px;
+    padding: 10px;
+    outline-width: 0;
+    border: none;
+    background-color: #eaeded1c;
+    font-size: 16px;
+}
+
 
