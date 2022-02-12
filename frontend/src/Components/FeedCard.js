@@ -142,7 +142,7 @@ function FeedCard({name, lastname, username, image}) {
             <Avatar />
           </div>
           <div className="feed__enterComment">
-            <input placeholder="Add comment" value={comment} onChange={handleChange} />
+            <textarea placeholder="Add comment" value={comment} onChange={handleChange} />
             <IconButton onClick={() => setShow(!show)}>
               <EmojiEmotionsOutlinedIcon />
             </IconButton>

@@ -13,10 +13,13 @@ const PostSchema = mongoose.Schema({
         type : String,
         required : true
     },
-    tags : {
-        type : String,
-        required : true
+    location : {
+        type : String
     },
+    tags : [{
+        type : mongoose.Types.ObjectId,
+        ref: "User"
+    }],
     likes : [{
         type : mongoose.Types.ObjectId,
         ref : "User"
