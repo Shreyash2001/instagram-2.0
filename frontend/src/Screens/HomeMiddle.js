@@ -11,6 +11,7 @@ import Modal from '@mui/material/Modal';
 import { IKContext, IKUpload } from 'imagekitio-react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { getPostsAction } from '../actions/postsAction';
 
 
 function HomeMiddle() {
@@ -139,6 +140,8 @@ function HomeMiddle() {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
 
+        dispatch(getPostsAction());
+        
         if(success) {
             handleClose();
             setSendStory(false);

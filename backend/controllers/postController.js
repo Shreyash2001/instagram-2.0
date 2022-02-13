@@ -30,7 +30,7 @@ const getPost = asyncHandler(async(req, res) => {
     var temp = [];
     temp.push(user);
     allPosts.push(temp);
-    const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1});
+    const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1}).populate("postedBy");
     allPosts.push(post);
     if(post) {
         res.status(200).json(allPosts);
