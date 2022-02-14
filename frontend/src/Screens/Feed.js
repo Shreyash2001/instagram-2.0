@@ -1,8 +1,10 @@
 import { Button } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import FeedCard from '../Components/FeedCard';
 import "./Feed.css"
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 function Feed() {
   var {loading, error, posts} = useSelector(state => state.allPosts);
@@ -10,7 +12,31 @@ function Feed() {
   posts = JSON.parse(localStorage.getItem("Instagram-Posts"));
 
   return (
-    <div className="feed">
+    <>
+    {
+      loading 
+      ?
+      <div>
+      <Skeleton 
+        style={{marginLeft:"100px", marginBottom:"20px"}} 
+        width={750} 
+        height={550} 
+        borderRadius={0}
+        count={3} 
+        baseColor="#adadad2e"
+        />  
+      </div>
+      
+      :
+
+      error ? 
+      <div>
+        <span>{error}</span>
+      </div>
+      :
+
+
+      <div className="feed">
         <div>
         <div className="feed__top">
             <div>
@@ -35,6 +61,8 @@ function Feed() {
             
         </div>
     </div>
+    }
+    </>
   );
 };
 

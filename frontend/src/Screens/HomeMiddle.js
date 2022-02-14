@@ -12,6 +12,8 @@ import { IKContext, IKUpload } from 'imagekitio-react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { getPostsAction } from '../actions/postsAction';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 function HomeMiddle() {
@@ -27,7 +29,7 @@ function HomeMiddle() {
     const [idx, setIdx] = useState(0);
     
     const dispatch = useDispatch();
-    var {data} = useSelector(state => state.storyInfo);
+    var {data, loading} = useSelector(state => state.storyInfo);
     const {success} = useSelector(state => state.currentStoryInfo)
     data = JSON.parse(localStorage.getItem("Instagram-Stories"));
 
@@ -202,6 +204,22 @@ function HomeMiddle() {
 
                     <div className="homeMiddle__postsContainerStoriesMainInfo">
                         {
+
+                            loading ?
+                            <div>
+                            <Skeleton 
+                                circle
+                                style={{marginLeft:"30px", marginBottom:"20px"}} 
+                                width={80} 
+                                height={80} 
+                                borderRadius={0}
+                                inline = "false"
+                                count={6} 
+                                baseColor="#adadad2e"
+                            />
+                            </div> 
+                            :
+
                             data?.map((val, i) => {
                                 if(val?.list?.length > 0) {
                                 return ( 
@@ -218,12 +236,6 @@ function HomeMiddle() {
                                 }
                             })
                         }
-
-                        {/* {data && data.length !== 0 &&
-                            data?.map((val) => (
-                                console.log(val?.list)
-                            ))
-                         } */}
                             
                     </div>
                     </div>
