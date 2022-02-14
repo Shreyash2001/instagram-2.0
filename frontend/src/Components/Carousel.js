@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Flickity from "react-flickity-component";
 import "./Carousel.css";
 
-function Carousel({initialIndex}) {
+function Carousel({initialIndex, images}) {
     let flkty;
   let [carouselIndex, setCarouselIndex] = useState(null);
 
@@ -30,9 +30,9 @@ function Carousel({initialIndex}) {
     flickityRef={c => (flkty = c)}
     options={{ initialIndex: initialIndex }}
   >
-    <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" />
-    <img src="https://wallpaperaccess.com/full/393735.jpg" />
-    <img src="https://m.media-amazon.com/images/I/8192Yt4zAfL._SL1500_.jpg" />
+    {images?.map((image) => (
+      <img src={image} alt="" />
+    ))}
   </Flickity>
   )
 }

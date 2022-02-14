@@ -13,7 +13,7 @@ export const getPostsAction = () => async(dispatch, getState) => {
             }
         }
         const {data} = await axios.get("/api/posts/getUserPosts", config);
-
+        localStorage.setItem("Instagram-Posts", JSON.stringify(data));
         dispatch({
             type: GET_POSTS_SUCCESS,
             payload : data

@@ -1,11 +1,13 @@
 import { Button } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import FeedCard from '../Components/FeedCard';
 import "./Feed.css"
 
 function Feed() {
-  const {loading, error, posts} = useSelector(state => state.allPosts);
+  var {loading, error, posts} = useSelector(state => state.allPosts);
+
+  posts = JSON.parse(localStorage.getItem("Instagram-Posts"));
 
   return (
     <div className="feed">
@@ -20,7 +22,13 @@ function Feed() {
         <div className="feed__cards">
         {
           posts?.map((post) => (
-            <FeedCard />
+            <FeedCard 
+              name = {post?.name}
+              images = {post?.images}
+              profilePic = {post?.profilePic}
+              caption = {post?.caption}
+              location = {post?.location}
+            />
           ))
         }
             

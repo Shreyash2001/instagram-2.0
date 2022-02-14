@@ -1,5 +1,5 @@
 import { Avatar, IconButton } from '@mui/material';
-import {React, useEffect, useState} from 'react';
+import {React, useState} from 'react';
 import "./FeedCard.css";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Carousel from './Carousel';
@@ -13,10 +13,9 @@ import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 
 
-function FeedCard({name, lastname, username, image}) {
+function FeedCard({name, images, caption, location, profilePic}) {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState(null);
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
 
@@ -45,11 +44,11 @@ function FeedCard({name, lastname, username, image}) {
       <div className="feedCard__info">
         <div className="feedCard__infoLeft">
             <div>
-                <Avatar />
+                <Avatar src={profilePic} />
             </div>
             <div className="feed__infoName">
-                <p>Test User</p>
-                <span>test__user</span>
+                <p>{name}</p>
+                <span>{location}</span>
             </div>
           </div>
           <div>
@@ -61,7 +60,7 @@ function FeedCard({name, lastname, username, image}) {
 
       <div className="feed__image">
         {/* <img src="https://www.greenqueen.com.hk/wp-content/uploads/2021/06/WEF-Investments-In-Nature-Based-Solutions-Have-To-Triple-By-2030-To-Address-Climate-Change-Biodiversity-Loss.jpg" alt="" /> */}
-        <Carousel initialIndex={0} />
+        <Carousel images={images} initialIndex={0} />
       </div>
 
       <div className="feed__belowImage">
@@ -133,13 +132,13 @@ function FeedCard({name, lastname, username, image}) {
         </div>
 
         <div className="feed__caption">
-          <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>test__user</span>
-          <span style={{lineHeight:"25px", fontSize:"16px"}}>Hey there this is a test. we have to work a lot and make this ui look more great. Looking forward for more photos and videos. #test #moretest</span>
+          <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>{name}</span>
+          <span style={{lineHeight:"25px", fontSize:"16px"}}>{caption}</span>
         </div>
 
         <div className="feed__addComments">
           <div>
-            <Avatar />
+            <Avatar src={profilePic} />
           </div>
           <div className="feed__enterComment">
             <textarea placeholder="Add comment" value={comment} onChange={handleChange} />

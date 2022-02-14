@@ -26,7 +26,7 @@ const createPost = asyncHandler(async(req, res) => {
 
 const getPost = asyncHandler(async(req, res) => { 
     const user = await User.findById(req.user._id).populate({
-    path : "following",
+    path : "following followers",
     model : "User",
     populate: {
         path : "posts",
@@ -41,12 +41,24 @@ const getPost = asyncHandler(async(req, res) => {
         follow.posts.map((post) => {
             var temp = {};
             temp.name = follow.firstName + " " + follow.lastName;
+            temp.profilePic = follow.profilePic
             temp.images = post.image
             temp.caption = post.caption
             temp.location = post.location
             data.push(temp)
         })
-    })
+    });
+    user.followers.map((follow) => {
+        follow.posts.map((post) => {
+            var temp = {};
+            temp.name = follow.firstName + " " + follow.lastName;
+            temp.profilePic = follow.profilePic
+            temp.images = post.image
+            temp.caption = post.caption
+            temp.location = post.location
+            data.push(temp)
+        })
+    });
 
     if(user) {
         res.status(200).json(data);
