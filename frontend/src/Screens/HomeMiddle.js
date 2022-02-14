@@ -133,7 +133,7 @@ function HomeMiddle() {
         } else {
             setShowScrollRight(false);
         }
-        console.log('Current scroll position:', target.scrollLeft);
+        
     }
     
     useEffect(() => {

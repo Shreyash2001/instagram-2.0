@@ -9,7 +9,7 @@ const createPost = asyncHandler(async(req, res) => {
         postedBy : req.user._id,
         image : image,
         caption : caption,
-        caption : location,
+        location : location,
         tags : tags
     }; 
 
@@ -25,15 +25,31 @@ const createPost = asyncHandler(async(req, res) => {
 
 
 const getPost = asyncHandler(async(req, res) => { 
-    var allPosts = [];
-    const user = await User.findById(req.user._id).populate("posts");
-    var temp = [];
-    temp.push(user);
-    allPosts.push(temp);
-    const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1}).populate("postedBy");
-    allPosts.push(post);
-    if(post) {
-        res.status(200).json(allPosts);
+    const user = await User.findById(req.user._id).populate({
+    path : "following",
+    model : "User",
+    populate: {
+        path : "posts",
+        model : "Post"
+    }
+    });
+    
+    // const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1}).populate("postedBy");
+   
+    var data = [];
+    user.following.map((follow) => {
+        follow.posts.map((post) => {
+            var temp = {};
+            temp.name = follow.firstName + " " + follow.lastName;
+            temp.images = post.image
+            temp.caption = post.caption
+            temp.location = post.location
+            data.push(temp)
+        })
+    })
+
+    if(user) {
+        res.status(200).json(data);
     } else {
         res.status(400).json({message : "You have not posted anything"});
     }
