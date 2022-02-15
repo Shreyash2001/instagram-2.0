@@ -1,4 +1,4 @@
-import { Avatar, IconButton } from '@mui/material';
+import { Avatar, Button, IconButton } from '@mui/material';
 import {React, useState} from 'react';
 import "./FeedCard.css";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -13,7 +13,7 @@ import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 
 
-function FeedCard({name, images, caption, location, profilePic}) {
+function FeedCard({name, username, images, caption, location, profilePic}) {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [show, setShow] = useState(false);
@@ -132,7 +132,7 @@ function FeedCard({name, images, caption, location, profilePic}) {
         </div>
 
         <div className="feed__caption">
-          <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>{name}</span>
+          <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>{username}</span>
           <span style={{lineHeight:"25px", fontSize:"16px"}}>{caption}</span>
         </div>
 
@@ -158,7 +158,11 @@ function FeedCard({name, images, caption, location, profilePic}) {
           </div>
             }
           </div>
-          
+
+          {comment.length > 0 && <div>
+            <Button style={{textTransform:"inherit", borderRadius:"22px", marginLeft:"5px"}}>Post</Button>
+          </div>}
+
         </div>
 
     </div>

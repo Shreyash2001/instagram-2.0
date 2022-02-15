@@ -50,6 +50,7 @@ function Feed() {
           posts?.map((post) => (
             <FeedCard 
               name = {post?.name}
+              username = {post?.username}
               images = {post?.images}
               profilePic = {post?.profilePic}
               caption = {post?.caption}

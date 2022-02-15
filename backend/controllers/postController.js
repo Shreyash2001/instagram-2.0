@@ -41,6 +41,7 @@ const getPost = asyncHandler(async(req, res) => {
         follow.posts.map((post) => {
             var temp = {};
             temp.name = follow.firstName + " " + follow.lastName;
+            temp.username = follow.userName
             temp.profilePic = follow.profilePic
             temp.images = post.image
             temp.caption = post.caption
@@ -52,6 +53,7 @@ const getPost = asyncHandler(async(req, res) => {
         follow.posts.map((post) => {
             var temp = {};
             temp.name = follow.firstName + " " + follow.lastName;
+            temp.username = follow.userName
             temp.profilePic = follow.profilePic
             temp.images = post.image
             temp.caption = post.caption
