@@ -26,6 +26,8 @@ function Carousel({initialIndex, images}) {
     }
   }, [carouselIndex]);
   return (
+    <>
+    {images?.length > 1 ? 
     <Flickity
     flickityRef={c => (flkty = c)}
     options={{ initialIndex: initialIndex }}
@@ -34,6 +36,12 @@ function Carousel({initialIndex, images}) {
       <img src={image} alt="" />
     ))}
   </Flickity>
+  :
+  <div className="single_image">
+    <img src={images[0]} alt="" />
+  </div>
+  }
+  </>
   )
 }
 
