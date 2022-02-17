@@ -46,6 +46,7 @@ const getPost = asyncHandler(async(req, res) => {
             temp.images = post.image
             temp.caption = post.caption;
             temp.location = post.location;
+            temp.time = moment(post.createdAt).fromNow();
             data.push(temp);
         })
         res.status(200).json(data);

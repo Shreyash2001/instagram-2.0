@@ -81,7 +81,14 @@
 .feed__caption {
     width: 500px;
     margin: 10px 0px 20px 10px;
+}
 
+.feed__caption > div {
+    margin-top: 8px;
+}
+
+.feed__caption > div > span {
+    font-size: 12px;
 }
 
 .feed__addComments {

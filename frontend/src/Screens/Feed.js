@@ -55,6 +55,7 @@ function Feed() {
               profilePic = {post?.profilePic}
               caption = {post?.caption}
               location = {post?.location}
+              time = {post?.time}
             />
           ))
         }

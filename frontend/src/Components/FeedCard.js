@@ -13,7 +13,7 @@ import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 
 
-function FeedCard({name, username, images, caption, location, profilePic}) {
+function FeedCard({name, username, images, caption, location, profilePic, time}) {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [show, setShow] = useState(false);
@@ -145,6 +145,9 @@ function FeedCard({name, username, images, caption, location, profilePic}) {
         <div className="feed__caption">
           <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>{username}</span>
           <span style={{lineHeight:"25px", fontSize:"16px"}}>{caption}</span>
+          <div>
+            <span>{time}</span>
+          </div>
         </div>
 
         <div className="feed__addComments">
