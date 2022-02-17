@@ -54,4 +54,4 @@ const getPost = asyncHandler(async(req, res) => {
     }
 });
 
-module.exports = {createPost, getPost, updatedGetPost};
+module.exports = {createPost, getPost};

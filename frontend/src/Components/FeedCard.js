@@ -18,6 +18,7 @@ function FeedCard({name, username, images, caption, location, profilePic}) {
   const [bookmark, setBookmark] = useState(false);
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
+  const [showPostButton, setShowPostButton] = useState(false);
 
   const handleClick = () => {
     setLike(!like);
@@ -36,8 +37,18 @@ function FeedCard({name, username, images, caption, location, profilePic}) {
   };
 
   const handleChange = (e) => {
-    setComment(e.target.value);
+    const str = e.target.value;
+    let check = str.replace(/ /g, "");
+    console.log(check.length)
+    if(check.length > 0) setShowPostButton(true)
+    else setShowPostButton(false)
+    setComment(str);
   };
+
+  const showComment = () => {
+    comment.split(' ').filter(word => word).join(' ')
+
+  }
 
   return (
     <div className="feedCard">
@@ -159,12 +170,12 @@ function FeedCard({name, username, images, caption, location, profilePic}) {
             }
           </div>
 
-          {comment.length > 0 && <div>
-            <Button style={{textTransform:"inherit", borderRadius:"22px", marginLeft:"5px"}}>Post</Button>
+          {showPostButton && <div>
+            <Button onClick={showComment} style={{textTransform:"inherit", borderRadius:"22px", marginLeft:"5px"}}>Post</Button>
           </div>}
 
         </div>
-
+            <div>{comment}</div>
     </div>
   );
 };
