@@ -15,14 +15,17 @@
   }
 
   .flickity-viewport > div > img {
-    width: 650px !important;
+    width: 100% !important;
+    height: 100% !important;
     left: -80px !important;
-    padding-left: 10px;
+    padding-left: 20px;
+    object-fit: cover !important;
   }
   
   .flickity-slider {
     position: absolute;
-    width: 600px;
+    width: 630px;
+    height: 450px;
   }
   
   /* draggable */
@@ -97,7 +100,7 @@
     left: -20px;
   }
   .flickity-prev-next-button.next {
-    right: -375px;
+    right: -358px;
   }
   /* right to left */
   .flickity-rtl .flickity-prev-next-button.previous {
@@ -151,7 +154,7 @@
 
 
   .single_image > img {
-    width: 550px;
+    width: 590px;
     height: 400px;
     border-radius: 6px;
     object-fit: cover;

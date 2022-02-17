@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Post = require("../model/postModel");
 const User = require("../model/userModel");
+const moment = require("moment")
 
 
 const createPost = asyncHandler(async(req, res) => {
@@ -23,50 +24,34 @@ const createPost = asyncHandler(async(req, res) => {
     }
 });
 
+const updatedGetPost = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.user._id)
+    const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1}).populate("postedBy");
+    res.json(post)
+});
 
-const getPost = asyncHandler(async(req, res) => { 
-    const user = await User.findById(req.user._id).populate({
-    path : "following followers",
-    model : "User",
-    populate: {
-        path : "posts",
-        model : "Post"
-    }
-    });
+const getPost = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.user._id)
+    const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
+                            .sort({createdAt : -1}).populate("postedBy");
     
-    // const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1}).populate("postedBy");
-   
-    var data = [];
-    user.following.map((follow) => {
-        follow.posts.map((post) => {
-            var temp = {};
-            temp.name = follow.firstName + " " + follow.lastName;
-            temp.username = follow.userName
-            temp.profilePic = follow.profilePic
-            temp.images = post.image
-            temp.caption = post.caption
-            temp.location = post.location
-            data.push(temp)
-        })
-    });
-    user.followers.map((follow) => {
-        follow.posts.map((post) => {
-            var temp = {};
-            temp.name = follow.firstName + " " + follow.lastName;
-            temp.username = follow.userName
-            temp.profilePic = follow.profilePic
-            temp.images = post.image
-            temp.caption = post.caption
-            temp.location = post.location
-            data.push(temp)
-        })
-    });
+    const data = [];
 
-    if(user) {
+    if(posts) {
+        posts.map((post) => {
+            var temp = {};
+            temp.name = post.postedBy.firstName + " " + post.postedBy.lastName;
+            temp.username = post.postedBy.userName;
+            temp.profilePic = post.postedBy.profilePic;
+            temp.images = post.image
+            temp.caption = post.caption;
+            temp.location = post.location;
+            data.push(temp);
+        })
         res.status(200).json(data);
     } else {
         res.status(400).json({message : "You have not posted anything"});
     }
 });
 
-module.exports = {createPost, getPost};
+module.exports = {createPost, getPost, updatedGetPost};
