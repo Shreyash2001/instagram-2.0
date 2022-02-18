@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeMiddle.css";
-import { Avatar, Button } from '@mui/material';
+import { Avatar, Button, Fade } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
@@ -14,6 +14,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { getPostsAction } from '../actions/postsAction';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import Backdrop from '@mui/material/Backdrop';
+
 
 
 function HomeMiddle() {
@@ -27,6 +29,7 @@ function HomeMiddle() {
     const [story, setStory] = useState({});
     const [sendStory, setSendStory] = useState({});
     const [idx, setIdx] = useState(0);
+    const [openPost, setOpenPost] = useState(false);
     
     const dispatch = useDispatch();
     var {data, loading} = useSelector(state => state.storyInfo);
@@ -46,6 +49,18 @@ function HomeMiddle() {
         }, 2000);
     }
 
+    const stylePost = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
+
     const style = {
         position: 'absolute',
         top: '49%',
@@ -58,7 +73,10 @@ function HomeMiddle() {
       
         const [open, setOpen] = useState(false);
         const handleOpen = () => setOpen(true);
+        const handleClickCreatePost = () => setOpenPost(true);
         const handleClose = () => setOpen(false);
+        const handleCloseCreatePost = () => setOpenPost(false);
+
 
         const handleStory = (id, i) => {
             handleOpen();
@@ -159,7 +177,7 @@ function HomeMiddle() {
                     <SearchIcon style={{color:"rgb(189, 186, 186)"}} />
                     <input type="search" placeholder="Search"  />
                 </div>
-                <Button>+ Create Post</Button>
+                <Button onClick={handleClickCreatePost}>+ Create Post</Button>
             </div>
 
             <div className="homeMiddle__posts">
@@ -304,6 +322,28 @@ function HomeMiddle() {
             }
             </Box>
         </Modal>
+        </div>
+
+        <div>
+        <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={openPost}
+        onClose={handleCloseCreatePost}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={openPost}>
+          <Box sx={stylePost}>
+            <div>
+                <span>Hello</span>
+            </div>
+          </Box>
+        </Fade>
+      </Modal>
         </div>
         </div>
     );
