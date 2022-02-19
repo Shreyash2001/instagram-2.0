@@ -325,25 +325,43 @@ function HomeMiddle() {
         </div>
 
         <div>
-        <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={openPost}
-        onClose={handleCloseCreatePost}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openPost}>
-          <Box sx={stylePost}>
-            <div>
-                <span>Hello</span>
+            <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            open={openPost}
+            onClose={handleCloseCreatePost}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+            timeout: 500,
+            }}
+        >
+            <Fade in={openPost}>
+            <Box sx={stylePost}>
+            <div className="homeMiddle__addStory">
+                    <div className="homeMiddle__addStoryTop">
+                        <span>Add New Story</span>
+                    </div>
+
+                    <div className="homeMiddle__addStoryMiddle">
+                        <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
+                        <IKContext
+                            publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
+                            urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9"
+                            transformationPosition="path"
+                            authenticationEndpoint="http://localhost:5000/auth"
+                            >
+
+                            <label>
+                            <span>Select from this device</span>
+                            <IKUpload fileName="my-story" onSuccess={onSuccess} />
+                            </label>
+                            </IKContext>
+                    </div>
             </div>
-          </Box>
-        </Fade>
-      </Modal>
+            </Box>
+            </Fade>
+            </Modal>
         </div>
         </div>
     );
