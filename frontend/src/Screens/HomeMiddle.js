@@ -28,6 +28,7 @@ function HomeMiddle() {
     const [show, setShow] = useState(false);
     const [story, setStory] = useState({});
     const [sendStory, setSendStory] = useState({});
+    const [sendPost, setSendPost] = useState({});
     const [idx, setIdx] = useState(0);
     const [openPost, setOpenPost] = useState(false);
     
@@ -51,14 +52,12 @@ function HomeMiddle() {
 
     const stylePost = {
         position: 'absolute',
-        top: '50%',
+        top: '49%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
+        width: 352,
+        height: 600,
+        outline:'none'
       };
 
     const style = {
@@ -109,8 +108,15 @@ function HomeMiddle() {
                 fileId : res.fileId
             }
             setSendStory(data);
-            
           };
+
+          const onSuccessPost = (res) => {
+              const data = {
+                  file : res.url,
+                  fileId : res.fileId
+              }
+              setSendPost(data);
+          }
 
           const uploadStory = () => {
             dispatch(addStoryAction(sendStory));
@@ -338,12 +344,22 @@ function HomeMiddle() {
         >
             <Fade in={openPost}>
             <Box sx={stylePost}>
-            <div className="homeMiddle__addStory">
-                    <div className="homeMiddle__addStoryTop">
-                        <span>Add New Story</span>
+            <div className="homeMiddle__addPost">
+                    <div className="homeMiddle__addPostTop">
+                        <span>Add New Post</span>
                     </div>
 
-                    <div className="homeMiddle__addStoryMiddle">
+                    {
+                        sendPost && Object.keys(sendPost).length !== 0
+                        ?
+                        <div className="uploadStory">
+                            <img src={sendPost.file} alt="" /> 
+                            <div>
+                            <Button onClick={uploadStory}>Next</Button>
+                            </div>
+                        </div>
+                        :
+                        <div className="homeMiddle__addPostMiddle">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
                         <IKContext
                             publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
@@ -354,10 +370,10 @@ function HomeMiddle() {
 
                             <label>
                             <span>Select from this device</span>
-                            <IKUpload fileName="my-story" onSuccess={onSuccess} />
+                            <IKUpload fileName="my-story" onSuccess={onSuccessPost} />
                             </label>
                             </IKContext>
-                    </div>
+                    </div>}
             </div>
             </Box>
             </Fade>

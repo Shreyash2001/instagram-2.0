@@ -16,6 +16,9 @@ const PostSchema = mongoose.Schema({
     location : {
         type : String
     },
+    fileId : {
+        type : String
+    },
     tags : [{
         type : mongoose.Types.ObjectId,
         ref: "User"
