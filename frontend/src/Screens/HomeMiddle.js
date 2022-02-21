@@ -15,6 +15,7 @@ import { getPostsAction } from '../actions/postsAction';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Backdrop from '@mui/material/Backdrop';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 
 
@@ -75,6 +76,20 @@ function HomeMiddle() {
         const handleClickCreatePost = () => setOpenPost(true);
         const handleClose = () => setOpen(false);
         const handleCloseCreatePost = () => setOpenPost(false);
+
+        const [image, setImage] = useState(null);
+        const inputRef = React.useRef();
+        const triggerFileSelectPopup = () => inputRef.current.click();
+
+        const onSelectFile = (event) => {
+            if (event.target.files && event.target.files.length > 0) {
+              const reader = new FileReader();
+              reader.readAsDataURL(event.target.files[0]);
+              reader.addEventListener("load", () => {
+                setImage(reader.result);
+              });  
+            }
+          };
 
 
         const handleStory = (id, i) => {
@@ -350,10 +365,10 @@ function HomeMiddle() {
                     </div>
 
                     {
-                        sendPost && Object.keys(sendPost).length !== 0
+                        image !== null
                         ?
                         <div className="uploadStory">
-                            <img src={sendPost.file} alt="" /> 
+                            <img src={image} alt="" /> 
                             <div>
                             <Button onClick={uploadStory}>Next</Button>
                             </div>
@@ -361,7 +376,15 @@ function HomeMiddle() {
                         :
                         <div className="homeMiddle__addPostMiddle">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
-                        <IKContext
+                        <Button onClick={triggerFileSelectPopup}  className="homeMiddle__addPostMiddleButton">
+                        <PhotoCameraIcon style={{fontSize:"30px", color:"#fff", marginRight:"10px"}} />
+                        Add photo
+                        </Button>
+                        <input type="file" accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
+
+
+
+                        {/* <IKContext
                             publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
                             urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9"
                             transformationPosition="path"
@@ -372,8 +395,11 @@ function HomeMiddle() {
                             <span>Select from this device</span>
                             <IKUpload fileName="my-story" onSuccess={onSuccessPost} />
                             </label>
-                            </IKContext>
-                    </div>}
+                            </IKContext> */}
+
+
+                        </div>
+                    }
             </div>
             </Box>
             </Fade>

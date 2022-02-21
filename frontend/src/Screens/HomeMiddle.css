@@ -309,6 +309,7 @@ to{
 .homeMiddle__addPostMiddle > img {
     width: 160px;
     height: 140px;
+    margin-bottom: 20px;
 }
 
 .homeMiddle__addPostMiddle > label {
@@ -332,5 +333,20 @@ to{
 
 .homeMiddle__addPostMiddle > label > input[type="file"] {
     display: none;
+}
+
+.homeMiddle__addPostMiddleButton {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
+    color: #fff !important;
+    font-size: 18px !important;
+    width: 250px !important;
+    padding: 10px;
+    margin: 30px 0px;
+    text-transform: inherit !important;
+    cursor: pointer;
+    border-radius: 12px;
 }
 
