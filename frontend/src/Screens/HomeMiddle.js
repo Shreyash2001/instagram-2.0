@@ -77,21 +77,45 @@ function HomeMiddle() {
         const handleClose = () => setOpen(false);
         const handleCloseCreatePost = () => setOpenPost(false);
 
-        const [image, setImage] = useState(null);
+        const [image, setImage] = useState([]);
+        const [pictures, setPictures] = useState([{
+            data: [],
+            url: ""
+        }])
         const inputRef = React.useRef();
         const triggerFileSelectPopup = () => inputRef.current.click();
 
         const onSelectFile = (event) => {
             if (event.target.files && event.target.files.length > 0) {
-              const reader = new FileReader();
-              reader.readAsDataURL(event.target.files[0]);
-              reader.addEventListener("load", () => {
-                setImage(reader.result);
-              });  
+
+                const tempArr = [];
+
+                [...event.target.files].forEach(file => {
+                    console.log("file >>> ", file);
+
+                    tempArr.push({
+                    data: file,
+                    url: URL.createObjectURL(file)
+                    });
+
+                    console.log("pictures >> ", pictures);
+                });
+
+                setPictures(tempArr);
+
+
+            //   const reader = new FileReader();
+            //   const filesToAdd = event.target.files;
+            //     reader.readAsDataURL(event.target.files[0]);
+            //     reader.addEventListener("load", () => {
+            //         // arr.push(reader.result);
+            //     });  
+            
+            // setImage([...image, filesToAdd]);
             }
           };
 
-
+          console.log(pictures);
         const handleStory = (id, i) => {
             handleOpen();
             const result = data?.find(({_id}) => _id === id);
@@ -100,7 +124,6 @@ function HomeMiddle() {
         }
 
         const nextStory = () => {
-            
             if(data[idx + 1] !== undefined && i < data[idx + 1].list.length) {
                 setStory(data[idx + 1]);
                 setIdx(idx + 1);
@@ -365,14 +388,16 @@ function HomeMiddle() {
                     </div>
 
                     {
-                        image !== null
+                        pictures?.length > 1 || pictures[0].url.length > 0
                         ?
-                        <div className="uploadStory">
-                            <img src={image} alt="" /> 
+                        pictures?.map((pic) => (
+                            <div className="uploadStory">
+                            <img src={pic.url} alt="" /> 
                             <div>
                             <Button onClick={uploadStory}>Next</Button>
                             </div>
                         </div>
+                        ))
                         :
                         <div className="homeMiddle__addPostMiddle">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
@@ -380,7 +405,7 @@ function HomeMiddle() {
                         <PhotoCameraIcon style={{fontSize:"30px", color:"#fff", marginRight:"10px"}} />
                         Add photo
                         </Button>
-                        <input type="file" accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
+                        <input type="file" multiple accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
 
 
 
