@@ -390,14 +390,18 @@ function HomeMiddle() {
                     {
                         pictures?.length > 1 || pictures[0].url.length > 0
                         ?
-                        pictures?.map((pic) => (
+                        <div>
+                        <div style={{display:"flex", overflowX:"scroll"}}>
+                        {pictures?.map((pic) => (
                             <div className="uploadStory">
-                            <img src={pic.url} alt="" /> 
-                            <div>
-                            <Button onClick={uploadStory}>Next</Button>
+                                <img src={pic.url} alt="" /> 
                             </div>
+                        ))}
                         </div>
-                        ))
+                        <div>
+                            <Button className="homeMiddle__addPostNext" onClick={uploadStory}>Next</Button>
+                        </div>
+                        </div>
                         :
                         <div className="homeMiddle__addPostMiddle">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
