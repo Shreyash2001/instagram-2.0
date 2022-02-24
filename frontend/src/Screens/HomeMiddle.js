@@ -16,6 +16,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Backdrop from '@mui/material/Backdrop';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import CropImage from '../Components/CropImage';
 
 
 
@@ -395,6 +396,7 @@ function HomeMiddle() {
                         {pictures?.map((pic) => (
                             <div className="uploadStory">
                                 <img src={pic.url} alt="" /> 
+                                <CropImage post={pic.url} />
                             </div>
                         ))}
                         </div>
