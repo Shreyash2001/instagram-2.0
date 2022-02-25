@@ -57,7 +57,7 @@ function HomeMiddle() {
         top: '49%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 352,
+        width: 550,
         height: 600,
         outline:'none'
       };
@@ -67,7 +67,7 @@ function HomeMiddle() {
         top: '49%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 352,
+        width: 452,
         height: 600,
         outline:'none'
       };
@@ -394,8 +394,8 @@ function HomeMiddle() {
                         <div>
                         <div style={{display:"flex", overflowX:"scroll"}}>
                         {pictures?.map((pic) => (
-                            <div className="uploadStory">
-                                <img src={pic.url} alt="" /> 
+                            <div className="uploadPost">
+                                {/* <img src={pic.url} alt="" />  */}
                                 <CropImage post={pic.url} />
                             </div>
                         ))}

@@ -284,7 +284,7 @@ to{
 }
 
 .homeMiddle__addPost {
-    width: 432px;
+    width: 550px;
     height: 600px;
     background-color: #fff;
     border-radius: 22px;
@@ -363,5 +363,12 @@ to{
     text-transform: inherit !important;
     cursor: pointer;
     border-radius: 12px;
+}
+
+.uploadPost > img {
+    width: 500px;
+    height: 450px;
+    padding: 15px;
+    object-fit: cover;
 }
 
