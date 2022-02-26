@@ -393,16 +393,16 @@ function HomeMiddle() {
                         ?
                         <div>
                         <div style={{display:"flex", overflowX:"scroll"}}>
-                        {pictures?.map((pic) => (
+                         {pictures?.map((pic) => (
                             <div className="uploadPost">
-                                {/* <img src={pic.url} alt="" />  */}
                                 <CropImage post={pic.url} />
                             </div>
                         ))}
+                        
                         </div>
-                        <div>
+                        {/* <div>
                             <Button className="homeMiddle__addPostNext" onClick={uploadStory}>Next</Button>
-                        </div>
+                        </div> */}
                         </div>
                         :
                         <div className="homeMiddle__addPostMiddle">

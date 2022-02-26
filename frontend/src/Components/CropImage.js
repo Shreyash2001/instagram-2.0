@@ -21,7 +21,7 @@ function CropImage({post}) {
         <br />
         <br /> */}
         <Cropper
-          style={{ height: 400, width: "100%" }}
+          style={{ height: 400, width: "100%", padding:"10px" }}
           zoomTo={0.5}
           initialAspectRatio={16 / 9}
           preview=".img-preview"
