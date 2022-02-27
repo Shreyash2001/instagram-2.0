@@ -1,4 +1,7 @@
-.cropper-container {
-    width: 540px !important;
-    margin: 10px;
+.cropper-wrap-box {
+    max-height: 500px;
+}
+
+.cropper-modal {
+    display: none;
 }

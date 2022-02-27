@@ -15,13 +15,12 @@ function CropImage({post}) {
 
   return (
     <div>
-      <div style={{ width: "100%", padding:"10px" }}>
+      <div style={{ width: "100%", padding:"8px" }}>
         {/* <input type="file" onChange={onChange} />
         <button>Use default img</button>
         <br />
         <br /> */}
         <Cropper
-          style={{ height: 400, width: "100%", padding:"10px" }}
           zoomTo={0.5}
           initialAspectRatio={16 / 9}
           preview=".img-preview"

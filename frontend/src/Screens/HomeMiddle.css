@@ -365,10 +365,35 @@ to{
     border-radius: 12px;
 }
 
-.uploadPost > img {
-    width: 500px;
-    height: 450px;
-    padding: 15px;
-    object-fit: cover;
+.uploadPost {
+    width: 400px;
+}
+
+.postArrowButtons {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 200px;
+    width: 520px;
+    padding: 10px;
+
+}
+
+.postArrowButtons__next {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.767);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+.postArrowButtons__prev {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.767);
+    border-radius: 50%;
+    cursor: pointer;
 }
 

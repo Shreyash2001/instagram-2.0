@@ -78,7 +78,6 @@ function HomeMiddle() {
         const handleClose = () => setOpen(false);
         const handleCloseCreatePost = () => setOpenPost(false);
 
-        const [image, setImage] = useState([]);
         const [pictures, setPictures] = useState([{
             data: [],
             url: ""
@@ -116,7 +115,6 @@ function HomeMiddle() {
             }
           };
 
-          console.log(pictures);
         const handleStory = (id, i) => {
             handleOpen();
             const result = data?.find(({_id}) => _id === id);
@@ -179,10 +177,12 @@ function HomeMiddle() {
   
          const scrollOnClickRightTopRated = () => {
           sideScroll(document.getElementById("topRated"),'right',10,1500,20); 
-      }
+        }
+
       const scrollOnClickLeftTopRated = () => { 
           sideScroll(document.getElementById("topRated"),'left',10,1500,20);
-      }
+        }
+
       const [showScroll, setShowScroll] = useState(false);
       const [showScrollRight, setShowScrollRight] = useState(false);
       const scrollEvent = (e) => {
@@ -200,7 +200,17 @@ function HomeMiddle() {
         }
         
     }
-    
+
+    const[postIdx, setPostIdx] = useState(0);
+    const prevPostPicture = () => {
+        setPostIdx(postIdx - 1);
+    }
+
+    const nextPostPicture = () => {
+        if(postIdx < pictures?.length)
+        setPostIdx(postIdx + 1);
+    }
+
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
@@ -391,18 +401,42 @@ function HomeMiddle() {
                     {
                         pictures?.length > 1 || pictures[0].url.length > 0
                         ?
-                        <div>
-                        <div style={{display:"flex", overflowX:"scroll"}}>
-                         {pictures?.map((pic) => (
+                        <div style={{position:"relative"}}>
+                        <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                         {/* {pictures?.map((pic) => (
                             <div className="uploadPost">
                                 <CropImage post={pic.url} />
                             </div>
-                        ))}
+                        ))} */}
+                            <div className="uploadPost">
+                                <CropImage post={pictures[postIdx].url} />
+                            </div>
                         
                         </div>
                         {/* <div>
                             <Button className="homeMiddle__addPostNext" onClick={uploadStory}>Next</Button>
                         </div> */}
+                        <div className="postArrowButtons">
+
+                        {postIdx > 0 ? 
+                        <div className="postArrowButtons__prev" onClick={prevPostPicture}>
+                        <ArrowBackIosIcon style={{color:"#fff", margin:"8px", fontSize:"16px"}} />
+                        </div>
+                        :
+                        <div>
+                        </div>
+                        }
+
+                        {postIdx < pictures?.length - 1 ?
+                        <div className="postArrowButtons__next" onClick={nextPostPicture}>
+                        <ArrowForwardIosIcon style={{color:"#fff", margin:"8px", fontSize:"16px"}} />
+                        </div>
+                        :
+                        <div />
+                        }
+
+                        </div>
+
                         </div>
                         :
                         <div className="homeMiddle__addPostMiddle">
