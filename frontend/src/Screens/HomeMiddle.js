@@ -211,6 +211,11 @@ function HomeMiddle() {
         setPostIdx(postIdx + 1);
     }
 
+    const[cropData, setCropData] = useState("")
+    const getCropData = (data) => {
+        setCropData(data);
+      };
+      console.log(cropData)
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
@@ -409,7 +414,12 @@ function HomeMiddle() {
                             </div>
                         ))} */}
                             <div className="uploadPost">
-                                <CropImage post={pictures[postIdx].url} />
+                                
+                                <CropImage post={pictures[postIdx].url} getCropData={getCropData} />
+                                
+                                {
+                                    cropData && <img src={cropData} alt="" />
+                                }
                             </div>
                         
                         </div>

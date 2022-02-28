@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import "./CropImage.css";
+import { Button } from '@mui/material';
 
-function CropImage({post}) {
+function CropImage({post, getCropData}) {
     const [cropData, setCropData] = useState("#");
     const [cropper, setCropper] = useState();
     
-      const getCropData = () => {
+      const getCrop = () => {
         if (typeof cropper !== "undefined") {
-          setCropData(cropper.getCroppedCanvas().toDataURL());
+          getCropData(cropper.getCroppedCanvas().toDataURL());
         }
       };
-
   return (
     <div>
       <div style={{ width: "100%", padding:"8px" }}>
@@ -26,7 +26,7 @@ function CropImage({post}) {
           preview=".img-preview"
           src={post}
           viewMode={1}
-          minCropBoxHeight={10}
+          minCropBoxHeight={50}
           minCropBoxWidth={10}
           background={false}
           responsive={true}
@@ -39,6 +39,9 @@ function CropImage({post}) {
         />
       </div>
       <div>
+      <Button
+       className="crop__button"
+       onClick={getCrop}>See cropped data</Button>
       </div>
       <br style={{ clear: "both" }} />
     </div>

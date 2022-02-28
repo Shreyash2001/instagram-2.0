@@ -388,11 +388,27 @@ to{
     cursor: pointer;
 }
 
+.postArrowButtons__next:hover {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.445);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 
 .postArrowButtons__prev {
     width: 30px;
     height: 30px;
     background-color: rgba(0, 0, 0, 0.767);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.postArrowButtons__prev:hover {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.445);
     border-radius: 50%;
     cursor: pointer;
 }
