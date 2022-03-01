@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addStoryAction, getStoriesAction } from '../actions/storiesAction';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { IKContext, IKUpload } from 'imagekitio-react';
+import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { getPostsAction } from '../actions/postsAction';
@@ -215,7 +215,26 @@ function HomeMiddle() {
     const getCropData = (data) => {
         setCropData(data);
       };
-      console.log(cropData)
+
+      const[url, setUrl] = useState(url);
+      useEffect(() => {
+        if(cropData){
+            const data = new FormData()
+                  data.append('file', cropData)
+                  data.append('upload_preset', 'insta_clone')
+                  data.append('cloud_name', 'cqn')
+        fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
+          method: 'post',
+          body:data,
+          loadingPreview:true,
+        })
+        .then(res=>res.json())
+        .then(imageData => {
+          setUrl(imageData.url)
+        })
+      }
+    }, [cropData])
+
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
             dispatch(getStoriesAction());
@@ -340,7 +359,15 @@ function HomeMiddle() {
                         sendStory && Object.keys(sendStory).length !== 0
                         ?
                         <div className="uploadStory">
-                            <img src={sendStory.file} alt="" /> 
+                            {/* <img src={sendStory.file} alt="" /> */}
+                            <IKImage
+                            path={sendStory?.file}
+                            transformation={[{
+                                height: 100,
+                                width: 200,
+                                focus: "auto",
+                            }]}
+                            />
                             <div>
                             <Button onClick={uploadStory}>Upload Story</Button>
                             </div>
@@ -351,7 +378,7 @@ function HomeMiddle() {
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
                         <IKContext
                             publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
-                            urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9"
+                            urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9/tr:w-200,h-300,fo-auto/"
                             transformationPosition="path"
                             authenticationEndpoint="http://localhost:5000/auth"
                             >
