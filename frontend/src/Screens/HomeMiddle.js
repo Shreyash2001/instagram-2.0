@@ -216,7 +216,7 @@ function HomeMiddle() {
         setCropData(data);
       };
 
-      const[url, setUrl] = useState(url);
+      const[url, setUrl] = useState(null);
       useEffect(() => {
         if(cropData){
             const data = new FormData()
