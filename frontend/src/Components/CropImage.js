@@ -21,7 +21,7 @@ function CropImage({post, getCropData}) {
         <br />
         <br /> */}
         <Cropper
-          zoomTo={0.5}
+          zoomTo={0.0}
           initialAspectRatio={16 / 9}
           preview=".img-preview"
           src={post}
@@ -41,7 +41,7 @@ function CropImage({post, getCropData}) {
       <div>
       <Button
        className="crop__button"
-       onClick={getCrop}>See cropped data</Button>
+       onClick={getCrop}>Save cropped image</Button>
       </div>
       <br style={{ clear: "both" }} />
     </div>

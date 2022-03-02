@@ -30,7 +30,7 @@ function HomeMiddle() {
     const [show, setShow] = useState(false);
     const [story, setStory] = useState({});
     const [sendStory, setSendStory] = useState({});
-    const [sendPost, setSendPost] = useState({});
+
     const [idx, setIdx] = useState(0);
     const [openPost, setOpenPost] = useState(false);
     
@@ -147,13 +147,6 @@ function HomeMiddle() {
             setSendStory(data);
           };
 
-          const onSuccessPost = (res) => {
-              const data = {
-                  file : res.url,
-                  fileId : res.fileId
-              }
-              setSendPost(data);
-          }
 
           const uploadStory = () => {
             dispatch(addStoryAction(sendStory));
@@ -430,29 +423,20 @@ function HomeMiddle() {
                         <span>Add New Post</span>
                     </div>
 
+                    <div>
                     {
                         pictures?.length > 1 || pictures[0].url.length > 0
                         ?
                         <div style={{position:"relative"}}>
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                         {/* {pictures?.map((pic) => (
                             <div className="uploadPost">
-                                <CropImage post={pic.url} />
-                            </div>
-                        ))} */}
-                            <div className="uploadPost">
-                                
                                 <CropImage post={pictures[postIdx].url} getCropData={getCropData} />
-                                
-                                {
+                                {/* {
                                     cropData && <img src={cropData} alt="" />
-                                }
+                                } */}
                             </div>
                         
                         </div>
-                        {/* <div>
-                            <Button className="homeMiddle__addPostNext" onClick={uploadStory}>Next</Button>
-                        </div> */}
                         <div className="postArrowButtons">
 
                         {postIdx > 0 ? 
@@ -483,25 +467,9 @@ function HomeMiddle() {
                         Add photo
                         </Button>
                         <input type="file" multiple accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
-
-
-
-                        {/* <IKContext
-                            publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
-                            urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9"
-                            transformationPosition="path"
-                            authenticationEndpoint="http://localhost:5000/auth"
-                            >
-
-                            <label>
-                            <span>Select from this device</span>
-                            <IKUpload fileName="my-story" onSuccess={onSuccessPost} />
-                            </label>
-                            </IKContext> */}
-
-
                         </div>
                     }
+                    </div>
             </div>
             </Box>
             </Fade>

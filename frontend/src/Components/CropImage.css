@@ -1,5 +1,5 @@
 .cropper-wrap-box {
-    max-height: 473px;
+    max-height: 473px !important;
 }
 
 .cropper-modal {
@@ -19,8 +19,8 @@
     font-size: 18px !important;
     width: 250px !important;
     padding: 10px;
-    margin: 30px 0px;
     text-transform: inherit !important;
     cursor: pointer;
     border-radius: 12px;
+    margin-left: 50px !important;
 }
