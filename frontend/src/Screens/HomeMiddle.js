@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeMiddle.css";
-import { Avatar, Button, Fade } from '@mui/material';
+import { Avatar, Button, Fade, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
@@ -194,13 +194,18 @@ function HomeMiddle() {
     const towardEnd = () => {
         setnextIdx(nextIdx + 1);
     }
-    console.log(pictures?.length)
+
+    const awayFromEnd = () => {
+        setnextIdx(nextIdx - 1);
+    }
+
     const[cropData, setCropData] = useState("")
     const getCropData = (data) => {
         setCropData(data);
       };
 
       const[url, setUrl] = useState(null);
+      const[uploadPostsData, setUploadPostsData] = useState([]);
       useEffect(() => {
         if(cropData){
             const data = new FormData()
@@ -218,6 +223,14 @@ function HomeMiddle() {
         })
       }
     }, [cropData]);
+
+    useEffect(() => {
+        if(url !== null) {
+            setUploadPostsData(old => [...old, url]);
+            setUrl(null);
+        }
+    }, [url])
+
 
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
@@ -411,13 +424,21 @@ function HomeMiddle() {
             <Box sx={stylePost}>
             <div className="homeMiddle__addPost">
                     <div className="homeMiddle__addPostTop">
+                    {/* {nextIdx > 0 && <div style={{position:"absolute", left:"10px"}}>
+                        <IconButton onClick={awayFromEnd}>
+                            <ArrowBackIosIcon />
+                        </IconButton>
+                    </div>} */}
+
                     <div>
                         <span>Add New Post</span> 
                     </div>
                     <div className="nextButtonContainer">
-                    {pictures?.length > 1 || pictures[0].url.length > 0
-                        ? <Button className="nextButton">Next</Button> : <div style={{display:"none"}} />}
+                    {(pictures?.length > 1 || pictures[0].url.length > 0) && (uploadPostsData.length === pictures?.length)
+                        ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
                     </div>
+
+                    
 
                     </div>
                     {

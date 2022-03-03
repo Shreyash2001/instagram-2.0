@@ -5,7 +5,6 @@ import "./CropImage.css";
 import { Button } from '@mui/material';
 
 function CropImage({post, getCropData}) {
-    const [cropData, setCropData] = useState("#");
     const [cropper, setCropper] = useState();
     
       const getCrop = () => {
