@@ -41,7 +41,7 @@ function CropImage({post, getCropData}) {
       <div>
       <Button
        className="crop__button"
-       onClick={getCrop}>Save cropped image</Button>
+       onClick={getCrop}>Crop</Button>
       </div>
       <br style={{ clear: "both" }} />
     </div>

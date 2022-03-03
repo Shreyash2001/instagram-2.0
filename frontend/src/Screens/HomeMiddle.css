@@ -297,6 +297,24 @@ to{
     border-bottom: 1px solid lightgray;
     padding-top: 15px;
     padding-bottom: 10px;
+    position: relative;
+}
+
+.nextButtonContainer {
+    position: absolute;
+    right: 20px;
+}
+
+.nextButton {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
+    color: #fff !important;
+    text-transform: inherit !important;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 1px !important;
 }
 
 .homeMiddle__addPostMiddle {

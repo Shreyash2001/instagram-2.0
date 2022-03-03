@@ -22,6 +22,7 @@ import CropImage from '../Components/CropImage';
 
 function HomeMiddle() {
     var [i, seti] = useState(0);
+    var [nextIdx, setnextIdx] = useState(0);
     const increase = () => {
         i++;
         seti(i);
@@ -91,27 +92,13 @@ function HomeMiddle() {
                 const tempArr = [];
 
                 [...event.target.files].forEach(file => {
-                    console.log("file >>> ", file);
-
                     tempArr.push({
                     data: file,
                     url: URL.createObjectURL(file)
                     });
-
-                    console.log("pictures >> ", pictures);
                 });
 
                 setPictures(tempArr);
-
-
-            //   const reader = new FileReader();
-            //   const filesToAdd = event.target.files;
-            //     reader.readAsDataURL(event.target.files[0]);
-            //     reader.addEventListener("load", () => {
-            //         // arr.push(reader.result);
-            //     });  
-            
-            // setImage([...image, filesToAdd]);
             }
           };
 
@@ -204,6 +191,10 @@ function HomeMiddle() {
         setPostIdx(postIdx + 1);
     }
 
+    const towardEnd = () => {
+        setnextIdx(nextIdx + 1);
+    }
+    console.log(pictures?.length)
     const[cropData, setCropData] = useState("")
     const getCropData = (data) => {
         setCropData(data);
@@ -226,7 +217,7 @@ function HomeMiddle() {
           setUrl(imageData.url)
         })
       }
-    }, [cropData])
+    }, [cropData]);
 
     useEffect(() => {
         if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
@@ -420,10 +411,19 @@ function HomeMiddle() {
             <Box sx={stylePost}>
             <div className="homeMiddle__addPost">
                     <div className="homeMiddle__addPostTop">
-                        <span>Add New Post</span>
+                    <div>
+                        <span>Add New Post</span> 
+                    </div>
+                    <div className="nextButtonContainer">
+                    {pictures?.length > 1 || pictures[0].url.length > 0
+                        ? <Button className="nextButton">Next</Button> : <div style={{display:"none"}} />}
                     </div>
 
-                    <div>
+                    </div>
+                    {
+                        nextIdx === 0 
+                        ?
+                        <div>
                     {
                         pictures?.length > 1 || pictures[0].url.length > 0
                         ?
@@ -470,6 +470,13 @@ function HomeMiddle() {
                         </div>
                     }
                     </div>
+                    :
+                    nextIdx === 1 && <div>Hello</div>
+
+                    }
+
+
+
             </div>
             </Box>
             </Fade>
