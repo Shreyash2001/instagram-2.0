@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeMiddle.css";
-import { Avatar, Button, Fade, IconButton } from '@mui/material';
+import { Avatar, Button, Fade } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
@@ -17,6 +17,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Backdrop from '@mui/material/Backdrop';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import CropImage from '../Components/CropImage';
+import Carousel from 'react-material-ui-carousel'
 
 
 
@@ -28,6 +29,7 @@ function HomeMiddle() {
         seti(i);
     }
 
+    const {userInfo} = useSelector(state => state.userLogin)
     const [show, setShow] = useState(false);
     const [story, setStory] = useState({});
     const [sendStory, setSendStory] = useState({});
@@ -60,6 +62,7 @@ function HomeMiddle() {
         transform: 'translate(-50%, -50%)',
         width: 550,
         height: 600,
+        maxWidth: 700,
         outline:'none'
       };
 
@@ -179,27 +182,23 @@ function HomeMiddle() {
             setShowScrollRight(false);
         }
         
-    }
+    };
 
     const[postIdx, setPostIdx] = useState(0);
     const prevPostPicture = () => {
         setPostIdx(postIdx - 1);
-    }
+    };
 
     const nextPostPicture = () => {
         if(postIdx < pictures?.length)
         setPostIdx(postIdx + 1);
-    }
+    };
 
     const towardEnd = () => {
         setnextIdx(nextIdx + 1);
-    }
+    };
 
-    const awayFromEnd = () => {
-        setnextIdx(nextIdx - 1);
-    }
-
-    const[cropData, setCropData] = useState("")
+    const[cropData, setCropData] = useState("");
     const getCropData = (data) => {
         setCropData(data);
       };
@@ -492,7 +491,34 @@ function HomeMiddle() {
                     }
                     </div>
                     :
-                    nextIdx === 1 && <div>Hello</div>
+                    nextIdx === 1 && 
+                    <div className="post__lastContainer">
+                        <div style={{maxWidth:"400px"}}>
+                            {
+                            <Carousel 
+                            navButtonsAlwaysVisible 
+                            indicators={false}
+                            autoPlay = {false}
+                            cycleNavigation={false} 
+                            animation={"slide"}>
+                                {
+                                    uploadPostsData.map( (url, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={i} src={url} alt="img" /> )
+                                } 
+                            </Carousel>
+                            }
+                        </div>
+
+                        <div>
+                            <div>
+                                <Avatar src={userInfo?.profilePic}  />
+                                <span>{userInfo?.firstName + " " + userInfo?.lastName}</span>
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+
+                    </div>
 
                     }
 
