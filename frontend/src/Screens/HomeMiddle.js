@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeMiddle.css";
-import { Avatar, Button, Fade } from '@mui/material';
+import { Avatar, Button, Fade, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
@@ -17,7 +17,10 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Backdrop from '@mui/material/Backdrop';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import CropImage from '../Components/CropImage';
-import Carousel from 'react-material-ui-carousel'
+import Carousel from 'react-material-ui-carousel';
+import Picker from 'emoji-picker-react';
+import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
+import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 
 
 
@@ -162,87 +165,97 @@ function HomeMiddle() {
           sideScroll(document.getElementById("topRated"),'right',10,1500,20); 
         }
 
-      const scrollOnClickLeftTopRated = () => { 
-          sideScroll(document.getElementById("topRated"),'left',10,1500,20);
+        const scrollOnClickLeftTopRated = () => { 
+            sideScroll(document.getElementById("topRated"),'left',10,1500,20);
+            }
+
+        const [showScroll, setShowScroll] = useState(false);
+        const [showScrollRight, setShowScrollRight] = useState(false);
+        const scrollEvent = (e) => {
+            const target = e.target;
+            if(target.scrollLeft > 0) {
+                setShowScroll(true);
+            } else {
+                setShowScroll(false);
+            }
+
+            if(target.scrollLeft < 740) {
+                setShowScrollRight(true);
+            } else {
+                setShowScrollRight(false);
+            }
+            
+        };
+
+        const[postIdx, setPostIdx] = useState(0);
+        const prevPostPicture = () => {
+            setPostIdx(postIdx - 1);
+        };
+
+        const nextPostPicture = () => {
+            if(postIdx < pictures?.length)
+            setPostIdx(postIdx + 1);
+        };
+
+        const towardEnd = () => {
+            setnextIdx(nextIdx + 1);
+        };
+
+        const[cropData, setCropData] = useState("");
+        const getCropData = (data) => {
+            setCropData(data);
+        };
+
+        const[showEmoji, setShowEmoji] = useState(false);
+        const[caption, setCaption] = useState("");
+        const onEmojiClick = (event, emojiObject) => {
+            if(emojiObject !== null) {
+              var already = caption;
+              already += " " + emojiObject?.emoji;
+              setCaption(already)
+            }
+          };
+
+        const[url, setUrl] = useState(null);
+        const[uploadPostsData, setUploadPostsData] = useState([]);
+        useEffect(() => {
+            if(cropData){
+                const data = new FormData()
+                    data.append('file', cropData)
+                    data.append('upload_preset', 'insta_clone')
+                    data.append('cloud_name', 'cqn')
+            fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
+            method: 'post',
+            body:data,
+            loadingPreview:true,
+            })
+            .then(res=>res.json())
+            .then(imageData => {
+            setUrl(imageData.url)
+            })
         }
+        }, [cropData]);
 
-      const [showScroll, setShowScroll] = useState(false);
-      const [showScrollRight, setShowScrollRight] = useState(false);
-      const scrollEvent = (e) => {
-        const target = e.target;
-        if(target.scrollLeft > 0) {
-            setShowScroll(true);
-        } else {
-            setShowScroll(false);
-        }
-
-        if(target.scrollLeft < 740) {
-            setShowScrollRight(true);
-        } else {
-            setShowScrollRight(false);
-        }
-        
-    };
-
-    const[postIdx, setPostIdx] = useState(0);
-    const prevPostPicture = () => {
-        setPostIdx(postIdx - 1);
-    };
-
-    const nextPostPicture = () => {
-        if(postIdx < pictures?.length)
-        setPostIdx(postIdx + 1);
-    };
-
-    const towardEnd = () => {
-        setnextIdx(nextIdx + 1);
-    };
-
-    const[cropData, setCropData] = useState("");
-    const getCropData = (data) => {
-        setCropData(data);
-      };
-
-      const[url, setUrl] = useState(null);
-      const[uploadPostsData, setUploadPostsData] = useState([]);
-      useEffect(() => {
-        if(cropData){
-            const data = new FormData()
-                  data.append('file', cropData)
-                  data.append('upload_preset', 'insta_clone')
-                  data.append('cloud_name', 'cqn')
-        fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
-          method: 'post',
-          body:data,
-          loadingPreview:true,
-        })
-        .then(res=>res.json())
-        .then(imageData => {
-          setUrl(imageData.url)
-        })
-      }
-    }, [cropData]);
-
-    useEffect(() => {
-        if(url !== null) {
-            setUploadPostsData(old => [...old, url]);
-            setUrl(null);
-        }
-    }, [url])
+        useEffect(() => {
+            if(url !== null) {
+                setUploadPostsData(old => [...old, url]);
+                setUrl(null);
+            }
+        }, [url])
 
 
-    useEffect(() => {
-        if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
-            dispatch(getStoriesAction());
+        useEffect(() => {
+            if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+                dispatch(getStoriesAction());
 
-            if(localStorage.getItem("Instagram-Posts") === undefined || localStorage.getItem("Instagram-Posts") === null)
-            dispatch(getPostsAction());
-        
-        if(success) {
-            handleClose();
-            setSendStory(false);
-        }
-    }, [dispatch, success]);
+                if(localStorage.getItem("Instagram-Posts") === undefined || localStorage.getItem("Instagram-Posts") === null)
+                dispatch(getPostsAction());
+            
+            if(success) {
+                handleClose();
+                setSendStory(false);
+            }
+        }, [dispatch, success]);
 
 
     return (
@@ -508,22 +521,49 @@ function HomeMiddle() {
                             }
                         </div>
 
-                        <div>
-                            <div>
+                        <div className="post__captionContainer">
+                            <div className="post__captionContainerInfo">
                                 <Avatar src={userInfo?.profilePic}  />
                                 <span>{userInfo?.firstName + " " + userInfo?.lastName}</span>
                             </div>
-                            <div>
+                            <div className="post__captionInput">
+                                <textarea placeholder="Write a Caption..." />
 
+                                <div>
+                                <span style={{color:"lightgray"}}>0/2,200</span>
+                                </div>
+                                <IconButton style={{position:"absolute", top:"239px", right:"-140px"}} onClick={() => setShowEmoji(!showEmoji)}>
+                                    <EmojiEmotionsOutlinedIcon />
+                                    </IconButton>
+                                    {
+                                    showEmoji 
+                                    &&
+                                    <div style={{zIndex:"100", position:"absolute", top:"268px", right:"-140px"}}>
+                                    <Picker
+                                    onEmojiClick={onEmojiClick}
+                                    disableAutoFocus={true}
+                                    groupNames={{ smileys_people: 'PEOPLE' }}
+                                    native
+                                    />
+                                    </div>
+                                }
                             </div>
-                        </div>
 
+                            <div className="post__location">
+                                <AddLocationAltOutlinedIcon />
+                                <input placeholder="Add Your Destination" />
+                            </div>
+
+                            <div className="post__tag">
+                                <label>Tag:</label>
+                                <input />
+                                <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button>
+                            </div>
+
+                        </div>
                     </div>
 
                     }
-
-
-
             </div>
             </Box>
             </Fade>

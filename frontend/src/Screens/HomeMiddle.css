@@ -440,3 +440,55 @@ to{
     width: 526px !important;
 }
 
+.post__captionContainer {
+    padding: 10px;
+}
+
+.post__captionContainerInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.post__captionInput > textarea {
+    width: 250px;
+    height: 130px;
+    font-size: 16px;
+    border: none;
+    outline-width: 0;
+    resize: none;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+}
+
+.post__location {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid lightgray;
+    margin-top: 20px;
+}
+
+.post__location > input {
+    width: 250px;
+    height:20px;
+    outline-width: 0;
+    padding: 8px;
+    border: none;
+    font-size: 16px;
+}
+
+.post__tag {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid lightgray;
+    margin-top: 20px;
+}
+
+.post__tag > input {
+    width: 170px;
+    height: 50px;
+    outline-width: 0;
+    padding: 8px;
+    border: none;
+    font-size: 16px;
+}
+ 
