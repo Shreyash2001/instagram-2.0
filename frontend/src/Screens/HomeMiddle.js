@@ -21,6 +21,7 @@ import Carousel from 'react-material-ui-carousel';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
+import { searchUsersAction } from '../actions/userActions';
 
 
 
@@ -216,6 +217,28 @@ function HomeMiddle() {
               setCaption(already);
             }
           };
+
+          const[destination, setDestination] = useState("");
+          const[tag, setTag] = useState("");
+
+        //   const handleChangeTag = (e) => {
+        //     setTag(e.target.value);
+        //   }
+
+          var timer;
+          var valueSearch = ""
+          const handleChangeTag = (e) => {
+            clearTimeout(timer)
+            
+
+            timer = setTimeout(() => {
+            valueSearch = e.target.value.replace(/\s/g,'')
+            
+            
+                dispatch(searchUsersAction(valueSearch))
+            
+            }, 1000)
+        }
 
         const[url, setUrl] = useState(null);
         const[uploadPostsData, setUploadPostsData] = useState([]);
@@ -531,7 +554,7 @@ function HomeMiddle() {
                                 <textarea placeholder="Write a Caption..." value={caption} onChange={(e) => setCaption(e.target.value)} />
 
                                 <div>
-                                <span style={{color:"lightgray"}}>0/2,200</span>
+                                <span style={{color:"lightgray"}}>{2200 - caption.length}/2,200</span>
                                 </div>
                                 <IconButton style={{position:"absolute", top:"239px", right:"-140px"}} onClick={() => setShowEmoji(!showEmoji)}>
                                     <EmojiEmotionsOutlinedIcon />
@@ -552,12 +575,12 @@ function HomeMiddle() {
 
                             <div className="post__location">
                                 <AddLocationAltOutlinedIcon />
-                                <input placeholder="Add Your Destination" />
+                                <input onChange={(e) => setDestination(e.target.value)} placeholder="Add Your Destination" />
                             </div>
 
                             <div className="post__tag">
                                 <label>Tag:</label>
-                                <input />
+                                <input onChange={(e) => handleChangeTag(e)} />
                                 <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button>
                             </div>
 

@@ -32,14 +32,14 @@ function FeedCard({name, username, images, caption, location, profilePic, time})
     if(emojiObject !== null) {
       var already = comment;
       already += " " + emojiObject?.emoji;
-      setComment(already)
+      setComment(already);
     }
   };
 
   const handleChange = (e) => {
     const str = e.target.value;
     let check = str.replace(/ /g, "");
-    console.log(check.length)
+
     if(check.length > 0) setShowPostButton(true)
     else setShowPostButton(false)
     setComment(str);

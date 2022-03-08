@@ -9,6 +9,9 @@ import {
     GET_TOP_USERS_REQUEST,
     GET_TOP_USERS_SUCCESS,
     GET_TOP_USERS_FAIL,
+    GET_SEARCH_RESULTS_REQUEST,
+    GET_SEARCH_RESULTS_SUCCESS,
+    GET_SEARCH_RESULTS_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -94,4 +97,29 @@ export const getTopUsersAction = () => async(dispatch) => {
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         })
     };  
+};
+
+export const searchUsersAction = (search) => async(dispatch, getState) => {
+    try {
+        const {userLogin:{userInfo}} = getState();
+        const config = {
+            headers: {
+                Authorization : `Bearer ${userInfo.token}`
+            }
+        };
+        dispatch({
+            type: GET_SEARCH_RESULTS_REQUEST
+        });
+        console.log(search)
+        const {data} = await axios.get(`/api/users/search?user=${search}`, config)
+        dispatch({
+            type: GET_SEARCH_RESULTS_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_SEARCH_RESULTS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        });
+    }
 };

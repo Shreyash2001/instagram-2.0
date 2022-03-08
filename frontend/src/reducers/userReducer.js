@@ -9,6 +9,9 @@ import {
     GET_TOP_USERS_SUCCESS,
     GET_TOP_USERS_FAIL,
     USER_LOGOUT,
+    GET_SEARCH_RESULTS_REQUEST,
+    GET_SEARCH_RESULTS_SUCCESS,
+    GET_SEARCH_RESULTS_FAIL,
 } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -91,3 +94,25 @@ export const getTopUser = (state = {}, action) => {
             return state;
     };
 };
+
+export const getSearchedUserReducer = (state = {}, action) => {
+    switch (action.type) {
+        case GET_SEARCH_RESULTS_REQUEST:
+            return {
+                loading : true
+            };
+        case GET_SEARCH_RESULTS_SUCCESS:
+            return {
+                loading : false,
+                users : action.payload
+            };
+        case GET_SEARCH_RESULTS_FAIL:
+            return {
+                loading : false,
+                error : action.payload
+            };
+    
+        default:
+            return state;
+    }
+}
