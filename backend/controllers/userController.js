@@ -150,8 +150,20 @@ const followUnfollowUser = asyncHandler(async(req, res) => {
         } else {
             res.status(500).json({message : "Something went wrong"});
         }
-    };
-    
+    }; 
+});
+
+const getSearchedUsers = asyncHandler(async(req, res) => {
+    if(req.query.user != "") {
+        const users = await User.find({$or: [{firstName : {$regex: req.query.user, $options:"i"}}, 
+                                             {lastName : {$regex: req.query.user, $options: "i"}}, 
+                                             {userName : {$regex: req.query.user, $options: "i"}}]});
+        if(users) {
+            res.status(201).json(users);
+        } else {
+            res.status(404).json({message : "Not found"})
+        }
+    }
 })
 
-module.exports = {login, register, getTopUser, followUnfollowUser};
+module.exports = {login, register, getTopUser, followUnfollowUser, getSearchedUsers};

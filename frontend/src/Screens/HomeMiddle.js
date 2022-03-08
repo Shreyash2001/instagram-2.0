@@ -213,7 +213,7 @@ function HomeMiddle() {
             if(emojiObject !== null) {
               var already = caption;
               already += " " + emojiObject?.emoji;
-              setCaption(already)
+              setCaption(already);
             }
           };
 
