@@ -157,7 +157,7 @@ const getSearchedUsers = asyncHandler(async(req, res) => {
     if(req.query.user != "") {
         const users = await User.find({$or: [{firstName : {$regex: req.query.user, $options:"i"}}, 
                                              {lastName : {$regex: req.query.user, $options: "i"}}, 
-                                             {userName : {$regex: req.query.user, $options: "i"}}]});
+                                             {userName : {$regex: req.query.user, $options: "i"}}]}).select("userName profilePic");
         if(users) {
             res.status(201).json(users);
         } else {

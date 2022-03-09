@@ -22,6 +22,7 @@ import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import { searchUsersAction } from '../actions/userActions';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -43,8 +44,11 @@ function HomeMiddle() {
     
     const dispatch = useDispatch();
     var {data, loading} = useSelector(state => state.storyInfo);
-    const {success} = useSelector(state => state.currentStoryInfo)
+    const {success} = useSelector(state => state.currentStoryInfo);
     data = JSON.parse(localStorage.getItem("Instagram-Stories"));
+
+    const {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
+    console.log(loadingPost)
 
     const handleShowClick = () => {
         setShow(!show);
@@ -219,11 +223,7 @@ function HomeMiddle() {
           };
 
           const[destination, setDestination] = useState("");
-          const[tag, setTag] = useState("");
-
-        //   const handleChangeTag = (e) => {
-        //     setTag(e.target.value);
-        //   }
+          
 
           var timer;
           var valueSearch = ""
@@ -578,10 +578,32 @@ function HomeMiddle() {
                                 <input onChange={(e) => setDestination(e.target.value)} placeholder="Add Your Destination" />
                             </div>
 
-                            <div className="post__tag">
+                            <div>
+                                <div className="post__tag">
                                 <label>Tag:</label>
                                 <input onChange={(e) => handleChangeTag(e)} />
                                 <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button>
+                                </div>
+                                {
+                                    users?.length > 0 ?
+                                    <div className="search">
+                                    <ul style={{listStyleType:"none"}}>
+                                    {users?.map((user) => (
+                                        <li style={{display:"flex", alignItems:"center", marginBottom:"10px"}}>
+                                            <Avatar src={user?.profilePic} />
+                                            <span>{user?.userName}</span>
+                                        </li>
+                                    ))}
+                                    </ul>
+                                    
+                                    </div>
+                                    :
+                                    loadingPost && 
+                                    
+                                        <CircularProgress style={{width:"30px", height:"30px", marginLeft:"80px", color:"gray"}} />
+                                    
+
+                                }
                             </div>
 
                         </div>
