@@ -240,6 +240,13 @@ function HomeMiddle() {
             }, 1000)
         }
 
+        const[addedTags, setAddedTags] = useState(new Set());
+        console.log(addedTags)
+        const handleClickAddTag = (name) => {
+            setAddedTags(old => new Set([...old, name]));
+            valueSearch = "";
+        }
+
         const[url, setUrl] = useState(null);
         const[uploadPostsData, setUploadPostsData] = useState([]);
         useEffect(() => {
@@ -589,9 +596,9 @@ function HomeMiddle() {
                                     <div className="search">
                                     <ul style={{listStyleType:"none"}}>
                                     {users?.map((user) => (
-                                        <li style={{display:"flex", alignItems:"center", marginBottom:"10px"}}>
+                                        <li onClick={() => handleClickAddTag(user?.userName)} className="search__results">
                                             <Avatar src={user?.profilePic} />
-                                            <span>{user?.userName}</span>
+                                            <span style={{marginLeft:"10px"}}>{user?.userName}</span>
                                         </li>
                                     ))}
                                     </ul>
@@ -599,10 +606,8 @@ function HomeMiddle() {
                                     </div>
                                     :
                                     loadingPost && 
-                                    
                                         <CircularProgress style={{width:"30px", height:"30px", marginLeft:"80px", color:"gray"}} />
                                     
-
                                 }
                             </div>
 
