@@ -163,6 +163,8 @@ const getSearchedUsers = asyncHandler(async(req, res) => {
         } else {
             res.status(404).json({message : "Not found"})
         }
+    } else {
+        res.status(400).json({message:"pass name"});
     }
 })
 

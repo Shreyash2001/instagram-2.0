@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "./HomeMiddle.css";
 import { Avatar, Button, Fade, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -94,7 +94,7 @@ function HomeMiddle() {
             data: [],
             url: ""
         }])
-        const inputRef = React.useRef();
+        const inputRef = useRef();
         const triggerFileSelectPopup = () => inputRef.current.click();
 
         const onSelectFile = (event) => {
@@ -239,12 +239,17 @@ function HomeMiddle() {
             
             }, 1000)
         }
+        
+        const searchRef = useRef();
+        const reset = () => {
+            searchRef.current.value = "";
+        }
 
         const[addedTags, setAddedTags] = useState(new Set());
         console.log(addedTags)
         const handleClickAddTag = (name) => {
             setAddedTags(old => new Set([...old, name]));
-            valueSearch = "";
+            reset();
         }
 
         const[url, setUrl] = useState(null);
@@ -588,8 +593,8 @@ function HomeMiddle() {
                             <div>
                                 <div className="post__tag">
                                 <label>Tag:</label>
-                                <input onChange={(e) => handleChangeTag(e)} />
-                                <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button>
+                                <input type="text" ref={searchRef} onChange={(e) => handleChangeTag(e)} />
+                                {/* <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button> */}
                                 </div>
                                 {
                                     users?.length > 0 ?
