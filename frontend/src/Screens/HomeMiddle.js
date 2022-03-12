@@ -47,8 +47,7 @@ function HomeMiddle() {
     const {success} = useSelector(state => state.currentStoryInfo);
     data = JSON.parse(localStorage.getItem("Instagram-Stories"));
 
-    const {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
-    console.log(loadingPost)
+    var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
 
     const handleShowClick = () => {
         setShow(!show);
@@ -232,10 +231,8 @@ function HomeMiddle() {
             
 
             timer = setTimeout(() => {
-            valueSearch = e.target.value.replace(/\s/g,'')
-            
-            
-                dispatch(searchUsersAction(valueSearch))
+            valueSearch = e.target.value.replace(/\s/g,'');
+                dispatch(searchUsersAction(valueSearch));
             
             }, 1000)
         }
@@ -246,11 +243,13 @@ function HomeMiddle() {
         }
 
         const[addedTags, setAddedTags] = useState(new Set());
-        console.log(addedTags)
+        const[displaySearch, setDisplaySearch] = useState([]);
+
         const handleClickAddTag = (name) => {
             setAddedTags(old => new Set([...old, name]));
             reset();
-        }
+            dispatch(searchUsersAction(""));
+        };
 
         const[url, setUrl] = useState(null);
         const[uploadPostsData, setUploadPostsData] = useState([]);
@@ -596,8 +595,10 @@ function HomeMiddle() {
                                 <input type="text" ref={searchRef} onChange={(e) => handleChangeTag(e)} />
                                 {/* <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button> */}
                                 </div>
+                                
                                 {
-                                    users?.length > 0 ?
+                                    users?.length > 0 
+                                    ?
                                     <div className="search">
                                     <ul style={{listStyleType:"none"}}>
                                     {users?.map((user) => (
@@ -615,7 +616,15 @@ function HomeMiddle() {
                                     
                                 }
                             </div>
-
+                            <div>
+                                    {
+                                        [...addedTags].map((key) => (
+                                            <div style={{maxWidth:"80px", height:"20px", paddaing:"8px", backgroundColor:"red", margin:"10px"}}>
+                                                <span>{key}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
                         </div>
                     </div>
 
