@@ -23,6 +23,7 @@ import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 import { searchUsersAction } from '../actions/userActions';
 import CircularProgress from '@mui/material/CircularProgress';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 
@@ -541,7 +542,7 @@ function HomeMiddle() {
                     :
                     nextIdx === 1 && 
                     <div className="post__lastContainer">
-                        <div style={{maxWidth:"400px"}}>
+                        <div style={{maxWidth:"400px", position:"relative"}}>
                             {
                             <Carousel 
                             navButtonsAlwaysVisible 
@@ -554,6 +555,9 @@ function HomeMiddle() {
                                 } 
                             </Carousel>
                             }
+                            <div style={{position:"absolute", bottom:"10px", left:"10px", zIndex:"100"}}>
+                                <AccountCircle />
+                            </div>
                         </div>
 
                         <div className="post__captionContainer">
