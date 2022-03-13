@@ -64,8 +64,8 @@ function HomeMiddle() {
 
     const stylePost = {
         position: 'absolute',
-        top: '49%',
-        left: '50%',
+        top: '45%',
+        left: '45%',
         transform: 'translate(-50%, -50%)',
         width: 550,
         height: 600,

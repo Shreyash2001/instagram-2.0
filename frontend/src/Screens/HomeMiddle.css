@@ -285,7 +285,7 @@ to{
 
 .homeMiddle__addPost {
     width: 700px;
-    height: 600px;
+    min-height: 600px;
     background-color: #fff;
     border-radius: 22px;
 }
