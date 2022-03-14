@@ -4,7 +4,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import { getSearchedUserReducer, getTopUser, userLoginReducer, userLogoutReducer } from "./reducers/userReducer";
 import { addPreferencesReducer, countPreferences } from "./reducers/preferencesReducer";
 import { addStoriesReducer, getStoriesReducer } from "./reducers/storiesReducer";
-import { getPostReducer } from "./reducers/postsReducer";
+import { addPostReducer, getPostReducer } from "./reducers/postsReducer";
 
 const reducer = combineReducers({
     userLogin : userLoginReducer,
@@ -16,6 +16,7 @@ const reducer = combineReducers({
     currentStoryInfo: addStoriesReducer, 
     allPosts: getPostReducer, 
     searchUserResult : getSearchedUserReducer,
+    addPost : addPostReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("Instagram-UserInfo") ? JSON.parse(localStorage.getItem("Instagram-UserInfo")) : {};

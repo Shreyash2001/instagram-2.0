@@ -1,4 +1,7 @@
 import { 
+    ADD_POSTS_FAIL,
+    ADD_POSTS_REQUEST,
+    ADD_POSTS_SUCCESS,
     GET_POSTS_ERROR, 
     GET_POSTS_LOADING, 
     GET_POSTS_SUCCESS 
@@ -21,6 +24,28 @@ export const getPostReducer = (state= {}, action) => {
                 loading : false,
                 error : action.payload
             };
+        default:
+            return state;
+    }
+};
+
+export const addPostReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADD_POSTS_REQUEST:
+            return {
+                loading : true
+            };
+        case ADD_POSTS_SUCCESS:
+            return {
+                loading : false,
+                success : true
+            };
+        case ADD_POSTS_FAIL:
+            return {
+                loading : false,
+                error : action.payload
+            };
+    
         default:
             return state;
     }

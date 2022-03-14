@@ -5,13 +5,14 @@ const moment = require("moment")
 
 
 const createPost = asyncHandler(async(req, res) => {
-    const {image, caption, location, tags} = req.body;
+    const {image, caption, location, tags, image_cloudinary_id} = req.body;
     const postData = {
         postedBy : req.user._id,
         image : image,
         caption : caption,
         location : location,
-        tags : tags
+        tags : tags,
+        image_cloudinary_id : image_cloudinary_id
     }; 
 
     var post = await Post.create(postData);

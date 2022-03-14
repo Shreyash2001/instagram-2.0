@@ -11,7 +11,7 @@ import Modal from '@mui/material/Modal';
 import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { getPostsAction } from '../actions/postsAction';
+import { addPostAction, getPostsAction } from '../actions/postsAction';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Backdrop from '@mui/material/Backdrop';
@@ -267,7 +267,6 @@ function HomeMiddle() {
             reset();
             dispatch(searchUsersAction(""));
         };
-        console.log(addedTags)
 
         const removeTag = (user) => {
             addedTags.delete(user);
@@ -275,6 +274,8 @@ function HomeMiddle() {
         };
 
         const[url, setUrl] = useState(null);
+        const[assetId, setAssetId] = useState(null);
+        const[uploadFileDetails, setUploadFileDetails] = useState([]);
         const[uploadPostsData, setUploadPostsData] = useState([]);
         useEffect(() => {
             if(cropData){
@@ -290,6 +291,10 @@ function HomeMiddle() {
             .then(res=>res.json())
             .then(imageData => {
             setUrl(imageData.url)
+            setAssetId({
+                id : imageData.asset_id,
+                url: imageData.url
+            })
             })
         }
         }, [cropData]);
@@ -297,10 +302,18 @@ function HomeMiddle() {
         useEffect(() => {
             if(url !== null) {
                 setUploadPostsData(old => [...old, url]);
+                setUploadFileDetails(old => [...old, assetId]);
                 setUrl(null);
+                setAssetId(null);
             }
-        }, [url]);
+        }, [url, assetId]);
 
+        //upload post
+
+        const uploadPost = () => {
+            dispatch(addPostAction(uploadPostsData, caption, destination, Array.from(addedTags.values()), uploadFileDetails))
+        }
+ 
 
         useEffect(() => {
             if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
@@ -314,6 +327,14 @@ function HomeMiddle() {
                 setSendStory(false);
             }
         }, [dispatch, success]);
+
+        const {loading : postLoading, success : successfulUpload} = useSelector(state => state.addPost);
+        useEffect(() => {
+            if(successfulUpload) {
+                handleCloseCreatePost();
+                dispatch(getPostsAction());
+            }
+        }, [successfulUpload]);
 
 
     return (
@@ -504,8 +525,9 @@ function HomeMiddle() {
                         <span>Add New Post</span> 
                     </div>
                     <div className="nextButtonContainer">
-                    {(pictures?.length > 1 || pictures[0].url.length > 0) && (uploadPostsData.length === pictures?.length)
+                    {(pictures?.length > 1 || pictures[0].url.length > 0) && (uploadPostsData.length === pictures?.length) && nextIdx === 0
                         ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
+                    {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
                     </div>
 
                     
@@ -608,7 +630,6 @@ function HomeMiddle() {
                                     )}
                                 </Popper>
                             </div>
-                            
 
 
 

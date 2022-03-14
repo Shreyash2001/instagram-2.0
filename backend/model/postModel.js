@@ -16,9 +16,9 @@ const PostSchema = mongoose.Schema({
     location : {
         type : String
     },
-    fileId : {
+    image_cloudinary_id : [{
         type : String
-    },
+    }],
     tags : [{
         type : mongoose.Types.ObjectId,
         ref: "User"
