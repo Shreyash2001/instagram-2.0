@@ -274,8 +274,7 @@ function HomeMiddle() {
         };
 
         const[url, setUrl] = useState(null);
-        const[assetId, setAssetId] = useState(null);
-        const[uploadFileDetails, setUploadFileDetails] = useState([]);
+        const[uploadFileDetails, setUploadFileDetails] = useState(new Map());
         const[uploadPostsData, setUploadPostsData] = useState([]);
         useEffect(() => {
             if(cropData){
@@ -291,27 +290,34 @@ function HomeMiddle() {
             .then(res=>res.json())
             .then(imageData => {
             setUrl(imageData.url)
-            setAssetId({
+            
+            const temp = {
                 id : imageData.asset_id,
                 url: imageData.url
-            })
-            })
+            }
+            const old = uploadFileDetails; 
+            old.set(imageData.asset_id, temp);
+            setUploadFileDetails(old);
+            });
         }
-        }, [cropData]);
+        }, [cropData, uploadFileDetails]);
 
         useEffect(() => {
             if(url !== null) {
                 setUploadPostsData(old => [...old, url]);
-                setUploadFileDetails(old => [...old, assetId]);
-                setUrl(null);
-                setAssetId(null);
             }
-        }, [url, assetId]);
+        }, [url, uploadFileDetails]);
 
         //upload post
 
         const uploadPost = () => {
-            dispatch(addPostAction(uploadPostsData, caption, destination, Array.from(addedTags.values()), uploadFileDetails))
+           
+            const upload_id = [];
+            const upload_images = [];
+            Array.from(uploadFileDetails.keys()).map(key => upload_id.push(key));
+            Array.from(uploadFileDetails.values()).map(key => upload_images.push(key?.url));
+            console.log(upload_images)
+            dispatch(addPostAction(upload_images, caption, destination, Array.from(addedTags.values()), upload_id))
         }
  
 
@@ -525,7 +531,7 @@ function HomeMiddle() {
                         <span>Add New Post</span> 
                     </div>
                     <div className="nextButtonContainer">
-                    {(pictures?.length > 1 || pictures[0].url.length > 0) && (uploadPostsData.length === pictures?.length) && nextIdx === 0
+                    {(pictures?.length > 1 || pictures[0].url.length > 0) && (uploadFileDetails.size === pictures?.length) && nextIdx === 0
                         ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
                     {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
                     </div>
@@ -595,7 +601,7 @@ function HomeMiddle() {
                             cycleNavigation={false} 
                             animation={"slide"}>
                                 {
-                                    uploadPostsData.map( (url, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={i} src={url} alt="img" /> )
+                                    Array.from(uploadFileDetails.values()).map( (data) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data?.url} alt="img" /> )
                                 } 
                             </Carousel>
                             }

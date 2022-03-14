@@ -6,6 +6,7 @@ const moment = require("moment")
 
 const createPost = asyncHandler(async(req, res) => {
     const {image, caption, location, tags, image_cloudinary_id} = req.body;
+
     const postData = {
         postedBy : req.user._id,
         image : image,
