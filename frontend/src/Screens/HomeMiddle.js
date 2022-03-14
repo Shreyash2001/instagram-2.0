@@ -24,6 +24,8 @@ import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlin
 import { searchUsersAction } from '../actions/userActions';
 import CircularProgress from '@mui/material/CircularProgress';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import Popper from '@mui/material/Popper';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 
 
@@ -49,7 +51,7 @@ function HomeMiddle() {
     data = JSON.parse(localStorage.getItem("Instagram-Stories"));
 
     var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
-
+    users = users?.filter(user => user?.userName !== userInfo?.userName);
     const handleShowClick = () => {
         setShow(!show);
         handleOpen();
@@ -237,19 +239,39 @@ function HomeMiddle() {
             
             }, 1000)
         }
+
+        const [openTag, setOpenTag] = useState(false);
+        const [anchorEl, setAnchorEl] = useState(null);
+
+        const handleClickPopTag = (event) => {
+            setAnchorEl(event.currentTarget);
+            setOpenTag((previousOpen) => !previousOpen);
+        };
+
+
+        const canBeOpen = open && Boolean(anchorEl);
+        const id = canBeOpen ? 'transition-popper' : undefined;
         
         const searchRef = useRef();
         const reset = () => {
             searchRef.current.value = "";
         }
 
-        const[addedTags, setAddedTags] = useState(new Set());
-        const[displaySearch, setDisplaySearch] = useState([]);
+        const[addedTags, setAddedTags] = useState(new Map());
 
         const handleClickAddTag = (name) => {
-            setAddedTags(old => new Set([...old, name]));
+            const old = addedTags;
+            old.set(name.userName, name);
+            setAddedTags(old);
+            
             reset();
             dispatch(searchUsersAction(""));
+        };
+        console.log(addedTags)
+
+        const removeTag = (user) => {
+            addedTags.delete(user);
+            setOpenTag(false);
         };
 
         const[url, setUrl] = useState(null);
@@ -277,7 +299,7 @@ function HomeMiddle() {
                 setUploadPostsData(old => [...old, url]);
                 setUrl(null);
             }
-        }, [url])
+        }, [url]);
 
 
         useEffect(() => {
@@ -555,9 +577,41 @@ function HomeMiddle() {
                                 } 
                             </Carousel>
                             }
-                            <div style={{position:"absolute", bottom:"10px", left:"10px", zIndex:"100"}}>
+                            
+
+
+                            {addedTags.size > 0 && <div style={{position:"absolute", bottom:"10px", left:"10px", zIndex:"100"}}>
+                                <IconButton onClick={handleClickPopTag}>
                                 <AccountCircle />
+                                </IconButton>
+
+                                
+                            </div>}
+                            <div>
+                            <Popper style={{position:"absolute", zIndex:"1400", top:"512px", left:"276px"}} placement={"top"} id={id} open={openTag} anchorEl={anchorEl} transition>
+                                    {({ TransitionProps }) => (
+                                    <Fade {...TransitionProps} timeout={350}>
+                                        <Box sx={{ border: 1, p: 1, bgcolor: '#0e0d0d' }} style={{borderRadius:"10px", marginLeft:"130px"}}>
+                                        <div>
+                                            {
+                                                Array.from(addedTags.values()).map((key) => (
+                                                    <div style={{display:"flex", alignItems:"center"}}>
+                                                        <Avatar src={key?.profilePic} style={{marginRight:"8px", marginBottom:"10px"}} />
+                                                        <span style={{color:"#fff"}}>{key?.userName}</span>
+                                                        <CancelIcon onClick={() => removeTag(key?.userName)} style={{color:"#fff", cursor:"pointer", marginLeft:"5px"}} />
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                        </Box>
+                                    </Fade>
+                                    )}
+                                </Popper>
                             </div>
+                            
+
+
+
                         </div>
 
                         <div className="post__captionContainer">
@@ -606,7 +660,7 @@ function HomeMiddle() {
                                     <div className="search">
                                     <ul style={{listStyleType:"none"}}>
                                     {users?.map((user) => (
-                                        <li onClick={() => handleClickAddTag(user?.userName)} className="search__results">
+                                        <li onClick={() => handleClickAddTag(user)} className="search__results">
                                             <Avatar src={user?.profilePic} />
                                             <span style={{marginLeft:"10px"}}>{user?.userName}</span>
                                         </li>
@@ -620,15 +674,6 @@ function HomeMiddle() {
                                     
                                 }
                             </div>
-                            <div>
-                                    {
-                                        [...addedTags].map((key) => (
-                                            <div style={{maxWidth:"80px", height:"20px", paddaing:"8px", backgroundColor:"red", margin:"10px"}}>
-                                                <span>{key}</span>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
                         </div>
                     </div>
 
