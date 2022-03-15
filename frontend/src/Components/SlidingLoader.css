@@ -1,0 +1,7 @@
+.progress {
+    background: #e60e4486 !important;
+}
+
+.progress > span {
+    background-color: #bc1888;
+}

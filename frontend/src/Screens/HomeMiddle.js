@@ -26,6 +26,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Popper from '@mui/material/Popper';
 import CancelIcon from '@mui/icons-material/Cancel';
+import SlidingLoader from "../Components/SlidingLoader";
 
 
 
@@ -592,6 +593,7 @@ function HomeMiddle() {
                     :
                     nextIdx === 1 && 
                     <div className="post__lastContainer">
+                    {postLoading && <SlidingLoader />}
                         <div style={{maxWidth:"400px", position:"relative"}}>
                             {
                             <Carousel 
@@ -636,9 +638,6 @@ function HomeMiddle() {
                                     )}
                                 </Popper>
                             </div>
-
-
-
                         </div>
 
                         <div className="post__captionContainer">
