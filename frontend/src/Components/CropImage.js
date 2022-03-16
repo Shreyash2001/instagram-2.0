@@ -5,8 +5,7 @@ import "./CropImage.css";
 import { Button } from '@mui/material';
 
 function CropImage({post, getCropData}) {
-    const [cropper, setCropper] = useState();
-    
+      const [cropper, setCropper] = useState();
       const getCrop = () => {
         if (typeof cropper !== "undefined") {
           getCropData(cropper.getCroppedCanvas().toDataURL());
@@ -38,9 +37,7 @@ function CropImage({post, getCropData}) {
         />
       </div>
       <div>
-      <Button
-       className="crop__button"
-       onClick={getCrop}>Crop</Button>
+      <Button className="crop__button" onClick={getCrop}>Crop</Button>
       </div>
       <br style={{ clear: "both" }} />
     </div>

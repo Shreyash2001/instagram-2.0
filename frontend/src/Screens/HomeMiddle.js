@@ -277,8 +277,10 @@ function HomeMiddle() {
         const[url, setUrl] = useState(null);
         const[uploadFileDetails, setUploadFileDetails] = useState(new Map());
         const[uploadPostsData, setUploadPostsData] = useState([]);
+
         useEffect(() => {
             if(cropData){
+                
                 const data = new FormData()
                     data.append('file', cropData)
                     data.append('upload_preset', 'insta_clone')
@@ -290,7 +292,8 @@ function HomeMiddle() {
             })
             .then(res=>res.json())
             .then(imageData => {
-            setUrl(imageData.url)
+            
+            setUrl(imageData.url);
             
             const temp = {
                 id : imageData.asset_id,
