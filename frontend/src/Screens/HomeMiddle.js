@@ -91,7 +91,19 @@ function HomeMiddle() {
         const handleOpen = () => setOpen(true);
         const handleClickCreatePost = () => setOpenPost(true);
         const handleClose = () => setOpen(false);
-        const handleCloseCreatePost = () => setOpenPost(false);
+
+        const handleCloseCreatePost = () => {
+            setOpenPost(false);
+            setPictures([]);
+            setPostIdx(0);
+            setAddedTags(new Map());
+            setUploadFileDetails(new Map());
+            setUploadPostsData([]);
+            setPictures([]);
+            setCaption("");
+            setDestination("");
+            setnextIdx(0);
+        }
 
         const [pictures, setPictures] = useState([{
             data: [],
@@ -307,10 +319,10 @@ function HomeMiddle() {
         }, [cropData, uploadFileDetails]);
 
         useEffect(() => {
-            if(url !== null) {
+            if(url !== null || url !== undefined) {
                 setUploadPostsData(old => [...old, url]);
             }
-        }, [url, uploadFileDetails]);
+        }, [url]);
 
         //upload post
 
@@ -320,7 +332,7 @@ function HomeMiddle() {
             const upload_images = [];
             Array.from(uploadFileDetails.keys()).map(key => upload_id.push(key));
             Array.from(uploadFileDetails.values()).map(key => upload_images.push(key?.url));
-            console.log(upload_images)
+
             dispatch(addPostAction(upload_images, caption, destination, Array.from(addedTags.values()), upload_id))
         }
  
@@ -535,7 +547,7 @@ function HomeMiddle() {
                         <span>Add New Post</span> 
                     </div>
                     <div className="nextButtonContainer">
-                    {(pictures?.length > 1 || pictures[0].url.length > 0) && (uploadFileDetails.size === pictures?.length) && nextIdx === 0
+                    {(pictures?.length > 1 || pictures[0]?.url.length > 0) && (uploadFileDetails.size === pictures?.length) && nextIdx === 0
                         ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
                     {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
                     </div>
@@ -548,7 +560,7 @@ function HomeMiddle() {
                         ?
                         <div>
                     {
-                        pictures?.length > 1 || pictures[0].url.length > 0
+                        pictures?.length > 1 || pictures[0]?.url.length > 0
                         ?
                         <div style={{position:"relative"}}>
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
@@ -606,7 +618,7 @@ function HomeMiddle() {
                             cycleNavigation={false} 
                             animation={"slide"}>
                                 {
-                                    Array.from(uploadFileDetails.values()).map( (data) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data?.url} alt="img" /> )
+                                    Array.from(uploadFileDetails.values()).map( (data, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data?.url} alt="img" /> )
                                 } 
                             </Carousel>
                             }
@@ -627,8 +639,8 @@ function HomeMiddle() {
                                         <Box sx={{ border: 1, p: 1, bgcolor: '#0e0d0d' }} style={{borderRadius:"10px", marginLeft:"130px"}}>
                                         <div>
                                             {
-                                                Array.from(addedTags.values()).map((key) => (
-                                                    <div style={{display:"flex", alignItems:"center"}}>
+                                                Array.from(addedTags.values()).map((key, i) => (
+                                                    <div key={i} style={{display:"flex", alignItems:"center"}}>
                                                         <Avatar src={key?.profilePic} style={{marginRight:"8px", marginBottom:"10px"}} />
                                                         <span style={{color:"#fff"}}>{key?.userName}</span>
                                                         <CancelIcon onClick={() => removeTag(key?.userName)} style={{color:"#fff", cursor:"pointer", marginLeft:"5px"}} />
