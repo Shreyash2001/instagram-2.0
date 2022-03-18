@@ -6,9 +6,11 @@ const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
 const storyRoutes = require("./routes/storyRoutes");
 const ImageKit = require('imagekit');
+const cors = require('cors');
 
 
-app.use(express.json());  
+app.use(express.json()); 
+app.use(cors()); 
 dotenv.config();
 connectDB();
 
@@ -40,6 +42,20 @@ app.delete("/delete", function(req, res) {
     else console.log(result);
 });
 });
+
+
+//Server Sent Events(SSE)
+var SSE = require('express-sse');
+var sse = new SSE(["array", "containing", "initial", "content", "(optional)"]);
+
+const temp = [{name : "Cillian", age : 31}, {name : "Emily", age : 29}]
+app.get('/stream', sse.init);
+app.get("/data", (req, res) => {
+  console.log("hi")
+  sse.send(temp, "check");
+})
+
+
 
 
 const port = process.env.PORT || 5000;

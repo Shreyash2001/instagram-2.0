@@ -4,6 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Avatar, IconButton, Link } from '@mui/material';
+import Test from '../Components/Test';
 
 function HomeRight() {
     const elements = [1, 2, 3, 4, 5];
@@ -36,6 +37,9 @@ function HomeRight() {
             <div className="homeRight__trending">
                 <div className="homeRight__trendingHeading">
                     <h3>Suggestions</h3>
+                </div>
+                <div>
+                    <Test />
                 </div>
                 <div className="homeRight__Suggestions">
                 {elements.map((element) => 

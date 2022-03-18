@@ -11,6 +11,7 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
+import axios from "axios";
 
 
 function FeedCard({name, username, images, caption, location, profilePic, time}) {
@@ -22,6 +23,12 @@ function FeedCard({name, username, images, caption, location, profilePic, time})
 
   const handleClick = () => {
     setLike(!like);
+    const config = {
+      headers : {
+          "Content-Type":"application/json"
+      }
+  };
+    axios.post("http://localhost:5000/fact", {"newFact":"abcd"}, config)
   };
 
   const handleClickBookmark = () => {
