@@ -3,15 +3,11 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useSelector } from 'react-redux';
 
-function Test() {
-    const [ facts, setFacts ] = useState([]);
-  const [ listening, setListening ] = useState(false);
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
+function Notification() {
+  const [open, setOpen] = useState(false);
+  const {userInfo} = useSelector(state => state.userLogin);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -39,22 +35,17 @@ function Test() {
 
   useEffect( () => {
     var es = new EventSource("http://localhost:5000/stream");
-    // es.onmessage = (e) => {
-    //     const data = JSON.parse(e.data);
-    //     setFacts(data);
-    //     setOpen(true);
-    // }
 
     es.addEventListener ("post", (e) => {
         const data = JSON.parse(e.data);
         console.log(data);
+        if(data?.postedBy?.followers?.includes(userInfo?._id))
         setOpen(true);
     })
 
-  }, []);
+  }, [userInfo]);
   return (
     <div>
-    <Button onClick={handleClick}>Open simple snackbar</Button>
     <Snackbar
       open={open}
       autoHideDuration={6000}
@@ -66,4 +57,4 @@ function Test() {
   )
 }
 
-export default Test
+export default Notification
