@@ -47,8 +47,9 @@ function Feed() {
         </div>
         <div className="feed__cards">
         {
-          posts?.map((post) => (
+          posts?.map((post, i) => (
             <FeedCard 
+              key={i}
               name = {post?.name}
               username = {post?.username}
               images = {post?.images}

@@ -430,7 +430,7 @@ function HomeMiddle() {
                             data?.map((val, i) => {
                                 if(val?.list?.length > 0) {
                                 return ( 
-                                <div style={{position:"relative", marginLeft:"20px"}}>
+                                <div key={i} style={{position:"relative", marginLeft:"20px"}}>
                                     <div onClick={() => handleStory(val?._id, i++)} className="homeMiddle__story">
                                     <svg className="homeMiddle__postsContainerStoriesCreateSvgWithout" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">  
                                     <circle cx="40" cy="40" r="30" />
@@ -700,8 +700,8 @@ function HomeMiddle() {
                                     ?
                                     <div className="search">
                                     <ul style={{listStyleType:"none"}}>
-                                    {users?.map((user) => (
-                                        <li onClick={() => handleClickAddTag(user)} className="search__results">
+                                    {users?.map((user, i) => (
+                                        <li key={i} onClick={() => handleClickAddTag(user)} className="search__results">
                                             <Avatar src={user?.profilePic} />
                                             <span style={{marginLeft:"10px"}}>{user?.userName}</span>
                                         </li>

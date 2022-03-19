@@ -15,9 +15,8 @@ function Carousel({initialIndex, images}) {
 
   useEffect(() => {
     if (flkty) {
-      console.log("this ran");
       flkty.on("settle", () => {
-        console.log(`current index is ${flkty.selectedIndex}`);
+        
       });
 
       flkty.on("change", index => {
@@ -32,8 +31,8 @@ function Carousel({initialIndex, images}) {
     flickityRef={c => (flkty = c)}
     options={{ initialIndex: initialIndex }}
   >
-    {images?.map((image) => (
-      <img src={image} alt="" />
+    {images?.map((image, i) => (
+      <img key={i} src={image} alt="" />
     ))}
   </Flickity>
   :

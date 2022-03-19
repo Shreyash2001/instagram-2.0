@@ -42,8 +42,8 @@ function HomeRight() {
                     <Notification />
                 </div>
                 <div className="homeRight__Suggestions">
-                {elements.map((element) => 
-                <Link to={`/profile/${element}`} className="homeRight__SuggestionsList">
+                {elements.map((element, i) => 
+                <Link key={i} to={`/profile/${element}`} className="homeRight__SuggestionsList">
                         <div className="homeRight__SuggestionsListAvatar">
                             <Avatar />
                             <div className="homeRight__SuggestionsListName">
