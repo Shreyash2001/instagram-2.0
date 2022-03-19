@@ -7,13 +7,18 @@ const postRoutes = require("./routes/postRoutes");
 const storyRoutes = require("./routes/storyRoutes");
 const ImageKit = require('imagekit');
 const cors = require('cors');
+const sse = require("./sse/sse");
+const sseRoute = require("./routes/sseRoute");
+const compression = require("compression");
 
 
 app.use(express.json()); 
 app.use(cors()); 
+app.use(compression())
 dotenv.config();
 connectDB();
 
+app.use(sseRoute);
 app.use("/api/stories", storyRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
@@ -42,20 +47,6 @@ app.delete("/delete", function(req, res) {
     else console.log(result);
 });
 });
-
-
-//Server Sent Events(SSE)
-var SSE = require('express-sse');
-var sse = new SSE(["array", "containing", "initial", "content", "(optional)"]);
-
-const temp = [{name : "Cillian", age : 31}, {name : "Emily", age : 29}]
-app.get('/stream', sse.init);
-app.get("/data", (req, res) => {
-  console.log("hi")
-  sse.send(temp, "check");
-})
-
-
 
 
 const port = process.env.PORT || 5000;

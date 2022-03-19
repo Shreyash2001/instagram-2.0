@@ -38,14 +38,19 @@ function Test() {
   );
 
   useEffect( () => {
-    var es = new EventSource('http://localhost:5000/data');
-    es.onmessage = (e) => {
-        console.log(e.data)
-    }
-    es.addEventListener("check", (e) => {
+    var es = new EventSource("http://localhost:5000/stream");
+    // es.onmessage = (e) => {
+    //     const data = JSON.parse(e.data);
+    //     setFacts(data);
+    //     setOpen(true);
+    // }
+
+    es.addEventListener ("post", (e) => {
         const data = JSON.parse(e.data);
-        console.log(e);
+        console.log(data);
+        setOpen(true);
     })
+
   }, []);
   return (
     <div>
@@ -54,7 +59,7 @@ function Test() {
       open={open}
       autoHideDuration={6000}
       onClose={handleClose}
-      message="Note archived"
+      message={"abcd"}
       action={action}
     />
   </div>

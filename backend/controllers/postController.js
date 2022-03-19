@@ -1,7 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const Post = require("../model/postModel");
 const User = require("../model/userModel");
-const moment = require("moment")
+const moment = require("moment");
+const sse = require("../sse/sse");
 
 
 const createPost = asyncHandler(async(req, res) => {
@@ -21,6 +22,7 @@ const createPost = asyncHandler(async(req, res) => {
     post = await User.populate(post, {path: "postedBy"});
     if(post) {
         res.status(201).json(post);
+        sse.send(post, "post");
     } else {
         res.status(400).json({message : "Something went wrong"});
     }
