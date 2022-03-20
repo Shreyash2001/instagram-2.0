@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./HomeRight.css";
 import SendIcon from '@mui/icons-material/Send';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Avatar, IconButton, Link } from '@mui/material';
 import Notification from '../Components/Notification';
+import { useSelector } from 'react-redux';
 
 function HomeRight() {
     const elements = [1, 2, 3, 4, 5];
+    const [showNotificationIcon, setNotificationIcon] = useState(false);
+    const {userInfo} = useSelector(state => state.userLogin);
+
     return (
         <div className="homeRight">
             <div className="homeRight__top">
                 <IconButton>
                     <SendIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
                 </IconButton>
-                <IconButton>
+                <IconButton style={{position:"relative"}}>
                     <NotificationsNoneIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
+                    {showNotificationIcon && 
+                    <div className="notify">
+                        <div>
+                        <span>1</span>
+                        </div>
+                    </div>}
                 </IconButton>
                 <IconButton>
                     <AccountCircleIcon style={{color:"rgb(189, 186, 186)", fontSize:"25px"}} />
@@ -39,7 +49,7 @@ function HomeRight() {
                     <h3>Suggestions</h3>
                 </div>
                 <div>
-                    <Notification />
+                    <Notification setNotificationIcon={setNotificationIcon} />
                 </div>
                 <div className="homeRight__Suggestions">
                 {elements.map((element, i) => 

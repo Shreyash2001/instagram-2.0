@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSelector } from 'react-redux';
 
-function Notification() {
+function Notification({setNotificationIcon}) {
   const [open, setOpen] = useState(false);
   const {userInfo} = useSelector(state => state.userLogin);
 
@@ -39,8 +39,10 @@ function Notification() {
     es.addEventListener ("post", (e) => {
         const data = JSON.parse(e.data);
         console.log(data);
-        if(data?.postedBy?.followers?.includes(userInfo?._id))
+        if(data?.postedBy?.followers?.includes(userInfo?._id)) {
         setOpen(true);
+        setNotificationIcon(true)
+        }
     })
 
   }, [userInfo]);
