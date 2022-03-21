@@ -11,7 +11,6 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
-import axios from "axios";
 
 
 function FeedCard({name, username, images, caption, location, profilePic, time}) {
@@ -20,15 +19,13 @@ function FeedCard({name, username, images, caption, location, profilePic, time})
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
   const [showPostButton, setShowPostButton] = useState(false);
+  var trimmedCaption = caption;
+  if(caption?.length >= 100) 
+  trimmedCaption = caption.substr(0, 100) + "...";
 
   const handleClick = () => {
     setLike(!like);
-    const config = {
-      headers : {
-          "Content-Type":"application/json"
-      }
-  };
-    axios.post("http://localhost:5000/fact", {"newFact":"abcd"}, config)
+    
   };
 
   const handleClickBookmark = () => {
@@ -151,7 +148,8 @@ function FeedCard({name, username, images, caption, location, profilePic, time})
 
         <div className="feed__caption">
           <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>{username}</span>
-          <span style={{lineHeight:"25px", fontSize:"16px"}}>{caption}</span>
+          <span style={{lineHeight:"25px", fontSize:"16px"}}>{trimmedCaption}</span>
+          {caption?.length >= 100 && <span>See more</span>}
           <div>
             <span>{time}</span>
           </div>

@@ -229,6 +229,7 @@ function HomeMiddle() {
         const[showEmoji, setShowEmoji] = useState(false);
         const[caption, setCaption] = useState("");
 
+
         const onEmojiClick = (event, emojiObject) => {
             if(emojiObject !== null) {
               var already = caption;
@@ -322,6 +323,7 @@ function HomeMiddle() {
             if(url !== null || url !== undefined) {
                 setUploadPostsData(old => [...old, url]);
             }
+            setUrl(null);
         }, [url]);
 
         //upload post
@@ -661,7 +663,7 @@ function HomeMiddle() {
                                 <span>{userInfo?.firstName + " " + userInfo?.lastName}</span>
                             </div>
                             <div className="post__captionInput">
-                                <textarea placeholder="Write a Caption..." value={caption} onChange={(e) => setCaption(e.target.value)} />
+                                <textarea maxLength="2200" placeholder="Write a Caption..." value={caption} onChange={(e) => setCaption(e.target.value)} />
 
                                 <div>
                                 <span style={{color:"lightgray"}}>{2200 - caption.length}/2,200</span>
