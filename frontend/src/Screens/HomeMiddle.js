@@ -334,10 +334,11 @@ function HomeMiddle() {
             const upload_images = [];
             Array.from(uploadFileDetails.keys()).map(key => upload_id.push(key));
             Array.from(uploadFileDetails.values()).map(key => upload_images.push(key?.url));
-
+            
+            if(upload_images.length > 0 && caption.length > 0 && destination.length > 0 && addedTags.size > 0)
             dispatch(addPostAction(upload_images, caption, destination, Array.from(addedTags.values()), upload_id))
         }
- 
+        console.log(addedTags.size)
 
         useEffect(() => {
             if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
@@ -687,7 +688,7 @@ function HomeMiddle() {
 
                             <div className="post__location">
                                 <AddLocationAltOutlinedIcon />
-                                <input onChange={(e) => setDestination(e.target.value)} placeholder="Add Your Destination" />
+                                <input maxLength="20" onChange={(e) => setDestination(e.target.value)} placeholder="Add Your Destination" />
                             </div>
 
                             <div>
