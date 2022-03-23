@@ -59,4 +59,20 @@ const getPost = asyncHandler(async(req, res) => {
     }
 });
 
-module.exports = {createPost, getPost};
+const like = asyncHandler(async(req, res) => {
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0 ||  req.body.id === null || req.body.id === undefined || req.body.id.length === 0) {
+        res.status(404).json({message : "pass the post id correctly"})
+    } else {
+        const tempPost = await Post.findById(req.body.id);
+        const isLiked = tempPost.likes.includes(req.user._id);
+        const options = isLiked ? "$pull" : "$addToSet";
+        const post = await Post.findByIdAndUpdate(req.body.id, {[options] : {likes : req.user._id}}, {new : true});
+        if(post) {
+            res.status(201).json(post);
+        } else {
+            res.status(400).json({message: "Try to like again"});
+        }
+    }
+});
+
+module.exports = {createPost, getPost, like};
