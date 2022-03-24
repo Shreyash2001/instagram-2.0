@@ -11,21 +11,26 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
+import { useDispatch } from 'react-redux';
+import { addLikeAction } from '../actions/postsAction';
 
 
-function FeedCard({name, username, images, caption, location, profilePic, time}) {
+function FeedCard({id, name, username, images, caption, location, profilePic, time}) {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
   const [showPostButton, setShowPostButton] = useState(false);
   var trimmedCaption = caption;
-  if(caption?.length >= 100) 
-  trimmedCaption = caption.substr(0, 100) + "...";
+  if(caption?.length >= 100) {
+    trimmedCaption = caption.substr(0, 100) + "...";
+  }
+  
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
+  const handleLikeClick = () => {
     setLike(!like);
-    
+    dispatch(addLikeAction(id))
   };
 
   const handleClickBookmark = () => {
@@ -85,7 +90,7 @@ function FeedCard({name, username, images, caption, location, profilePic, time})
         like 
       ? 
           <div className="feed__likeContainer">
-          <IconButton onClick={handleClick}>
+          <IconButton onClick={handleLikeClick}>
             <FavoriteIcon className = "like" style={{color:"rgb(237, 73, 86)"}} />
           </IconButton>
           <div>
@@ -94,7 +99,7 @@ function FeedCard({name, username, images, caption, location, profilePic, time})
           </div>
       :
           <div className="feed__likeContainer">
-          <IconButton onClick={handleClick}>
+          <IconButton onClick={handleLikeClick}>
             <FavoriteBorderIcon className = "like" style={{color:"#222"}} />
           </IconButton>
           <div>

@@ -44,6 +44,7 @@ const getPost = asyncHandler(async(req, res) => {
     if(posts) {
         posts.map((post) => {
             var temp = {};
+            temp.id = post._id
             temp.name = post.postedBy.firstName + " " + post.postedBy.lastName;
             temp.username = post.postedBy.userName;
             temp.profilePic = post.postedBy.profilePic;

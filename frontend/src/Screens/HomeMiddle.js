@@ -338,7 +338,6 @@ function HomeMiddle() {
             if(upload_images.length > 0 && caption.length > 0 && destination.length > 0 && addedTags.size > 0)
             dispatch(addPostAction(upload_images, caption, destination, Array.from(addedTags.values()), upload_id))
         }
-        console.log(addedTags.size)
 
         useEffect(() => {
             if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)

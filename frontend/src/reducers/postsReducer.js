@@ -1,4 +1,7 @@
 import { 
+    ADD_LIKE_FAIL,
+    ADD_LIKE_REQUEST,
+    ADD_LIKE_SUCCESS,
     ADD_POSTS_FAIL,
     ADD_POSTS_REQUEST,
     ADD_POSTS_SUCCESS,
@@ -49,4 +52,27 @@ export const addPostReducer = (state = {}, action) => {
         default:
             return state;
     }
-}
+};
+
+export const likeReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADD_LIKE_REQUEST:
+            return {
+                loading : true
+            };
+        case ADD_LIKE_SUCCESS:
+            return {
+                loading : false,
+                success : true,
+                info : action.payload
+            };
+        case ADD_LIKE_FAIL:
+            return {
+                loading : false,
+                error : action.payload
+            };
+    
+        default:
+            return state;
+    }
+};
