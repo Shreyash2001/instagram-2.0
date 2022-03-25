@@ -68,6 +68,7 @@ const like = asyncHandler(async(req, res) => {
         const isLiked = tempPost.likes.includes(req.user._id);
         const options = isLiked ? "$pull" : "$addToSet";
         const post = await Post.findByIdAndUpdate(req.body.id, {[options] : {likes : req.user._id}}, {new : true});
+        await User.findByIdAndUpdate(req.user._id, {[options] : {likes : post._id}});
         if(post) {
             res.status(201).json(post);
         } else {
