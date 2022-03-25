@@ -68,9 +68,14 @@ const like = asyncHandler(async(req, res) => {
         const isLiked = tempPost.likes.includes(req.user._id);
         const options = isLiked ? "$pull" : "$addToSet";
         const post = await Post.findByIdAndUpdate(req.body.id, {[options] : {likes : req.user._id}}, {new : true});
-        await User.findByIdAndUpdate(req.user._id, {[options] : {likes : post._id}});
+        const user = await User.findByIdAndUpdate(req.user._id, {[options] : {likes : post._id}});
         if(post) {
-            res.status(201).json(post);
+            res.status(201).json(user);
+            const data = {
+                user : user,
+                id : post.postedBy
+            }
+            !isLiked && sse.send(data, "like");
         } else {
             res.status(400).json({message: "Try to like again"});
         }

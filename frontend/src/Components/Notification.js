@@ -45,6 +45,15 @@ function Notification({setNotificationIcon}) {
         }
     })
 
+    es.addEventListener ("like", (e) => {
+      const data = JSON.parse(e.data);
+      console.log(data);
+      if(data?.id === userInfo?._id) {
+      setOpen(true);
+      setNotificationIcon(true);
+      }
+  })
+
   }, [userInfo]);
   return (
     <div>
