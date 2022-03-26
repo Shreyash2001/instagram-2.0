@@ -54,6 +54,7 @@ function Feed() {
               name = {post?.name}
               username = {post?.username}
               images = {post?.images}
+              likes = {post?.likes}
               profilePic = {post?.profilePic}
               caption = {post?.caption}
               location = {post?.location}

@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { addLikeAction } from '../actions/postsAction';
 
 
-function FeedCard({id, name, username, images, caption, location, profilePic, time}) {
+function FeedCard({id, name, username, images, likes, caption, location, profilePic, time}) {
   const [like, setLike] = useState(false);
   const [bookmark, setBookmark] = useState(false);
   const [show, setShow] = useState(false);
@@ -94,7 +94,7 @@ function FeedCard({id, name, username, images, caption, location, profilePic, ti
             <FavoriteIcon className = "like" style={{color:"rgb(237, 73, 86)"}} />
           </IconButton>
           <div>
-            <span>22.5K Likes</span>
+            <span>{likes?.length} Likes</span>
           </div>
           </div>
       :
@@ -103,7 +103,7 @@ function FeedCard({id, name, username, images, caption, location, profilePic, ti
             <FavoriteBorderIcon className = "like" style={{color:"#222"}} />
           </IconButton>
           <div>
-            <span>22.5K Likes</span>
+            <span>{likes?.length} Likes</span>
           </div>
           </div>
       }   
