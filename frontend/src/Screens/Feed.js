@@ -8,7 +8,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 function Feed() {
   var {loading, error, posts} = useSelector(state => state.allPosts);
-
+  const {userInfo} = useSelector(state => state.userLogin);
   posts = JSON.parse(localStorage.getItem("Instagram-Posts"));
 
   return (
@@ -47,14 +47,15 @@ function Feed() {
         </div>
         <div className="feed__cards">
         {
-          posts?.map((post, i) => (
+          posts?.map((post) => (
             <FeedCard 
-              key={i}
+              key={post?.id}
               id={post?.id}
               name = {post?.name}
               username = {post?.username}
               images = {post?.images}
               likes = {post?.likes}
+              user_id = {userInfo?._id}
               profilePic = {post?.profilePic}
               caption = {post?.caption}
               location = {post?.location}

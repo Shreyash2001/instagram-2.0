@@ -15,8 +15,9 @@ import { useDispatch } from 'react-redux';
 import { addLikeAction } from '../actions/postsAction';
 
 
-function FeedCard({id, name, username, images, likes, caption, location, profilePic, time}) {
-  const [like, setLike] = useState(false);
+function FeedCard({id, name, username, images, likes, user_id, caption, location, profilePic, time}) {
+  const [like, setLike] = useState(likes?.includes(user_id));
+  const [countLike, setCountLike] = useState(likes?.length);
   const [bookmark, setBookmark] = useState(false);
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
@@ -30,7 +31,14 @@ function FeedCard({id, name, username, images, likes, caption, location, profile
 
   const handleLikeClick = () => {
     setLike(!like);
-    dispatch(addLikeAction(id))
+    dispatch(addLikeAction(id));
+    setCountLike(countLike + 1);
+  };
+
+  const handleLikeRemoveClick = () => {
+    setLike(!like);
+    dispatch(addLikeAction(id));
+    setCountLike(countLike - 1);
   };
 
   const handleClickBookmark = () => {
@@ -90,11 +98,11 @@ function FeedCard({id, name, username, images, likes, caption, location, profile
         like 
       ? 
           <div className="feed__likeContainer">
-          <IconButton onClick={handleLikeClick}>
+          <IconButton onClick={handleLikeRemoveClick}>
             <FavoriteIcon className = "like" style={{color:"rgb(237, 73, 86)"}} />
           </IconButton>
           <div>
-            <span>{likes?.length} Likes</span>
+            <span>{countLike} Likes</span>
           </div>
           </div>
       :
@@ -103,7 +111,7 @@ function FeedCard({id, name, username, images, likes, caption, location, profile
             <FavoriteBorderIcon className = "like" style={{color:"#222"}} />
           </IconButton>
           <div>
-            <span>{likes?.length} Likes</span>
+            <span>{countLike} Likes</span>
           </div>
           </div>
       }   

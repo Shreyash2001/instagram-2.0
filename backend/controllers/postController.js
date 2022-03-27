@@ -75,7 +75,7 @@ const like = asyncHandler(async(req, res) => {
                 user : user,
                 id : post.postedBy
             }
-            !isLiked && sse.send(data, "like");
+            !isLiked && data.id.toString() !== req.user._id.toString() && sse.send(data, "like");
         } else {
             res.status(400).json({message: "Try to like again"});
         }
