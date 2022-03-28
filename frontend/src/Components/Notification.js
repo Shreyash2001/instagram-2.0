@@ -57,13 +57,7 @@ function Notification({setNotificationIcon}) {
   }, [userInfo]);
   return (
     <div>
-    <Snackbar
-      open={open}
-      autoHideDuration={6000}
-      onClose={handleClose}
-      message={"abcd"}
-      action={action}
-    />
+
   </div>
   )
 }
