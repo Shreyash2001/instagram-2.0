@@ -9,7 +9,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 function Feed() {
   var {loading, error, posts} = useSelector(state => state.allPosts);
   const {userInfo} = useSelector(state => state.userLogin);
-  posts = JSON.parse(localStorage.getItem("Instagram-Posts"));
+  posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
 
   return (
     <>

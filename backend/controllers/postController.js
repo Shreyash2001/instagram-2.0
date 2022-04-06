@@ -82,4 +82,9 @@ const like = asyncHandler(async(req, res) => {
     }
 });
 
-module.exports = {createPost, getPost, like};
+const deletePost = asyncHandler(async(req, res) => {
+    await Post.findByIdAndDelete(req.params.id);
+    res.json({});
+});
+
+module.exports = {createPost, getPost, like, deletePost};
