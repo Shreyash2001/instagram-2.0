@@ -329,7 +329,6 @@ function HomeMiddle() {
         //upload post
 
         const uploadPost = () => {
-           
             const upload_id = [];
             const upload_images = [];
             Array.from(uploadFileDetails.keys()).map(key => upload_id.push(key));
@@ -343,7 +342,7 @@ function HomeMiddle() {
             if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
                 dispatch(getStoriesAction());
 
-                if(localStorage.getItem("Instagram-Posts") === undefined || localStorage.getItem("Instagram-Posts") === null)
+                if(sessionStorage.getItem("Instagram-Posts") === undefined || sessionStorage.getItem("Instagram-Posts") === null)
                 dispatch(getPostsAction());
             
             if(success) {

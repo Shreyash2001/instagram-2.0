@@ -1,5 +1,13 @@
 import axios from "axios";
-import { ADD_LIKE_FAIL, ADD_LIKE_REQUEST, ADD_LIKE_SUCCESS, ADD_POSTS_FAIL, ADD_POSTS_REQUEST, ADD_POSTS_SUCCESS, GET_POSTS_ERROR, GET_POSTS_LOADING, GET_POSTS_SUCCESS } from "../constants/postConstants"
+import { ADD_LIKE_FAIL, 
+    ADD_LIKE_REQUEST, 
+    ADD_LIKE_SUCCESS, 
+    ADD_POSTS_FAIL, 
+    ADD_POSTS_REQUEST, 
+    ADD_POSTS_SUCCESS, 
+    GET_POSTS_ERROR, 
+    GET_POSTS_LOADING, 
+    GET_POSTS_SUCCESS } from "../constants/postConstants"
 
 export const getPostsAction = () => async(dispatch, getState) => {
     try {
@@ -13,7 +21,7 @@ export const getPostsAction = () => async(dispatch, getState) => {
             }
         }
         const {data} = await axios.get("/api/posts/getUserPosts", config);
-        localStorage.setItem("Instagram-Posts", JSON.stringify(data));
+        sessionStorage.setItem("Instagram-Posts", JSON.stringify(data));
         dispatch({
             type: GET_POSTS_SUCCESS,
             payload : data

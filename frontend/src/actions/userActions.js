@@ -110,7 +110,7 @@ export const searchUsersAction = (search) => async(dispatch, getState) => {
         dispatch({
             type: GET_SEARCH_RESULTS_REQUEST
         });
-        console.log(search)
+
         const {data} = await axios.get(`/api/users/search?user=${search}`, config)
         dispatch({
             type: GET_SEARCH_RESULTS_SUCCESS,
