@@ -15,8 +15,8 @@ import { useDispatch } from 'react-redux';
 import { addLikeAction } from '../actions/postsAction';
 
 
-function FeedCard({id, name, username, images, likes, user_id, caption, location, profilePic, time}) {
-  const [like, setLike] = useState(likes?.includes(user_id));
+function FeedCard({id, name, username, images, likes, user_info, caption, location, profilePic, time}) {
+  const [like, setLike] = useState(likes?.includes(user_info._id));
   const [countLike, setCountLike] = useState(likes?.length);
   const [bookmark, setBookmark] = useState(false);
   const [show, setShow] = useState(false);
@@ -79,11 +79,11 @@ function FeedCard({id, name, username, images, likes, user_id, caption, location
                 <span>{location}</span>
             </div>
           </div>
-          <div>
+          {user_info?.posts.includes(id) && <div>
           <IconButton>
             <MoreHorizIcon style={{fontSize:"28px"}} />
           </IconButton>
-          </div>
+          </div>}
       </div>
 
       <div className="feed__image">

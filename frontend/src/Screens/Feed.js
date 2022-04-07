@@ -51,11 +51,11 @@ function Feed() {
             <FeedCard 
               key={post?.id}
               id={post?.id}
+              user_info={userInfo}
               name = {post?.name}
               username = {post?.username}
               images = {post?.images}
               likes = {post?.likes}
-              user_id = {userInfo?._id}
               profilePic = {post?.profilePic}
               caption = {post?.caption}
               location = {post?.location}
