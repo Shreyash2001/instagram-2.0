@@ -628,7 +628,7 @@ function HomeMiddle() {
 
                             {addedTags.size > 0 && <div style={{position:"absolute", bottom:"10px", left:"10px", zIndex:"100"}}>
                                 <IconButton onClick={handleClickPopTag}>
-                                <AccountCircle />
+                                <AccountCircle className="pulse" />
                                 </IconButton>
 
                                 
