@@ -339,7 +339,7 @@ function HomeMiddle() {
         }
 
         useEffect(() => {
-            if(localStorage.getItem("Instagram-Stories") === undefined || localStorage.getItem("Instagram-Stories") === null)
+            if(sessionStorage.getItem("Instagram-Stories") === undefined || sessionStorage.getItem("Instagram-Stories") === null)
                 dispatch(getStoriesAction());
 
                 if(sessionStorage.getItem("Instagram-Posts") === undefined || sessionStorage.getItem("Instagram-Posts") === null)
