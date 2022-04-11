@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
 import FeedCard from '../Components/FeedCard';
 import "./Feed.css"
@@ -10,14 +10,16 @@ function Feed() {
   var {loading, error, posts} = useSelector(state => state.allPosts);
   const {userInfo} = useSelector(state => state.userLogin);
   posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
-
+  const [loaders, setLoaders] = useState(["1", "2", "3"]);
   return (
     <>
     {
       loading 
-      ?
-      <div>
-      <div>
+      &&
+      <>
+      {loaders.map(() => (
+        <div style={{backgroundColor:"#fff", width:"750px", height:"550px", marginLeft:"100px", marginBottom:"20px", padding:"20px"}}>
+      <div style={{display:"flex", alignItems:"center"}}>
       <Skeleton
         circle
         height="80px"
@@ -25,24 +27,31 @@ function Feed() {
         containerClassName="avatar-skeleton"
         baseColor="#adadad2e"
       />
+      <div style={{marginLeft:"10px"}}>
+      <Skeleton width={200} style={{marginBottom:"10px"}} />
+      <Skeleton width={100} />
+      </div>
+
       </div>
       <Skeleton 
-        style={{marginLeft:"100px", marginBottom:"20px"}} 
-        width={750} 
-        height={550} 
+        width={680} 
+        height={400} 
         borderRadius={0}
-        count={3} 
         baseColor="#adadad2e"
+        style={{marginTop:"20px"}}
         />  
       </div>
-      
-      :
 
-      error ? 
+      ))}
+      </>
+      }
+
+
+     { error &&
       <div>
         <span>{error}</span>
-      </div>
-      :
+      </div>}
+      
 
 
       <div className="feed">
@@ -76,7 +85,7 @@ function Feed() {
             
         </div>
     </div>
-    }
+    
     </>
   );
 };
