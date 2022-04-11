@@ -17,6 +17,15 @@ function Feed() {
       loading 
       ?
       <div>
+      <div>
+      <Skeleton
+        circle
+        height="80px"
+        width="80px" 
+        containerClassName="avatar-skeleton"
+        baseColor="#adadad2e"
+      />
+      </div>
       <Skeleton 
         style={{marginLeft:"100px", marginBottom:"20px"}} 
         width={750} 
