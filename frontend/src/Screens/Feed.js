@@ -18,7 +18,7 @@ function Feed() {
       &&
       <>
       {loaders.map(() => (
-        <div style={{backgroundColor:"#fff", width:"750px", height:"550px", marginLeft:"100px", marginBottom:"20px", padding:"20px"}}>
+        <div style={{backgroundColor:"#fff", width:"650px", height:"550px", marginLeft:"100px", marginBottom:"20px", padding:"20px"}}>
       <div style={{display:"flex", alignItems:"center"}}>
       <Skeleton
         circle
@@ -34,12 +34,15 @@ function Feed() {
 
       </div>
       <Skeleton 
-        width={680} 
+        width={650} 
         height={400} 
         borderRadius={0}
         baseColor="#adadad2e"
         style={{marginTop:"20px"}}
         />  
+        <div>
+        <Skeleton width={600} style={{marginTop:"20px"}} />
+        </div>
       </div>
 
       ))}
