@@ -2,7 +2,7 @@ import { Avatar, Button, IconButton } from '@mui/material';
 import {React, useState} from 'react';
 import "./FeedCard.css";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import Carousel from './Carousel';
+// import Carousel from './Carousel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
@@ -13,6 +13,10 @@ import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import { useDispatch } from 'react-redux';
 import { addLikeAction } from '../actions/postsAction';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Carousel from 'react-material-ui-carousel';
 
 
 function FeedCard({id, name, username, images, likes, user_info, caption, location, profilePic, time}) {
@@ -64,8 +68,23 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
   const showComment = () => {
     comment.split(' ').filter(word => word).join(' ')
+  };
 
-  }
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div className="feedCard">
@@ -88,7 +107,17 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
       <div className="feed__image">
         {/* <img src="https://www.greenqueen.com.hk/wp-content/uploads/2021/06/WEF-Investments-In-Nature-Based-Solutions-Have-To-Triple-By-2030-To-Address-Climate-Change-Biodiversity-Loss.jpg" alt="" /> */}
-        <Carousel images={images} initialIndex={0} />
+        {/* <Carousel images={images} initialIndex={0} /> */}
+        <Carousel 
+          navButtonsAlwaysVisible 
+          indicators={false}
+          autoPlay = {false}
+          cycleNavigation={false} 
+          animation={"slide"}>
+              {
+                  Array.from(images.values()).map( (data, i) => <img style={{width:"650px", height:"550px"}} key={i} src={data} alt="img" /> )
+              } 
+        </Carousel>
       </div>
 
       <div className="feed__belowImage">
@@ -99,7 +128,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
       ? 
           <div className="feed__likeContainer">
           <IconButton onClick={handleLikeRemoveClick}>
-            <FavoriteIcon className = "like" style={{color:"rgb(237, 73, 86)"}} />
+            <FavoriteIcon style={{color:"rgb(237, 73, 86)"}} />
           </IconButton>
           <div>
             <span>{countLike} Likes</span>
@@ -108,7 +137,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
       :
           <div className="feed__likeContainer">
           <IconButton onClick={handleLikeClick}>
-            <FavoriteBorderIcon className = "like" style={{color:"#222"}} />
+            <FavoriteBorderIcon style={{color:"#222"}} />
           </IconButton>
           <div>
             <span>{countLike} Likes</span>
@@ -119,7 +148,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
         <div className="feed__comment">
           <div>
-            <IconButton>
+            <IconButton onClick={handleOpen}>
               <AddCommentOutlinedIcon style={{color:"#222"}} />
             </IconButton>
           </div>
@@ -144,14 +173,14 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
         bookmark 
       ? 
           <div className="feed__likeContainer">
-          <IconButton onClick={handleClickBookmark}>
-            <BookmarkIcon className = "like" style={{color:"rgb(237, 73, 86)"}} />
+          <IconButton style={{marginRight:"18px"}} onClick={handleClickBookmark}>
+            <BookmarkIcon style={{color:"rgb(237, 73, 86)"}} />
           </IconButton>
           </div>
       :
           <div className="feed__likeContainer">
-          <IconButton onClick={handleClickBookmark}>
-            <BookmarkBorderOutlinedIcon className = "like" style={{color:"#222"}} />
+          <IconButton style={{marginRight:"18px"}} onClick={handleClickBookmark}>
+            <BookmarkBorderOutlinedIcon style={{color:"#222"}} />
           </IconButton>
           </div>
       }   
@@ -162,7 +191,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
         <div className="feed__caption">
           <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>{username}</span>
           <span style={{lineHeight:"25px", fontSize:"16px"}}>{trimmedCaption}</span>
-          {caption?.length >= 100 && <span>See more</span>}
+          {caption?.length >= 100 && <span onClick={handleOpen} style={{color:"gray", cursor:"pointer"}}>See more</span>}
           <div>
             <span>{time}</span>
           </div>
@@ -197,6 +226,25 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
         </div>
             <div>{comment}</div>
+
+              {/* //////////////// Open Modal //////////// */}
+            <div>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2">
+                    Text in a modal
+                  </Typography>
+                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                  </Typography>
+                </Box>
+              </Modal>
+            </div>
     </div>
   );
 };

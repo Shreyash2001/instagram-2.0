@@ -1,6 +1,6 @@
 .feedCard {
-    width: 650px;
-    height: 700px;
+    width: 680px;
+    height: 850px;
     background-color: #fff;
     padding: 10px 10px 10px 40px;
     margin-bottom: 30px;
@@ -28,22 +28,19 @@
 }
 
 .feed__image {
-    padding: 20px 10px 10px 10px;
-    height: 400px;
+    padding: 20px 30px 20px 10px;
+    height: 550px;
 }
 
 .feed__belowImage {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .feed__likeContainer {
     display: flex;
     align-items: center;
-}
-
-.feed__like {
-    margin-right: 50px;
 }
 
 .like {
