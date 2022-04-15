@@ -193,13 +193,14 @@ function HomeMiddle() {
         const [showScrollRight, setShowScrollRight] = useState(false);
         const scrollEvent = (e) => {
             const target = e.target;
+            console.log(target.scrollLeft)
             if(target.scrollLeft > 0) {
                 setShowScroll(true);
             } else {
                 setShowScroll(false);
             }
 
-            if(target.scrollLeft < 740) {
+            if(target.scrollLeft > 0 && target.scrollLeft < 740) {
                 setShowScrollRight(true);
             } else {
                 setShowScrollRight(false);
