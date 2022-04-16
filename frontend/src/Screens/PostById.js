@@ -4,7 +4,17 @@ import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
 
 function PostById() {
+    const [postData, setPostData] = useState({});
     const history = useHistory();
+    const id = window.location.pathname.split("/")[2];
+
+    const posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+
+    useEffect(() => {
+        setPostData(posts.find((post) => post.id === id))
+    }, [id]);
+    
+
     const style = {
         position: 'absolute',
         top: '50%',
