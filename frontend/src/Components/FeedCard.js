@@ -75,11 +75,10 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    width: 950,
+    height: 680,
+    maxWidth: 1200,
+    outline:'none'
   };
 
   const [open, setOpen] = useState(false);
@@ -235,13 +234,10 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={style}>
-                  <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Text in a modal
-                  </Typography>
-                  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                  </Typography>
+                <Box style={{backgroundColor:"#fff"}} sx={style}>
+                  <div>
+
+                  </div>
                 </Box>
               </Modal>
             </div>
