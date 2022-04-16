@@ -8,12 +8,17 @@ import {
 import Login from './Screens/Login';
 import Preferences from './Screens/Preferences';
 import Home from './Screens/Home';
+import PostById from './Screens/PostById';
 
 
 function App() {
   return (
     <Router>
     <Switch>
+      <Route path="/post/:id">
+        <PostById />
+        <Home />
+      </Route>
       <Route path="/register">
         <Registration />
       </Route>

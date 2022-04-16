@@ -2,7 +2,6 @@ import { Avatar, Button, IconButton } from '@mui/material';
 import {React, useState} from 'react';
 import "./FeedCard.css";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-// import Carousel from './Carousel';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddCommentOutlinedIcon from '@mui/icons-material/AddCommentOutlined';
@@ -14,9 +13,9 @@ import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined
 import { useDispatch } from 'react-redux';
 import { addLikeAction } from '../actions/postsAction';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Carousel from 'react-material-ui-carousel';
+import { Link, useHistory } from 'react-router-dom';
 
 
 function FeedCard({id, name, username, images, likes, user_info, caption, location, profilePic, time}) {
@@ -70,20 +69,10 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     comment.split(' ').filter(word => word).join(' ')
   };
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 950,
-    height: 680,
-    maxWidth: 1200,
-    outline:'none'
-  };
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const history = useHistory();
+  const openComments = () => {
+    history.push(`/post/${id}`);
+  }
 
   return (
     <div className="feedCard">
@@ -147,7 +136,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
         <div className="feed__comment">
           <div>
-            <IconButton onClick={handleOpen}>
+            <IconButton onClick={openComments}>
               <AddCommentOutlinedIcon style={{color:"#222"}} />
             </IconButton>
           </div>
@@ -190,7 +179,10 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
         <div className="feed__caption">
           <span style={{margin:"12px 10px 0px 0px", fontWeight:"700"}}>{username}</span>
           <span style={{lineHeight:"25px", fontSize:"16px"}}>{trimmedCaption}</span>
-          {caption?.length >= 100 && <span onClick={handleOpen} style={{color:"gray", cursor:"pointer"}}>See more</span>}
+          {caption?.length >= 100 
+          && 
+          <Link to={`/post/${id}`} style={{color:"gray", cursor:"pointer", textDecoration:"none"}}>See more</Link>
+          }
           <div>
             <span>{time}</span>
           </div>
@@ -225,22 +217,6 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
         </div>
             <div>{comment}</div>
-
-              {/* //////////////// Open Modal //////////// */}
-            <div>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-              >
-                <Box style={{backgroundColor:"#fff"}} sx={style}>
-                  <div>
-
-                  </div>
-                </Box>
-              </Modal>
-            </div>
     </div>
   );
 };
