@@ -2,6 +2,7 @@ import {React, useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
+import Carousel from 'react-material-ui-carousel';
 
 function PostById() {
     const [postData, setPostData] = useState({});
@@ -39,6 +40,8 @@ function PostById() {
         handleOpen();
       }, []);
 
+      console.log(postData);
+
   return (
     <div>
         <div>
@@ -49,7 +52,27 @@ function PostById() {
                 aria-describedby="modal-modal-description"
               >
                 <Box style={{backgroundColor:"#fff"}} sx={style}>
-                  <div>
+                <div style={{display:"flex"}}>
+                    <div>
+                    <Carousel 
+                      style={{height:"800px"}}
+                      navButtonsAlwaysVisible 
+                      indicators={false}
+                      autoPlay = {false}
+                      cycleNavigation={false} 
+                      animation={"slide"}>
+                          {
+                              postData?.images?.map( (data, i) => (
+                                <img style={{width:"550px", height:"800px"}} 
+                                key={i} src={data} 
+                                alt="img" />))
+                          } 
+                    </Carousel>
+                    </div>
+
+                    <div>
+                        
+                    </div>
 
                   </div>
                 </Box>
