@@ -1,8 +1,10 @@
 import {React, useEffect, useState} from 'react';
+import "./PostbyId.css";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
+import { Avatar, Button } from '@mui/material';
 
 function PostById() {
     const [postData, setPostData] = useState({});
@@ -52,10 +54,9 @@ function PostById() {
                 aria-describedby="modal-modal-description"
               >
                 <Box style={{backgroundColor:"#fff"}} sx={style}>
-                <div style={{display:"flex"}}>
-                    <div>
+                <div className="post__left">
+                    <div className="post__leftImageContainer">
                     <Carousel 
-                      style={{height:"800px"}}
                       navButtonsAlwaysVisible 
                       indicators={false}
                       autoPlay = {false}
@@ -70,8 +71,17 @@ function PostById() {
                     </Carousel>
                     </div>
 
-                    <div>
-                        
+                    <div className="post__right">
+                        <div className="post__rightTop">
+                            <div>
+                              <Avatar src={postData?.profilePic} />
+                            </div>
+                            <div className="post__rightTopinfo">
+                              <span>{postData?.username}</span>
+                              <span>•</span>
+                              <Button>Follow</Button>
+                            </div>
+                        </div>
                     </div>
 
                   </div>

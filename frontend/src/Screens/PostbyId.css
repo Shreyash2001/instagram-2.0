@@ -1,0 +1,20 @@
+.post__left {
+    display: flex;
+}
+
+.css-1f8sh1y {
+    height: 680px !important;
+}
+
+.post__right {
+    padding: 10px;
+}
+
+.post__rightTop {
+    display: flex;
+    align-items: center;
+}
+
+.post__rightTopinfo > span {
+    margin-left: 10px;
+}
