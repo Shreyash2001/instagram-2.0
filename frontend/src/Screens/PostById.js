@@ -4,7 +4,11 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
 import Carousel from 'react-material-ui-carousel';
-import { Avatar, Button } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import SendIcon from '@mui/icons-material/Send';
 
 function PostById() {
     const [postData, setPostData] = useState({});
@@ -70,20 +74,44 @@ function PostById() {
                           } 
                     </Carousel>
                     </div>
-
-                    <div className="post__right">
+                    
+                  <div className="post__rightContainer">
+                      <div className="post__right">
                         <div className="post__rightTop">
-                            <div>
-                              <Avatar src={postData?.profilePic} />
-                            </div>
-                            <div className="post__rightTopinfo">
-                              <span>{postData?.username}</span>
-                              <span>•</span>
-                              <Button>Follow</Button>
-                            </div>
+                          <div>
+                            <Avatar src={postData?.profilePic} />
+                          </div>
+                          <div>
+                            <h4 style={{margin:"0"}}>{postData?.username}</h4>
+                            <span style={{fontSize:"12px"}}>{postData?.location}</span>
+                          </div>
+                          <div>
+                            <span>•</span>
+                          </div>
+                          <div>
+                            <button className="followButton">Follow</button>
+                          </div>
                         </div>
-                    </div>
+                        <div>
+                          <IconButton>
+                          <MoreHorizIcon />
+                          </IconButton>
+                        </div>
+                      </div>
 
+                      <div className="post__commentSection">
+                        
+                      </div>
+                      
+                      <div>
+                          <div>
+                          <FavoriteBorderIcon />
+                          <ChatBubbleOutlineIcon />
+                          <SendIcon />
+                          </div>
+                          
+                      </div>
+                  </div>
                   </div>
                 </Box>
               </Modal>

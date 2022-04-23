@@ -29,7 +29,6 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
   if(caption?.length >= 100) {
     trimmedCaption = caption.substr(0, 100) + "...";
   }
-  
   const dispatch = useDispatch();
 
   const handleLikeClick = () => {
@@ -112,7 +111,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
       <div className="feed__like">
       {
-        like 
+        like && like 
       ? 
           <div className="feed__likeContainer">
           <IconButton onClick={handleLikeRemoveClick}>

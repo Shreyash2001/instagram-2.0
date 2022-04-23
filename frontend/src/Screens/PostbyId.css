@@ -6,15 +6,36 @@
     height: 680px !important;
 }
 
+.post__rightContainer {
+    width: 100%;
+}
+
 .post__right {
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #d3d3d373;
 }
 
 .post__rightTop {
     display: flex;
-    align-items: center;
+    height: 35px;
 }
 
-.post__rightTopinfo > span {
+.post__rightTop > div {
     margin-left: 10px;
+}
+
+.followButton {
+    background-color: #fff;
+    border: none;
+    color: #0095f6;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.post__commentSection {
+    height: 450px;
+    border-bottom: 1px solid #d3d3d373;
 }
