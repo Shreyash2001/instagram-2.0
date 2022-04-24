@@ -9,6 +9,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import SendIcon from '@mui/icons-material/Send';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 function PostById() {
     const [postData, setPostData] = useState({});
@@ -103,13 +104,22 @@ function PostById() {
                         
                       </div>
                       
-                      <div>
+                      <div className="post__buttons">
                           <div>
-                          <FavoriteBorderIcon />
-                          <ChatBubbleOutlineIcon />
-                          <SendIcon />
+                            <div>
+                              <FavoriteBorderIcon />
+                            </div>
+                            <div>
+                              <ChatBubbleOutlineIcon />
+                            </div>
+                            <div>
+                              <SendIcon />
+                            </div>
                           </div>
                           
+                          <div>
+                            <BookmarkBorderIcon />
+                          </div>
                       </div>
                   </div>
                   </div>
