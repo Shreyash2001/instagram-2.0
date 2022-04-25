@@ -10,9 +10,12 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import SendIcon from '@mui/icons-material/Send';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import Picker from 'emoji-picker-react';
+import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 
 function PostById() {
     const [postData, setPostData] = useState({});
+    const [show, setShow] = useState(false);
     const history = useHistory();
     const id = window.location.pathname.split("/")[2];
 
@@ -42,6 +45,14 @@ function PostById() {
           setOpen(false);
           history.push('/');
         }
+
+        const onEmojiClick = (event, emojiObject) => {
+          if(emojiObject !== null) {
+            // var already = comment;
+            // already += " " + emojiObject?.emoji;
+            // setComment(already);
+          }
+        };
 
       useEffect(() => {
         handleOpen();
@@ -104,23 +115,72 @@ function PostById() {
                         
                       </div>
                       
+                      <div className="post__downContainer">
                       <div className="post__buttons">
                           <div>
                             <div>
-                              <FavoriteBorderIcon />
+                              <IconButton>
+                                <FavoriteBorderIcon />
+                              </IconButton>
                             </div>
                             <div>
+                            <IconButton>
                               <ChatBubbleOutlineIcon />
+                            </IconButton>
                             </div>
                             <div>
+                            <IconButton>
                               <SendIcon />
+                            </IconButton>
                             </div>
                           </div>
                           
                           <div>
+                          <IconButton>
                             <BookmarkBorderIcon />
+                          </IconButton>
                           </div>
                       </div>
+
+                      <div>
+                        <p>12,22 likes</p>
+                      </div>
+
+                      <div>
+                        <span>1 day ago</span>
+                      </div>
+
+                      <div className="post__addComment">
+                      <div>
+                      <IconButton onClick={() => setShow(!show)}>
+                          <EmojiEmotionsOutlinedIcon />
+                        </IconButton>
+                        {
+                        show 
+                        &&
+                        <div style={{zIndex:"100", position:"absolute", bottom:"50px", left:"0px"}}>
+                        <Picker
+                          onEmojiClick={onEmojiClick}
+                          disableAutoFocus={true}
+                          groupNames={{ smileys_people: 'PEOPLE' }}
+                          native
+                        />
+                      </div>
+                        }
+                        </div>
+
+                        <div>
+                        <textarea className="post__addCommentInput" placeholder="Add comment" />
+                        </div>
+
+                        <div>
+                            <button className="followButton">Post</button>
+                          </div>
+                    </div>
+
+                    </div>
+
+
                   </div>
                   </div>
                 </Box>

@@ -35,13 +35,16 @@
     cursor: pointer;
 }
 
+.post__downContainer {
+    padding: 5px 5px 0px 10px;
+}
+
 .post__commentSection {
     height: 450px;
     border-bottom: 1px solid #d3d3d373;
 }
 
 .post__buttons {
-    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -52,5 +55,22 @@
 }
 
 .post__buttons > div > div {
-    margin-left: 10px;
+    margin-right: 10px;
 }
+
+.post__addComment {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.post__addCommentInput {
+    width: 300px;
+    height: 25px;
+    padding: 8px;
+    outline-width: 0;
+    border: none;
+    resize: none;
+    font-size: 16px;
+}
+
