@@ -143,14 +143,15 @@ function PostById() {
                       </div>
 
                       <div>
-                        <p>12,22 likes</p>
+                        <p style={{margin:"10px 0 5px 10px"}}>12,22 likes</p>
                       </div>
 
                       <div>
-                        <span>1 day ago</span>
+                        <span style={{fontSize:"12px", marginLeft:"10px"}}>1 day ago</span>
                       </div>
-
-                      <div className="post__addComment">
+                    </div>
+                    
+                    <div className="post__addComment">
                       <div>
                       <IconButton onClick={() => setShow(!show)}>
                           <EmojiEmotionsOutlinedIcon />
@@ -176,8 +177,6 @@ function PostById() {
                         <div>
                             <button className="followButton">Post</button>
                           </div>
-                    </div>
-
                     </div>
 
 
