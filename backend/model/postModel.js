@@ -27,6 +27,10 @@ const PostSchema = mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : "User"
     }],
+    comments : [{
+        type : mongoose.Types.ObjectId,
+        ref : "Comment"
+    }],
     report : [{
         type : mongoose.Types.ObjectId,
         ref : "User"
