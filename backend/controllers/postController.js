@@ -3,6 +3,7 @@ const Post = require("../model/postModel");
 const User = require("../model/userModel");
 const moment = require("moment");
 const sse = require("../sse/sse");
+const Comment = require("../model/commentModel");
 
 
 const createPost = asyncHandler(async(req, res) => {
@@ -87,4 +88,19 @@ const deletePost = asyncHandler(async(req, res) => {
     res.json({success: true});
 });
 
-module.exports = {createPost, getPost, like, deletePost};
+const addComment = asyncHandler(async(req, res) => {
+    const comment = await Comment.create({
+        commentBy : req.user._id,
+        post : req.params.id,
+        comment : req.body.comment
+    });
+    if(comment) {
+        const post = await Post.findById(req.params.id);
+        post.comments.push(comment._id);
+        res.status(201).json(comment);
+    } else {
+        res.status(400).json({message : "Something went wrong"});
+    }
+});
+
+module.exports = {createPost, getPost, like, deletePost, addComment};
