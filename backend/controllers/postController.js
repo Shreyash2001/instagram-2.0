@@ -39,7 +39,6 @@ const getPost = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
                             .sort({createdAt : -1}).populate("postedBy comments")
-    console.log(posts);
     const data = [];
 
     if(posts) {
@@ -51,6 +50,7 @@ const getPost = asyncHandler(async(req, res) => {
             temp.profilePic = post.postedBy.profilePic;
             temp.images = post.image
             temp.likes = post.likes
+            temp.comments = post.comments
             temp.caption = post.caption;
             temp.location = post.location;
             temp.time = moment(post.createdAt).fromNow();
@@ -96,8 +96,8 @@ const addComment = asyncHandler(async(req, res) => {
         comment : req.body.comment
     });
     if(comment) {
-        const post = await Post.findById(req.params.id);
-        post.comments.push(comment._id);
+        await Post.findByIdAndUpdate(req.params.id, {$addToSet: {comments: comment._id}});
+
         res.status(201).json(comment);
     } else {
         res.status(400).json({message : "Something went wrong"});
