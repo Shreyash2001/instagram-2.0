@@ -36,9 +36,10 @@ const updatedGetPost = asyncHandler(async(req, res) => {
 });
 
 const getPost = asyncHandler(async(req, res) => {
-    const user = await User.findById(req.user._id)
+    const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
-                            .sort({createdAt : -1}).populate("postedBy");
+                            .sort({createdAt : -1}).populate("postedBy comments")
+    console.log(posts);
     const data = [];
 
     if(posts) {
