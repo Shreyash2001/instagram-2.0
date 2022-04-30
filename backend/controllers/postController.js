@@ -38,7 +38,10 @@ const updatedGetPost = asyncHandler(async(req, res) => {
 const getPost = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
-                            .sort({createdAt : -1}).populate("postedBy comments")
+                            .sort({createdAt : -1}).populate({
+                                path: "postedBy comments"
+                        });
+
     const data = [];
 
     if(posts) {
@@ -90,15 +93,18 @@ const deletePost = asyncHandler(async(req, res) => {
 });
 
 const addComment = asyncHandler(async(req, res) => {
-    const comment = await Comment.create({
-        commentBy : req.user._id,
+    const {name, profilePic, userName, comment} = req.body;
+    const data = await Comment.create({
+        name: name,
+        profilePic: profilePic,
+        userName: userName,
         post : req.params.id,
-        comment : req.body.comment
+        comment : comment
     });
-    if(comment) {
-        await Post.findByIdAndUpdate(req.params.id, {$addToSet: {comments: comment._id}});
+    if(data) {
+        await Post.findByIdAndUpdate(req.params.id, {$addToSet: {comments: data._id}});
 
-        res.status(201).json(comment);
+        res.status(201).json(data);
     } else {
         res.status(400).json({message : "Something went wrong"});
     }

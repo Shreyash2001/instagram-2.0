@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 
 const CommentSchema = mongoose.Schema({
-    commentBy: {
-        type: mongoose.Types.ObjectId,
-        ref: "User"
+    name: {
+        type: String
+    },
+    profilePic: {
+        type: String
+    },
+    userName: {
+        type: String
     },
     post: {
         type: mongoose.Types.ObjectId,
@@ -14,8 +19,7 @@ const CommentSchema = mongoose.Schema({
         required: true
     },
     report : [{
-        type : mongoose.Types.ObjectId,
-        ref : "User"
+        type : String
     }]
 }, {
     timestamps: true
