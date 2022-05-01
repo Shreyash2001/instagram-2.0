@@ -11,9 +11,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import { useDispatch } from 'react-redux';
-import { addLikeAction } from '../actions/postsAction';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
+import { addCommentAction, addLikeAction } from '../actions/postsAction';
 import Carousel from 'react-material-ui-carousel';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -64,8 +62,9 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     setComment(str);
   };
 
-  const showComment = () => {
-    comment.split(' ').filter(word => word).join(' ')
+  const addComment = () => {
+    comment.split(' ').filter(word => word).join(' ');
+    dispatch(addCommentAction(id, comment));
   };
 
   const history = useHistory();
@@ -211,11 +210,10 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
           </div>
 
           {showPostButton && <div>
-            <Button onClick={showComment} style={{textTransform:"inherit", borderRadius:"22px", marginLeft:"5px"}}>Post</Button>
+            <Button onClick={addComment} style={{textTransform:"inherit", borderRadius:"22px", marginLeft:"5px"}}>Post</Button>
           </div>}
-
+            
         </div>
-            <div>{comment}</div>
     </div>
   );
 };

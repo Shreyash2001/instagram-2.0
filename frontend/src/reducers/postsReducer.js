@@ -1,4 +1,7 @@
 import { 
+    ADD_COMMENT_FAIL,
+    ADD_COMMENT_REQUEST,
+    ADD_COMMENT_SUCCESS,
     ADD_LIKE_FAIL,
     ADD_LIKE_REQUEST,
     ADD_LIKE_SUCCESS,
@@ -67,6 +70,29 @@ export const likeReducer = (state = {}, action) => {
                 info : action.payload
             };
         case ADD_LIKE_FAIL:
+            return {
+                loading : false,
+                error : action.payload
+            };
+    
+        default:
+            return state;
+    }
+};
+
+export const commentReducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADD_COMMENT_REQUEST:
+            return {
+                loading : true
+            };
+        case ADD_COMMENT_SUCCESS:
+            return {
+                loading : false,
+                success : true,
+                info : action.payload
+            };
+        case ADD_COMMENT_FAIL:
             return {
                 loading : false,
                 error : action.payload
