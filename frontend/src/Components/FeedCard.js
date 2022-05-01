@@ -115,7 +115,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
       ? 
           <div className="feed__likeContainer">
           <IconButton onClick={handleLikeRemoveClick}>
-            <FavoriteIcon style={{color:"rgb(237, 73, 86)"}} />
+            <FavoriteIcon className="like" style={{color:"rgb(237, 73, 86)"}} />
           </IconButton>
           <div>
             <span>{countLike} Likes</span>
@@ -124,7 +124,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
       :
           <div className="feed__likeContainer">
           <IconButton onClick={handleLikeClick}>
-            <FavoriteBorderIcon style={{color:"#222"}} />
+            <FavoriteBorderIcon className="like" style={{color:"#222"}} />
           </IconButton>
           <div>
             <span>{countLike} Likes</span>
@@ -161,13 +161,13 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
       ? 
           <div className="feed__likeContainer">
           <IconButton style={{marginRight:"18px"}} onClick={handleClickBookmark}>
-            <BookmarkIcon style={{color:"rgb(237, 73, 86)"}} />
+            <BookmarkIcon className="like" style={{color:"rgb(237, 73, 86)"}} />
           </IconButton>
           </div>
       :
           <div className="feed__likeContainer">
           <IconButton style={{marginRight:"18px"}} onClick={handleClickBookmark}>
-            <BookmarkBorderOutlinedIcon style={{color:"#222"}} />
+            <BookmarkBorderOutlinedIcon className="like" style={{color:"#222"}} />
           </IconButton>
           </div>
       }   
