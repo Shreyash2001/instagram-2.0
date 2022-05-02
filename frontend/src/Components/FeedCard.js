@@ -1,5 +1,5 @@
 import { Avatar, Button, IconButton } from '@mui/material';
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import "./FeedCard.css";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -10,7 +10,7 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCommentAction, addLikeAction } from '../actions/postsAction';
 import Carousel from 'react-material-ui-carousel';
 import { Link, useHistory } from 'react-router-dom';
@@ -28,6 +28,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     trimmedCaption = caption.substr(0, 100) + "...";
   }
   const dispatch = useDispatch();
+  const {success} = useSelector(state => state.commentAdded);
 
   const handleLikeClick = () => {
     setLike(!like);
@@ -71,6 +72,10 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
   const openComments = () => {
     history.push(`/post/${id}`);
   }
+
+  useEffect(() => {
+    if(success) setComment("");
+  }, [success])
 
   return (
     <div className="feedCard">
@@ -212,7 +217,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
           {showPostButton && <div>
             <Button onClick={addComment} style={{textTransform:"inherit", borderRadius:"22px", marginLeft:"5px"}}>Post</Button>
           </div>}
-            
+
         </div>
     </div>
   );
