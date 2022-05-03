@@ -102,9 +102,14 @@ const addComment = asyncHandler(async(req, res) => {
         comment : comment
     });
     if(data) {
-        await Post.findByIdAndUpdate(req.params.id, {$addToSet: {comments: data._id}});
-
+        const post = await Post.findByIdAndUpdate(req.params.id, {$addToSet: {comments: data._id}});
         res.status(201).json(data);
+        const updatedData = {
+            data : data,
+            postId : post.postedBy
+        };
+        
+        sse.send(updatedData, "comment");
     } else {
         res.status(400).json({message : "Something went wrong"});
     }

@@ -43,7 +43,7 @@ function Notification({setNotificationIcon}) {
         setOpen(true);
         setNotificationIcon(true)
         }
-    })
+    });
 
     es.addEventListener ("like", (e) => {
       const data = JSON.parse(e.data);
@@ -51,6 +51,15 @@ function Notification({setNotificationIcon}) {
       if(data?.id === userInfo?._id) {
       setOpen(true);
       setNotificationIcon(true);
+      }
+  });
+
+    es.addEventListener ("comment", (e) => {
+      const data = JSON.parse(e.data);
+      console.log(data);
+      if(data?.postId === userInfo?._id) {
+        setOpen(true);
+        setNotificationIcon(true);
       }
   })
 
