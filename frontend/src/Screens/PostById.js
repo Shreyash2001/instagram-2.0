@@ -3,6 +3,7 @@ import "./PostbyId.css";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-material-ui-carousel';
 import { Avatar, IconButton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -12,18 +13,25 @@ import SendIcon from '@mui/icons-material/Send';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
+import { addCommentAction } from '../actions/postsAction';
 
 function PostById() {
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
+    const [comment, setComment] = useState("");
+    const [showPostButton, setShowPostButton] = useState(false);
     const history = useHistory();
     const id = window.location.pathname.split("/")[2];
 
     const posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
 
+    const dispatch = useDispatch();
+    const {success} = useSelector(state => state.commentAdded);
+
     useEffect(() => {
-        setPostData(posts.find((post) => post.id === id))
-    }, [id]);
+        setPostData(posts.find((post) => post.id === id));
+        if(success) setComment("");
+    }, [id, success]);
     
 
     const style = {
@@ -48,10 +56,25 @@ function PostById() {
 
         const onEmojiClick = (event, emojiObject) => {
           if(emojiObject !== null) {
-            // var already = comment;
-            // already += " " + emojiObject?.emoji;
-            // setComment(already);
+            var already = comment;
+            already += " " + emojiObject?.emoji;
+            setComment(already);
           }
+        };
+
+        console.log(showPostButton);
+        const handleChange = (e) => {
+          const str = e.target.value;
+          let check = str.replace(/ /g, "");
+      
+          if(check.length > 0) setShowPostButton(true)
+          else setShowPostButton(false)
+          setComment(str);
+        };
+
+        const addComment = () => {
+          comment.split(' ').filter(word => word).join(' ');
+          dispatch(addCommentAction(id, comment));
         };
 
       useEffect(() => {
@@ -171,12 +194,18 @@ function PostById() {
                         </div>
 
                         <div>
-                        <textarea className="post__addCommentInput" placeholder="Add comment" />
+                        <textarea className="post__addCommentInput" placeholder="Add comment" value={comment} onChange={handleChange} />
                         </div>
 
-                        <div>
-                            <button className="followButton">Post</button>
+                          {showPostButton ?
+                          <div>
+                            <button className="followButton" onClick={addComment}>Post</button>
                           </div>
+                          :
+                          <div style={{margin:"22px"}}>
+                            
+                          </div>
+                          }
                     </div>
 
 
