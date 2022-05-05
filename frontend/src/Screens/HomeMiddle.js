@@ -552,7 +552,6 @@ function HomeMiddle() {
                         ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
                     {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
                     </div>
-
                     
 
                     </div>
@@ -610,7 +609,7 @@ function HomeMiddle() {
                     nextIdx === 1 && 
                     <div className="post__lastContainer">
                     {postLoading && <SlidingLoader />}
-                        <div style={{maxWidth:"400px", position:"relative"}}>
+                        <div style={{width:"400px", height:"600px", position:"relative"}}>
                             {
                             <Carousel 
                             navButtonsAlwaysVisible 
