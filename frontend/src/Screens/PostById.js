@@ -117,7 +117,7 @@ function PostById() {
                             <Avatar src={postData?.profilePic} />
                           </div>
                           <div>
-                            <h4 style={{margin:"0"}}>{postData?.username}</h4>
+                            <p style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{postData?.username}</p>
                             <span style={{fontSize:"12px"}}>{postData?.location}</span>
                           </div>
                           <div>
@@ -135,8 +135,34 @@ function PostById() {
                       </div>
 
                       <div className="post__commentSection">
-                        
+                      <div style={{display:"flex", padding:"10px"}}>  
+                        <div style={{marginRight:"10px"}}>
+                          <Avatar src={postData?.profilePic} />
+                        </div>
+                        <div>
+                          <span style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{postData?.username}</span>
+                          <span className="caption">{postData?.caption}</span>
+                          <div style={{marginTop:"10px"}}>
+                            <span style={{fontSize:"12px"}}>Edited 2d</span>
+                          </div>
+                        </div>
                       </div>
+                      <div>
+                        {postData?.comments?.map((comment) => (
+                          <div style={{display:"flex", padding:"10px"}}>
+                            <div style={{marginRight:"10px"}}>
+                              <Avatar src={comment?.profilePic} />
+                            </div>
+                            <div>
+                              <span style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{comment?.userName}</span>
+                              <span className="caption">{comment?.comment}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      </div>
+
+
                       
                       <div className="post__downContainer">
                       <div className="post__buttons">
@@ -145,11 +171,6 @@ function PostById() {
                               <IconButton>
                                 <FavoriteBorderIcon />
                               </IconButton>
-                            </div>
-                            <div>
-                            <IconButton>
-                              <ChatBubbleOutlineIcon />
-                            </IconButton>
                             </div>
                             <div>
                             <IconButton>
@@ -166,11 +187,11 @@ function PostById() {
                       </div>
 
                       <div>
-                        <p style={{margin:"10px 0 5px 10px"}}>12,22 likes</p>
+                        <p style={{margin:"10px 0 5px 10px"}}>{postData?.likes?.length} likes</p>
                       </div>
 
                       <div>
-                        <span style={{fontSize:"12px", marginLeft:"10px"}}>1 day ago</span>
+                        <span style={{fontSize:"12px", marginLeft:"10px"}}>{postData?.time}</span>
                       </div>
                     </div>
                     
