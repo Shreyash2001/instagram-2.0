@@ -8,11 +8,11 @@ import Carousel from 'react-material-ui-carousel';
 import { Avatar, IconButton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import SendIcon from '@mui/icons-material/Send';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
+import CircularProgress from '@mui/material/CircularProgress';
 import { addCommentAction } from '../actions/postsAction';
 
 function PostById() {
@@ -26,11 +26,14 @@ function PostById() {
     const posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
 
     const dispatch = useDispatch();
-    const {success} = useSelector(state => state.commentAdded);
+    const {success, loading} = useSelector(state => state.commentAdded);
 
     useEffect(() => {
         setPostData(posts.find((post) => post.id === id));
-        if(success) setComment("");
+        if(success) {
+          setComment("");
+          setShowPostButton(false);
+        }
     }, [id, success]);
     
 
@@ -220,7 +223,13 @@ function PostById() {
 
                           {showPostButton ?
                           <div>
+                          {
+                            loading 
+                            ?
+                            <CircularProgress style={{width:"25px", height:"25px", marginRight:"10px"}} />
+                            :
                             <button className="followButton" onClick={addComment}>Post</button>
+                          }
                           </div>
                           :
                           <div style={{margin:"22px"}}>
