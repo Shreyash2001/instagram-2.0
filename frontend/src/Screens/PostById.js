@@ -13,7 +13,10 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
-import { addCommentAction } from '../actions/postsAction';
+import { addCommentAction, addLikeAction } from '../actions/postsAction';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 function PostById() {
     const [postData, setPostData] = useState({});
@@ -27,14 +30,46 @@ function PostById() {
 
     const dispatch = useDispatch();
     const {success, loading} = useSelector(state => state.commentAdded);
+    const {userInfo} = useSelector(state => state.userLogin);
 
     useEffect(() => {
-        setPostData(posts.find((post) => post.id === id));
-        if(success) {
-          setComment("");
-          setShowPostButton(false);
-        }
-    }, [id, success]);
+      setPostData(posts.find((post) => post.id === id));
+      if(success) {
+        setComment("");
+        setShowPostButton(false);
+      }
+  }, [id, success]);
+
+
+    const [like, setLike] = useState(false);
+    const [countLike, setCountLike] = useState(0);
+    const [bookmark, setBookmark] = useState(false);
+
+    useEffect(() => {
+      if(postData?.likes?.includes(userInfo._id)) {
+        setLike(true);
+        setCountLike(postData?.likes?.length);
+      }
+    }, [postData, userInfo])
+  console.log(postData?.likes?.includes(userInfo._id))
+  console.log(like)
+    const handleLikeClick = () => {
+      setLike(!like);
+      dispatch(addLikeAction(id));
+      setCountLike(countLike + 1);
+    };
+  
+    const handleLikeRemoveClick = () => {
+      setLike(!like);
+      dispatch(addLikeAction(id));
+      setCountLike(countLike - 1);
+    };
+  
+    const handleClickBookmark = () => {
+      setBookmark(!bookmark);
+    };
+
+    
     
 
     const style = {
@@ -65,7 +100,6 @@ function PostById() {
           }
         };
 
-        console.log(showPostButton);
         const handleChange = (e) => {
           const str = e.target.value;
           let check = str.replace(/ /g, "");
@@ -84,7 +118,6 @@ function PostById() {
         handleOpen();
       }, []);
 
-      console.log(postData);
 
   return (
     <div>
@@ -171,9 +204,21 @@ function PostById() {
                       <div className="post__buttons">
                           <div>
                             <div>
-                              <IconButton>
-                                <FavoriteBorderIcon />
-                              </IconButton>
+                            {
+                              like && like 
+                            ? 
+                                <div className="feed__likeContainer">
+                                <IconButton onClick={handleLikeRemoveClick}>
+                                  <FavoriteIcon className="like" style={{color:"rgb(237, 73, 86)"}} />
+                                </IconButton>
+                                </div>
+                            :
+                                <div className="feed__likeContainer">
+                                <IconButton onClick={handleLikeClick}>
+                                  <FavoriteBorderIcon className="like" style={{color:"#222"}} />
+                                </IconButton>
+                                </div>
+                              }
                             </div>
                             <div>
                             <IconButton>
@@ -183,14 +228,26 @@ function PostById() {
                           </div>
                           
                           <div>
-                          <IconButton>
-                            <BookmarkBorderIcon />
-                          </IconButton>
+                          {
+                            bookmark 
+                          ? 
+                              <div className="feed__likeContainer">
+                              <IconButton onClick={handleClickBookmark}>
+                                <BookmarkIcon className="like" style={{color:"rgb(237, 73, 86)"}} />
+                              </IconButton>
+                              </div>
+                          :
+                              <div className="feed__likeContainer">
+                              <IconButton onClick={handleClickBookmark}>
+                                <BookmarkBorderOutlinedIcon className="like" style={{color:"#222"}} />
+                              </IconButton>
+                              </div>
+                          }   
                           </div>
                       </div>
 
                       <div>
-                        <p style={{margin:"10px 0 5px 10px"}}>{postData?.likes?.length} likes</p>
+                        <p style={{margin:"10px 0 5px 10px"}}>{countLike} likes</p>
                       </div>
 
                       <div>
