@@ -16,7 +16,7 @@ import Carousel from 'react-material-ui-carousel';
 import { Link, useHistory } from 'react-router-dom';
 
 
-function FeedCard({id, name, username, images, likes, user_info, caption, location, profilePic, time}) {
+function FeedCard({id, name, username, images, likes, user_info, caption, location, comments, profilePic, time}) {
   const [like, setLike] = useState(likes?.includes(user_info._id));
   const [countLike, setCountLike] = useState(likes?.length);
   const [bookmark, setBookmark] = useState(false);
@@ -186,6 +186,9 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
           && 
           <Link to={`/post/${id}`} style={{color:"gray", cursor:"pointer", textDecoration:"none"}}>See more</Link>
           }
+          <div>
+            <Link to={`/post/${id}`} style={{color:"gray", textDecoration:"none", fontSize:"14px"}}>View all {comments.length} comments</Link>
+          </div>
           <div>
             <span>{time}</span>
           </div>
