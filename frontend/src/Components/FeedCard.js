@@ -11,7 +11,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCommentAction, addLikeAction } from '../actions/postsAction';
+import { addCommentAction, addLikeAction, removeCommentData } from '../actions/postsAction';
 import Carousel from 'react-material-ui-carousel';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -28,7 +28,8 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     trimmedCaption = caption.substr(0, 100) + "...";
   }
   const dispatch = useDispatch();
-  const {success} = useSelector(state => state.commentAdded);
+  const posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+  const {info, success, loading} = useSelector(state => state.commentAdded);
 
   const handleLikeClick = () => {
     setLike(!like);
@@ -74,7 +75,13 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
   }
 
   useEffect(() => {
-    if(success) setComment("");
+    if(success) {
+      setComment("");
+      const find = posts.find((post) => post.id === id);
+      find?.comments.push(info);
+      sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      dispatch(removeCommentData());
+    }
   }, [success])
 
   return (
