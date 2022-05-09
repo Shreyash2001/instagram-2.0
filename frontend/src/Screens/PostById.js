@@ -13,7 +13,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
-import { addCommentAction, addLikeAction } from '../actions/postsAction';
+import { addCommentAction, addLikeAction, removeCommentData } from '../actions/postsAction';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
@@ -29,16 +29,24 @@ function PostById() {
     const posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
 
     const dispatch = useDispatch();
-    const {success, loading} = useSelector(state => state.commentAdded);
+    const {info, success, loading} = useSelector(state => state.commentAdded);
     const {userInfo} = useSelector(state => state.userLogin);
 
     useEffect(() => {
       setPostData(posts.find((post) => post.id === id));
-      if(success) {
-        setComment("");
-        setShowPostButton(false);
-      }
-  }, [id, success]);
+  }, [id]);
+
+  useEffect(() => {
+    if(success) {
+      setComment("");
+      setShowPostButton(false);
+      postData?.comments.push(info);
+      const find = posts.find((post) => post.id === id);
+      find?.comments.push(info);
+      sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      dispatch(removeCommentData());
+    }
+  }, [success, postData, info, posts]);
 
 
     const [like, setLike] = useState(false);
@@ -51,8 +59,7 @@ function PostById() {
         setCountLike(postData?.likes?.length);
       }
     }, [postData, userInfo])
-  console.log(postData?.likes?.includes(userInfo._id))
-  console.log(like)
+
     const handleLikeClick = () => {
       setLike(!like);
       dispatch(addLikeAction(id));
@@ -117,6 +124,8 @@ function PostById() {
       useEffect(() => {
         handleOpen();
       }, []);
+
+      
 
 
   return (
@@ -184,8 +193,8 @@ function PostById() {
                         </div>
                       </div>
                       <div>
-                        {postData?.comments?.map((comment) => (
-                          <div style={{display:"flex", padding:"10px"}}>
+                        {postData?.comments?.map((comment, i) => (
+                          <div key={i} style={{display:"flex", padding:"10px"}}>
                             <div style={{marginRight:"10px"}}>
                               <Avatar src={comment?.profilePic} />
                             </div>

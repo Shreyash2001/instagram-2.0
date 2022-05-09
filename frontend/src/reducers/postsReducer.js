@@ -10,7 +10,8 @@ import {
     ADD_POSTS_SUCCESS,
     GET_POSTS_ERROR, 
     GET_POSTS_LOADING, 
-    GET_POSTS_SUCCESS 
+    GET_POSTS_SUCCESS, 
+    REMOVE_COMMENT_DATA
 } from "../constants/postConstants";
 
 export const getPostReducer = (state= {}, action) => {
@@ -97,6 +98,10 @@ export const commentReducer = (state = {}, action) => {
                 loading : false,
                 error : action.payload
             };
+        case REMOVE_COMMENT_DATA:
+            return {
+                success: false
+            }
     
         default:
             return state;

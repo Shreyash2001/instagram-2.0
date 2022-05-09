@@ -7,7 +7,9 @@ import { ADD_COMMENT_FAIL, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_LIKE_FA
     ADD_POSTS_SUCCESS, 
     GET_POSTS_ERROR, 
     GET_POSTS_LOADING, 
-    GET_POSTS_SUCCESS } from "../constants/postConstants"
+    GET_POSTS_SUCCESS,
+    REMOVE_COMMENT_DATA
+ } from "../constants/postConstants"
 
 export const getPostsAction = () => async(dispatch, getState) => {
     try {
@@ -107,6 +109,19 @@ export const addCommentAction = (id,comment) => async(dispatch, getState) => {
             payload : data
         });
 
+    } catch (error) {
+        dispatch({
+            type: ADD_COMMENT_FAIL,
+            payload : error.response && error.response.data.message ? error.response.data.message : error.message
+        })
+    }
+};
+
+export const removeCommentData = () => (dispatch) => {
+    try {
+        dispatch({
+            type: REMOVE_COMMENT_DATA
+        })
     } catch (error) {
         dispatch({
             type: ADD_COMMENT_FAIL,
