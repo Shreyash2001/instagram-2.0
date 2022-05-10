@@ -1,4 +1,4 @@
-import { Avatar, Button, IconButton } from '@mui/material';
+import { Avatar, Button, CircularProgress, IconButton } from '@mui/material';
 import {React, useState, useEffect} from 'react';
 import "./FeedCard.css";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -52,6 +52,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
       var already = comment;
       already += " " + emojiObject?.emoji;
       setComment(already);
+      setShowPostButton(true);
     }
   };
 
@@ -213,7 +214,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
             {
             show 
             &&
-            <div style={{zIndex:"100", position:"absolute", top:"50px", right:"100px"}}>
+            <div style={{zIndex:"100", position:"absolute", top:"-320px", right:"100px"}}>
             <Picker
               onEmojiClick={onEmojiClick}
               disableAutoFocus={true}
@@ -224,8 +225,15 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
             }
           </div>
 
-          {showPostButton && <div>
+          {showPostButton && 
+          <div>
+          {
+            loading 
+            ?
+            <CircularProgress style={{width:"25px", height:"25px", marginRight:"10px"}} />
+            :
             <Button onClick={addComment} style={{textTransform:"inherit", borderRadius:"22px", marginLeft:"5px"}}>Post</Button>
+          }
           </div>}
 
         </div>
