@@ -17,6 +17,7 @@ import { addCommentAction, addLikeAction, removeCommentData } from '../actions/p
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import moment from "moment";
 
 function PostById() {
     const [postData, setPostData] = useState({});
@@ -76,8 +77,6 @@ function PostById() {
       setBookmark(!bookmark);
     };
 
-    
-    
 
     const style = {
         position: 'absolute',
@@ -201,6 +200,12 @@ function PostById() {
                             <div>
                               <span style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{comment?.userName}</span>
                               <span className="caption">{comment?.comment}</span>
+                              <div className="comment_options" style={{display:"flex", alignItems:"center"}}>
+                                <p style={{fontSize:"12px", marginRight:"10px"}}>{moment(comment?.createdAt).fromNow()}</p>
+                                <div className="hide">
+                                  <MoreHorizIcon />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         ))}
