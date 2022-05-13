@@ -46,8 +46,7 @@ export const addStoryAction = (story) => async(dispatch, getState) => {
                 Authorization : `Bearer ${userInfo.token}`
             }
         };
-        console.log(story)
-        const {data} = axios.put("/api/stories/create", {story}, config);
+        const {data} = axios.put("/api/stories/create", story, config);
         dispatch({
             type: ADD_STORY_SUCCESS,
             payload: data
@@ -59,4 +58,4 @@ export const addStoryAction = (story) => async(dispatch, getState) => {
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         })
     }
-}
+};

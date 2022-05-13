@@ -27,6 +27,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Popper from '@mui/material/Popper';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SlidingLoader from "../Components/SlidingLoader";
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -53,11 +54,15 @@ function HomeMiddle() {
 
     var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
     users = users?.filter(user => user?.userName !== userInfo?.userName);
+
+    const history = useHistory();
     const handleShowClick = () => {
         setShow(!show);
-        handleOpen();
+        // handleOpen();
+        history.push('/story/create')
         setStory({});
         stopStoryLoader();
+        
     }
 
     const stopStoryLoader = () => {
@@ -450,6 +455,9 @@ function HomeMiddle() {
                 </div>
             </div>
 
+
+
+
             <div>
             <Modal
                 open={open}
@@ -521,6 +529,15 @@ function HomeMiddle() {
             </Box>
         </Modal>
         </div>
+
+
+
+
+
+
+
+
+
 
         <div>
             <Modal
@@ -599,7 +616,7 @@ function HomeMiddle() {
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
                         <Button onClick={triggerFileSelectPopup}  className="homeMiddle__addPostMiddleButton">
                         <PhotoCameraIcon style={{fontSize:"30px", color:"#fff", marginRight:"10px"}} />
-                        Add photo
+                            Add photo
                         </Button>
                         <input type="file" multiple accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
                         </div>

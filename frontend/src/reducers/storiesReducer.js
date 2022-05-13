@@ -1,6 +1,7 @@
 import {
     ADD_STORY_FAIL,
     ADD_STORY_LOADING, 
+    ADD_STORY_REMOVE, 
     ADD_STORY_SUCCESS, 
     GET_ALL_STORIES_FAIL, 
     GET_ALL_STORIES_LOADING, 
@@ -44,6 +45,11 @@ export const addStoriesReducer = (state = {}, action) => {
             return {
                 loading : false,
                 error: action.payload
+            };
+        case ADD_STORY_REMOVE:
+            return {
+                loading : false,
+                success: false
             };
     
         default:
