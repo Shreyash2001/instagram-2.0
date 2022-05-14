@@ -12,8 +12,8 @@ import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { addPostAction, getPostsAction } from '../actions/postsAction';
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import Backdrop from '@mui/material/Backdrop';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import CropImage from '../Components/CropImage';
@@ -30,7 +30,6 @@ import SlidingLoader from "../Components/SlidingLoader";
 import { useHistory } from 'react-router-dom';
 
 
-
 function HomeMiddle() {
     var [i, seti] = useState(0);
     var [nextIdx, setnextIdx] = useState(0);
@@ -39,7 +38,7 @@ function HomeMiddle() {
         seti(i);
     }
 
-    const {userInfo} = useSelector(state => state.userLogin)
+    const {userInfo} = useSelector(state => state.userLogin);
     const [show, setShow] = useState(false);
     const [story, setStory] = useState({});
     const [sendStory, setSendStory] = useState({});
@@ -50,8 +49,8 @@ function HomeMiddle() {
     const dispatch = useDispatch();
     var {data, loading} = useSelector(state => state.storyInfo);
     const {success} = useSelector(state => state.currentStoryInfo);
-    data = JSON.parse(localStorage.getItem("Instagram-Stories"));
-
+    data = JSON.parse(sessionStorage.getItem("Instagram-Stories"));
+    console.log(data)
     var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
     users = users?.filter(user => user?.userName !== userInfo?.userName);
 
@@ -432,8 +431,9 @@ function HomeMiddle() {
                             />
                             </div> 
                             :
-
+                    
                             data?.map((val, i) => {
+                                
                                 if(val?.list?.length > 0) {
                                 return ( 
                                 <div key={i} style={{position:"relative", marginLeft:"20px"}}>
