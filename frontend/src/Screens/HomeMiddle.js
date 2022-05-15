@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addStoryAction, getStoriesAction } from '../actions/storiesAction';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import { IKContext, IKImage, IKUpload } from 'imagekitio-react';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { addPostAction, getPostsAction } from '../actions/postsAction';
@@ -50,7 +49,7 @@ function HomeMiddle() {
     var {data, loading} = useSelector(state => state.storyInfo);
     const {success} = useSelector(state => state.currentStoryInfo);
     data = JSON.parse(sessionStorage.getItem("Instagram-Stories"));
-    console.log(data)
+
     var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
     users = users?.filter(user => user?.userName !== userInfo?.userName);
 
@@ -156,20 +155,7 @@ function HomeMiddle() {
             }
         }
         
-        const onSuccess = res => {
-            const data = {
-                file : res.url,
-                fileId : res.fileId
-            }
-            setSendStory(data);
-          };
-
-
-          const uploadStory = () => {
-            dispatch(addStoryAction(sendStory));
-            dispatch(getStoriesAction());
-          };
-
+        
           function sideScroll(element,direction,speed,distance,step){
             var scrollAmount = 0;
              var slideTimer = setInterval(function(){
@@ -467,51 +453,7 @@ function HomeMiddle() {
                 style={{backgroundColor:"#222"}}
             >
             <Box sx={style}>
-            {story && Object.keys(story).length === 0 
-            ? 
-            <div className="homeMiddle__addStory">
-                    <div className="homeMiddle__addStoryTop">
-                        <span>Add New Story</span>
-                    </div>
-
-                    {
-                        sendStory && Object.keys(sendStory).length !== 0
-                        ?
-                        <div className="uploadStory">
-                            {/* <img src={sendStory.file} alt="" /> */}
-                            <IKImage
-                            path={sendStory?.file}
-                            transformation={[{
-                                height: 100,
-                                width: 200,
-                                focus: "auto",
-                            }]}
-                            />
-                            <div>
-                            <Button onClick={uploadStory}>Upload Story</Button>
-                            </div>
-                        </div>
-                        :
-                    
-                    <div className="homeMiddle__addStoryMiddle">
-                        <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
-                        <IKContext
-                            publicKey="public_QRzvhd/onB2BeV7DQdCdPfzkvXg="
-                            urlEndpoint="https://ik.imagekit.io/mhhrxbqavs9/tr:w-200,h-300,fo-auto/"
-                            transformationPosition="path"
-                            authenticationEndpoint="http://localhost:5000/auth"
-                            >
-
-                            <label>
-                            <span>Select from this device</span>
-                            <IKUpload fileName="my-story" onSuccess={onSuccess} />
-                            </label>
-                            </IKContext>
-                    </div>
-                    }
-                </div>
-                
-            :
+            
                 <div className="story">
                 <Stories 
                 stories={story?.list}
@@ -525,7 +467,7 @@ function HomeMiddle() {
                 {idx !== data.length - 1 && <div className="nextStory__button" onClick={nextStory}><ArrowForwardIosIcon style={{color:"gray", margin:"8px", fontSize:"16px"}} /></div>}
                 {idx !== 0 && <div className="nextStory__buttonPrev" onClick={prevStory}><ArrowBackIosIcon style={{color:"gray", margin:"8px", fontSize:"16px"}} /></div>}
                 </div>
-            }
+            
             </Box>
         </Modal>
         </div>
