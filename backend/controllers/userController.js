@@ -121,13 +121,22 @@ const register = asyncHandler(async (req, res) => {
 }
 });
 
+// const getTopUser = asyncHandler(async(req, res) => {
+//     var user = await User.find({"followers" : {$gt: {$size: 2}}})
+//     // user = await Post.populate(user, {path : "posts"});
+//     if(user) {
+//         res.status(200).json(user);
+//     } else {
+//         res.status(500).json({message : "Something went wrong"});
+//     }
+// });
+
 const getTopUser = asyncHandler(async(req, res) => {
-    var user = await User.find({followers : {$size : 1}}).select("-password");
-    user = await Post.populate(user, {path : "posts"});
-    if(user) {
-        res.status(200).json(user);
+    const post = await User.find({$and:[{isPrivate: false}, {"followers.1" : {"$exists" : true}}]}).populate("posts");
+    if(post) {
+        res.status(200).json(post);
     } else {
-        res.status(500).json({message : "Something went wrong"});
+        res.status(400).json({message:"Not able to fetch details"})
     }
 });
 

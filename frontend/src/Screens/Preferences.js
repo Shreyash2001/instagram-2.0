@@ -6,7 +6,7 @@ import { getTopUsersAction } from '../actions/userActions';
 import PreferencesCard from '../Components/PreferencesCard';
 import "./Preferences.css";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-loading-skeleton/dist/skeleton.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useHistory } from 'react-router-dom';
 

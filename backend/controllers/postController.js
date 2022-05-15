@@ -29,12 +29,6 @@ const createPost = asyncHandler(async(req, res) => {
     }
 });
 
-const updatedGetPost = asyncHandler(async(req, res) => {
-    const user = await User.findById(req.user._id)
-    const post = await Post.find({postedBy : {$in : user.following}}).sort({createdAt : -1}).populate("postedBy");
-    res.json(post)
-});
-
 const getPost = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
