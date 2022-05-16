@@ -454,7 +454,7 @@ function HomeMiddle() {
             >
             <Box sx={style}>
             
-                <div className="story">
+                {data !== null && <div className="story">
                 <Stories 
                 stories={story?.list}
                 defaultInterval={2000}
@@ -466,7 +466,7 @@ function HomeMiddle() {
                 /> 
                 {idx !== data.length - 1 && <div className="nextStory__button" onClick={nextStory}><ArrowForwardIosIcon style={{color:"gray", margin:"8px", fontSize:"16px"}} /></div>}
                 {idx !== 0 && <div className="nextStory__buttonPrev" onClick={prevStory}><ArrowBackIosIcon style={{color:"gray", margin:"8px", fontSize:"16px"}} /></div>}
-                </div>
+                </div>}
             
             </Box>
         </Modal>
