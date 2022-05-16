@@ -15,6 +15,7 @@ function Preferences() {
     const [button, setButton] = useState(false);
     const {preferences} = useSelector(state => state.countPreferences);
     const { top, loading, error } = useSelector(state => state.topUsers);
+    console.log(top);
     const {loadingPreferences, errorPreferences, success} = useSelector(state => state.preferencesData);
     const history = useHistory();
     const dispatch = useDispatch();

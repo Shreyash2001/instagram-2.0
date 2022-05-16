@@ -71,6 +71,8 @@ export const userLogout = () => async(dispatch) => {
     localStorage.removeItem("Instagram-UserInfo");
     localStorage.removeItem("Instagram-Stories");
     localStorage.removeItem("Instagram-Posts");
+    sessionStorage.removeItem("Instagram-Posts");
+    sessionStorage.removeItem("Instagram-Stories");
     dispatch({
         type : USER_LOGOUT
     });
