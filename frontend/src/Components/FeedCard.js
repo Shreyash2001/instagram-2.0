@@ -204,7 +204,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
         <div className="feed__addComments">
           <div>
-            <Avatar src={profilePic} />
+            <Avatar src={user_info?.profilePic} />
           </div>
           <div className="feed__enterComment">
             <textarea placeholder="Add comment" value={comment} onChange={handleChange} />

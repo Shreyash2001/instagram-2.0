@@ -14,11 +14,11 @@ import { useHistory } from 'react-router-dom';
 function Preferences() {
     const [button, setButton] = useState(false);
     const {preferences} = useSelector(state => state.countPreferences);
-    const { top, loading, error } = useSelector(state => state.topUsers);
-    console.log(top);
+    var { top, loading, error } = useSelector(state => state.topUsers);
     const {loadingPreferences, errorPreferences, success} = useSelector(state => state.preferencesData);
     const history = useHistory();
     const dispatch = useDispatch();
+    
 
     useEffect(() => {
         if(preferences.length > 2) {
@@ -75,7 +75,7 @@ function Preferences() {
                         <PreferencesCard 
                             key = {data._id}
                             name = {data.firstName}
-                            images = {data.posts}
+                            posts = {data.posts}
                             id = {data._id}
                             profilePic = {data.profilePic}
                             followers = {data.followers}

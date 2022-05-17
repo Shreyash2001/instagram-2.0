@@ -3,11 +3,9 @@ import "./PreferencesCard.css";
 import Avatar from '@mui/material/Avatar';
 import { useDispatch } from 'react-redux';
 import { countPreferencesAction, removeCountPreferencesAction } from '../actions/countPreferencesActions';
-// import Flickity from "react-flickity-component";
-// import "./flickity.css";
 import Carousel from 'react-material-ui-carousel';
 
-function PreferencesCard({name, images, id, profilePic, followers}) {
+function PreferencesCard({name, posts, id, profilePic, followers}) {
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
     const handleClick = () => {
@@ -25,7 +23,7 @@ function PreferencesCard({name, images, id, profilePic, followers}) {
             <div className="preferencesCard__tick">
                     <img className="preferencesCard__tickImage" src="https://res.cloudinary.com/cqn/image/upload/v1641142317/Daco_4675609_di9inc.png" alt="tick" />
             </div>
-            <img className="preferencesCard__containerImage" src={images[0].image} alt={name} />
+            <img className="preferencesCard__containerImage" src={posts[0].image} alt={name} />
                 
                 <div className="preferencesCard__containerInfo">
                 <div>
@@ -52,8 +50,8 @@ function PreferencesCard({name, images, id, profilePic, followers}) {
             navButtonsAlwaysInvisible={true}
             cycleNavigation={true}
             >
-                {images?.map(image => (
-                <img key={image._id} className="preferencesCard__containerImage" src={image.image} alt={name} />
+                {posts?.map((post) => (
+                <img key={post._id} className="preferencesCard__containerImage" src={post.image} alt={name} />
                 ))}
 
             </Carousel>
