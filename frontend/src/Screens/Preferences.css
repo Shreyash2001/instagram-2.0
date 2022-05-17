@@ -36,7 +36,8 @@
 
 .preferences__container {
     padding: 10px;
-    max-width: 850px;
+    max-width: 1050px;
+    width: 1040px;
 }
 
 .preferences__containerCards {
