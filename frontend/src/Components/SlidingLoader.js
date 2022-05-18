@@ -4,7 +4,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import "./SlidingLoader.css";
 
 
-export default function SlidingLoader() { 
+export default function SlidingLoader({length}) { 
 
   const [progress, setProgress] = React.useState(0);
 
@@ -31,7 +31,7 @@ export default function SlidingLoader() {
       style={{
           position:"absolute", 
           top:"41px", 
-          width:"700px", 
+          width: `${length}px`,
           zIndex:"1500", 
        }} variant="determinate" value={progress} />
 

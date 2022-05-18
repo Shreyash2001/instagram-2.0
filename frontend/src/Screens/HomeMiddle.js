@@ -567,7 +567,7 @@ function HomeMiddle() {
                     :
                     nextIdx === 1 && 
                     <div className="post__lastContainer">
-                    {postLoading && <SlidingLoader />}
+                    {postLoading && <SlidingLoader length={700} />}
                         <div style={{width:"400px", height:"600px", position:"relative"}}>
                             {
                             <Carousel 

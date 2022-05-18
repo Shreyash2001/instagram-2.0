@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { addStoryAction, getStoriesAction } from '../actions/storiesAction';
 import { ADD_STORY_REMOVE } from '../constants/storyConstants';
+import SlidingLoader from './SlidingLoader';
 
 function AddStory() {
+
     //modal opening and closing
     const style = {
         position: 'absolute',
@@ -39,7 +41,6 @@ function AddStory() {
         })
         .then(res=>res.json())
         .then(imageData => {
-            console.log(imageData)
             const story = {
                 file : imageData.url,
                 fileId: imageData.asset_id
@@ -71,7 +72,7 @@ function AddStory() {
 
 
       //successful story upload
-      const {success} = useSelector(state => state.currentStoryInfo);
+      const {success, loading} = useSelector(state => state.currentStoryInfo);
 
       useEffect(() => {
         if(success) {
@@ -97,7 +98,9 @@ function AddStory() {
                     <div className="addStory__top">
                         <span>Add New Story</span>
                     </div>
-
+                    {loading && <div style={{width:"552px"}}>
+                        <SlidingLoader length={552} />
+                    </div>}
 
                     {image === null 
                     ?
