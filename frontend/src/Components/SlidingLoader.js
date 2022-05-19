@@ -5,7 +5,6 @@ import "./SlidingLoader.css";
 
 
 export default function SlidingLoader({length}) { 
-
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
@@ -31,7 +30,7 @@ export default function SlidingLoader({length}) {
       style={{
           position:"absolute", 
           top:"41px", 
-          width: `${length}px`,
+          width: `${length === undefined ? '552' : length}px`,
           zIndex:"1500", 
        }} variant="determinate" value={progress} />
 
