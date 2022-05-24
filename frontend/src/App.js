@@ -10,6 +10,7 @@ import Preferences from './Screens/Preferences';
 import Home from './Screens/Home';
 import PostById from './Screens/PostById';
 import AddStory from './Components/AddStory';
+import AddPost from './Components/AddPost';
 
 
 function App() {
@@ -18,6 +19,10 @@ function App() {
     <Switch>
       <Route path="/story/create">
         <AddStory />
+        <Home />
+      </Route>
+      <Route path="/post/create">
+        <AddPost />
         <Home />
       </Route>
       <Route path="/post/:id">
