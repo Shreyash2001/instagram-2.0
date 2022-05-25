@@ -19,6 +19,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import SlidingLoader from "../Components/SlidingLoader";
 import { useDispatch, useSelector } from 'react-redux';
 import { addPostAction, getPostsAction } from '../actions/postsAction';
+import { useHistory } from 'react-router-dom';
+import { ADD_POSTS_REMOVE } from '../constants/postConstants';
 
 function AddPost() {
     const stylePost = {
@@ -122,6 +124,7 @@ function AddPost() {
         setOpenTag(false);
     };
 
+    const history = useHistory();
     const[url, setUrl] = useState(null);
     const[uploadFileDetails, setUploadFileDetails] = useState(new Map());
     const[uploadPostsData, setUploadPostsData] = useState([]);
@@ -137,6 +140,7 @@ function AddPost() {
         setCaption("");
         setDestination("");
         setnextIdx(0);
+        history.push("/");
     };
 
     const inputRef = useRef();
@@ -208,6 +212,9 @@ function AddPost() {
             if(successfulUpload) {
                 handleCloseCreatePost();
                 dispatch(getPostsAction());
+                dispatch({
+                    type:ADD_POSTS_REMOVE
+                });
             }
         }, [successfulUpload]);
 
@@ -352,7 +359,7 @@ function AddPost() {
 
                         <div className="post__captionContainer">
                             <div className="post__captionContainerInfo">
-                                <Avatar src={userInfo?.profilePic}  />
+                                <Avatar style={{marginRight:"8px"}} src={userInfo?.profilePic}  />
                                 <span>{userInfo?.firstName + " " + userInfo?.lastName}</span>
                             </div>
                             <div className="post__captionInput">

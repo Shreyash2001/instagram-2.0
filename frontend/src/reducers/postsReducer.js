@@ -6,6 +6,7 @@ import {
     ADD_LIKE_REQUEST,
     ADD_LIKE_SUCCESS,
     ADD_POSTS_FAIL,
+    ADD_POSTS_REMOVE,
     ADD_POSTS_REQUEST,
     ADD_POSTS_SUCCESS,
     GET_POSTS_ERROR, 
@@ -51,6 +52,11 @@ export const addPostReducer = (state = {}, action) => {
             return {
                 loading : false,
                 error : action.payload
+            };
+        case ADD_POSTS_REMOVE:
+            return {
+                loading : false,
+                success : false
             };
     
         default:
