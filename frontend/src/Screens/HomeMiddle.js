@@ -14,6 +14,7 @@ import { getPostsAction } from '../actions/postsAction';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useHistory } from 'react-router-dom';
+import Feed from './Feed';
 
 
 function HomeMiddle() {
@@ -240,6 +241,10 @@ function HomeMiddle() {
                 </div>
             </div>
 
+            
+            <div>
+            <Feed />
+            </div>
 
             <div>
             <Modal
