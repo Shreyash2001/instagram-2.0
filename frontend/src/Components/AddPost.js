@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import "./AddPost.css";
 import { Avatar, Button, Fade, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -238,8 +239,8 @@ function AddPost() {
         >
             <Fade in={openPost}>
             <Box sx={stylePost}>
-            <div className="homeMiddle__addPost">
-                    <div className="homeMiddle__addPostTop">
+            <div className="AddPost">
+                    <div className="AddPostTop">
                     {/* {nextIdx > 0 && <div style={{position:"absolute", left:"10px"}}>
                         <IconButton onClick={awayFromEnd}>
                             <ArrowBackIosIcon />
@@ -297,9 +298,9 @@ function AddPost() {
 
                         </div>
                         :
-                        <div className="homeMiddle__addPostMiddle">
+                        <div className="AddPostMiddle">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
-                        <Button onClick={triggerFileSelectPopup}  className="homeMiddle__addPostMiddleButton">
+                        <Button onClick={triggerFileSelectPopup}  className="AddPostMiddleButton">
                         <PhotoCameraIcon style={{fontSize:"30px", color:"#fff", marginRight:"10px"}} />
                             Add photo
                         </Button>

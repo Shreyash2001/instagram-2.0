@@ -97,7 +97,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
                 <span>{location}</span>
             </div>
           </div>
-          {user_info?.posts.includes(id) && <div>
+          {user_info?.userName === username && <div>
           <IconButton>
             <MoreHorizIcon style={{fontSize:"28px"}} />
           </IconButton>
