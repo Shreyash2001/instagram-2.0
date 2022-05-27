@@ -165,6 +165,15 @@ const getSearchedUsers = asyncHandler(async(req, res) => {
     } else {
         res.status(400).json({message:"pass name"});
     }
-})
+});
 
-module.exports = {login, register, getTopUser, followUnfollowUser, getSearchedUsers};
+const getUserDetails = asyncHandler(async(req, res) => {
+    const user = await User.find({username: req.params}).select("-password -likes").populate("posts");
+    if(user) {
+        res.status(200).json(user);
+    } else {
+        res.status(404).json({message: "User not found"})
+    }
+});
+
+module.exports = {login, register, getTopUser, followUnfollowUser, getSearchedUsers, getUserDetails};
