@@ -168,11 +168,11 @@ const getSearchedUsers = asyncHandler(async(req, res) => {
 });
 
 const getUserDetails = asyncHandler(async(req, res) => {
-    const user = await User.find({username: req.params}).select("-password -likes").populate("posts");
+    const user = await User.findOne({userName: req.query.params}).select("-password -likes").populate("posts");
     if(user) {
         res.status(200).json(user);
     } else {
-        res.status(404).json({message: "User not found"})
+        res.status(404).json({message: "User not found"});
     }
 });
 

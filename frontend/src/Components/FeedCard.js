@@ -88,7 +88,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
   return (
     <div className="feedCard">
       <div className="feedCard__info">
-        <div className="feedCard__infoLeft">
+        <Link to={`/details/user/${username}`} className="feedCard__infoLeft">
             <div>
                 <Avatar src={profilePic} />
             </div>
@@ -96,7 +96,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
                 <p>{name}</p>
                 <span>{location}</span>
             </div>
-          </div>
+          </Link>
           {user_info?.userName === username && <div>
           <IconButton>
             <MoreHorizIcon style={{fontSize:"28px"}} />
@@ -105,8 +105,6 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
       </div>
 
       <div className="feed__image">
-        {/* <img src="https://www.greenqueen.com.hk/wp-content/uploads/2021/06/WEF-Investments-In-Nature-Based-Solutions-Have-To-Triple-By-2030-To-Address-Climate-Change-Biodiversity-Loss.jpg" alt="" /> */}
-        {/* <Carousel images={images} initialIndex={0} /> */}
         <Carousel 
           navButtonsAlwaysVisible 
           indicators={false}

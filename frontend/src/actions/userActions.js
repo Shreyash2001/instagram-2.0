@@ -12,6 +12,9 @@ import {
     GET_SEARCH_RESULTS_REQUEST,
     GET_SEARCH_RESULTS_SUCCESS,
     GET_SEARCH_RESULTS_FAIL,
+    GET_USER_DETAILS_REQUEST,
+    GET_USER_DETAILS_SUCCESS,
+    GET_USER_DETAILS_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -121,6 +124,33 @@ export const searchUsersAction = (search) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: GET_SEARCH_RESULTS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        });
+    }
+};
+
+export const getUserDetailsAction = (username) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: GET_USER_DETAILS_REQUEST
+        });
+        const {userLogin:{userInfo}} = getState();
+
+        const config = {
+            headers: {
+                Authorization : `Bearer ${userInfo.token}`
+            }
+        };
+
+        const {data} = await axios.get(`/api/users/details?params=${username}`, config);
+        console.log(data)
+        dispatch({
+            type: GET_USER_DETAILS_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_USER_DETAILS_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         });
     }

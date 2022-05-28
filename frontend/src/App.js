@@ -11,12 +11,16 @@ import Home from './Screens/Home';
 import PostById from './Screens/PostById';
 import AddStory from './Components/AddStory';
 import AddPost from './Components/AddPost';
+import UserDetails from './Components/UserDetails';
 
 
 function App() {
   return (
     <Router>
     <Switch>
+      <Route path="/details/user/:username">
+        <UserDetails />
+      </Route>
       <Route path="/story/create">
         <AddStory />
         <Home />
