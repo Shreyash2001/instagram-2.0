@@ -1,0 +1,13 @@
+.details__left {
+    padding: 40px 20px 10px 40px;
+}
+
+.details__top {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}
+
+.details__top > div {
+    margin-left: 20px;
+}
