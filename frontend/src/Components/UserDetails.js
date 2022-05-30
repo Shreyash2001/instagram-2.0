@@ -3,6 +3,7 @@ import "./UserDetails.css";
 import { getUserDetailsAction } from '../actions/userActions';
 import { useDispatch } from 'react-redux';
 import { Avatar } from '@mui/material';
+import TopBar from './TopBar';
 
 function UserDetails() {
     const username = window.location.pathname.split("/")[3];
@@ -18,6 +19,7 @@ function UserDetails() {
 
   return (
     <div>
+        <TopBar />
         <div className="details__left">
           <div className="details__profile">
             <div className="details__top">

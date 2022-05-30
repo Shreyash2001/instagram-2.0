@@ -1,0 +1,43 @@
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 0px 10px 0;
+}
+
+.topBar__image > img {
+    width: 120px;
+    height: 60px;
+    margin-left: 10px;
+}
+
+.topBar__search {
+    display: flex;
+    align-items: center;
+    border: 1px solid lightgray;
+    border-radius: 22px;
+    width: 520px;
+    padding-left: 10px;
+}
+
+.topBar__search {
+    height: 40px;
+}
+
+.topBar__search > input {
+    padding: 0px 10px 0px 10px;
+    height: 40px;
+    width: 450px;
+    outline-width: 0;
+    border: none;
+    font-size: 16px;
+}
+
+.topBar__right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    width: 200px;
+}
