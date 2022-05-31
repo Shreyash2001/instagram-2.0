@@ -6,6 +6,8 @@ import { Avatar, Button } from '@mui/material';
 import TopBar from './TopBar';
 import MultipleTab from './MultipleTab';
 import Carousel from 'react-material-ui-carousel';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 function UserDetails() {
     const username = window.location.pathname.split("/")[3];
@@ -24,6 +26,8 @@ function UserDetails() {
   return (
     <div>
         <TopBar />
+        {!loading 
+        ?
         <div className="details">
         <div className="details__left">
           <div className="details__profile">
@@ -85,6 +89,45 @@ function UserDetails() {
         </div>
 
       </div>
+      :
+      <div className="details">
+        <div className="details__left">
+        <div style={{marginLeft:"50px", marginBottom:"20px"}}>
+          <Skeleton
+          circle
+          height="80px"
+          width="80px" 
+          containerClassName="avatar-skeleton"
+          baseColor="#adadad2e"
+        />
+        </div>
+        <div style={{marginLeft:"10px", marginBottom:"30px"}}>
+        <Skeleton width={200} style={{marginBottom:"10px"}} />
+        </div>
+
+        <div style={{marginLeft:"-10px", display:"flex", marginBottom:"30px"}}>
+        <Skeleton width={100} style={{marginBottom:"10px", marginLeft:"10px"}} />
+        <Skeleton width={100} style={{marginBottom:"10px", marginLeft:"10px"}} />
+        <Skeleton width={100} style={{marginBottom:"10px", marginLeft:"10px"}} />
+        </div>
+        <div style={{marginBottom:"30px"}}>
+        <Skeleton width={200} height={200} style={{marginBottom:"10px", marginLeft:"10px"}} />
+        </div>
+
+        <div>
+        <Skeleton width={250} height={50} style={{marginBottom:"10px", marginLeft:"10px"}} />
+        </div>
+      </div>
+      <div className="details__right">
+        <div style={{display:"flex", flexWrap:"wrap"}}>
+          <Skeleton width={300} height={300} style={{marginBottom:"10px", marginLeft:"10px"}} />
+          <Skeleton width={300} height={300} style={{marginBottom:"10px", marginLeft:"10px"}} />
+          <Skeleton width={300} height={300} style={{marginBottom:"10px", marginLeft:"10px"}} />
+          <Skeleton width={300} height={300} style={{marginBottom:"10px", marginLeft:"10px"}} />
+        </div>
+        </div>
+      </div>
+      }
     </div>
   )
 }
