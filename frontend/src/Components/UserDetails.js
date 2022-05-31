@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
 import "./UserDetails.css";
 import { getUserDetailsAction } from '../actions/userActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Button } from '@mui/material';
 import TopBar from './TopBar';
 import MultipleTab from './MultipleTab';
+import Carousel from 'react-material-ui-carousel';
 
 function UserDetails() {
     const username = window.location.pathname.split("/")[3];
     const dispatch = useDispatch();
+
+    const {users, loading} = useSelector(state => state.userDetails);
 
     const getData = () => {
       dispatch(getUserDetailsAction(username));
     }
 
     useEffect(() => {
-        getData();
+      getData()
     }, []);
 
   return (
@@ -26,39 +29,30 @@ function UserDetails() {
           <div className="details__profile">
             <div className="details__top">
               <div className="details__profilePic">
-                <Avatar style={{width:"100px", height:"100px"}} src="https://images2.minutemediacdn.com/image/fetch/w_736,h_485,c_fill,g_auto,f_auto/https%3A%2F%2Fwinteriscoming.net%2Ffiles%2F2018%2F07%2Fstranger-things-dragons-lair-850x560.jpg" />
+                <Avatar style={{width:"100px", height:"100px"}} src={users?.profilePic} />
               </div>
               <div className="details__name">
-                <span>Testing tester</span>
+                <span>{users?.firstName + " " + users?.lastName}</span>
               </div>
             </div>
 
             <div className="details__middle">
               <div>
-                <h3>100</h3>
+                <h3>{users?.posts?.length}</h3>
                 <span>Posts</span>
               </div>
               <div>
-                <h3>100</h3>
+                <h3>{users?.followers?.length}</h3>
                 <span>Followers</span>
               </div>
               <div>
-                <h3>100</h3>
+                <h3>{users?.following?.length}</h3>
                 <span>Following</span>
               </div>
             </div>
 
             <div className="details__bio">
-              <span>
-              Akshita
-              Digital creator
-              constantly evolving, steadily revolving
-              Style curator ~ Conscious earthling 🌎
-              rvlv.me/s48pQQStyle curator ~ Conscious earthling 🌎
-              rvlv.me/s48pQQStyle curator ~ Conscious earthling 🌎
-              rvlv.me/s48pQQStyle curator ~ Conscious earthling 🌎
-              rvlv.me/s48pQQ
-              </span>
+              <span>{users?.bio}</span>
             </div>
 
             <div className="details__tab">
@@ -73,8 +67,23 @@ function UserDetails() {
         </div>
 
         <div className="details__right">
-
+          {users?.posts?.map((post) => (
+            <div key={post?._id} className="details__card">
+            <Carousel 
+            navButtonsAlwaysVisible 
+            indicators={false}
+            autoPlay = {false}
+            cycleNavigation={false} 
+            animation={"slide"}
+            >
+              {
+                  Array.from(post?.image.values()).map( (data, i) => <img style={{width:"300px", height:"300px", borderRadius:"12px"}} key={i} src={data} alt="img" /> )
+              } 
+        </Carousel>
+            </div>
+          ))}
         </div>
+
       </div>
     </div>
   )
