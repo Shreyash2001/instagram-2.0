@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import "./UserDetails.css";
 import { getUserDetailsAction } from '../actions/userActions';
 import { useDispatch } from 'react-redux';
-import { Avatar } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import TopBar from './TopBar';
 import MultipleTab from './MultipleTab';
 
@@ -63,6 +63,10 @@ function UserDetails() {
 
             <div className="details__tab">
               <MultipleTab />
+            </div>
+
+            <div className="details__button">
+              <Button>Follow</Button>
             </div>
 
           </div>

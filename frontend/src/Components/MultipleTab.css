@@ -1,0 +1,16 @@
+.multipleTab__itemOne {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.multipleTab__itemOne > div {
+    padding: 4px;
+}
+
+.multipleTab__image {
+    width: 80px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+    padding: 3px;
+}

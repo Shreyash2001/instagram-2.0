@@ -1,4 +1,5 @@
 import * as React from 'react';
+import "./MultipleTab.css";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -53,11 +54,17 @@ export default function MultipleTab() {
           <Tab label="Item Two" style={{color: '#FF4949'}} {...a11yProps(1)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        Item One
+      <TabPanel className="multipleTab__itemOne" value={value} index={0}>
+          <img className="multipleTab__image" src="https://s3.amazonaws.com/photos.bcheights.com/wp-content/uploads/2019/10/03123602/peaky-blinders-online.jpg" alt="feed" />
+          <img className="multipleTab__image" src="https://deadline.com/wp-content/uploads/2020/07/batman-e1615677263885.jpg?w=1024" alt="feed"  />
+          <img className="multipleTab__image" src="https://static01.nyt.com/images/2021/03/11/arts/11nft-explain-1/11nft-explain-1-mediumSquareAt3X.jpg" alt="feed"  />
+          <img className="multipleTab__image" src="https://static3.srcdn.com/wordpress/wp-content/uploads/2020/09/House-of-the-Dragon-Title.jpg" alt="feed"  />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
+      <TabPanel className="multipleTab__itemOne" value={value} index={1}>
+      <img className="multipleTab__image" src="https://s3.amazonaws.com/photos.bcheights.com/wp-content/uploads/2019/10/03123602/peaky-blinders-online.jpg" alt="feed" />
+          <img className="multipleTab__image" src="https://deadline.com/wp-content/uploads/2020/07/batman-e1615677263885.jpg?w=1024" alt="feed"  />
+          <img className="multipleTab__image" src="https://static01.nyt.com/images/2021/03/11/arts/11nft-explain-1/11nft-explain-1-mediumSquareAt3X.jpg" alt="feed"  />
+          <img className="multipleTab__image" src="https://static3.srcdn.com/wordpress/wp-content/uploads/2020/09/House-of-the-Dragon-Title.jpg" alt="feed"  />
       </TabPanel>
     </Box>
   );
