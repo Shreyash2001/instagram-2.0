@@ -8,17 +8,43 @@ import MultipleTab from './MultipleTab';
 import Carousel from 'react-material-ui-carousel';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function UserDetails() {
     const username = window.location.pathname.split("/")[3];
     const dispatch = useDispatch();
 
     const {users, loading} = useSelector(state => state.userDetails);
+    const {userInfo} = useSelector(state => state.userLogin);
 
     const getData = () => {
       dispatch(getUserDetailsAction(username));
     }
 
+    function sideScroll(element,direction,speed,distance,step){
+      var scrollAmount = 0;
+       var slideTimer = setInterval(function(){
+           if(direction === 'left'){
+               element.scrollLeft -= step;
+           } else {
+               element.scrollLeft += step;
+           }
+           scrollAmount += step;
+           if(scrollAmount >= distance){
+               window.clearInterval(slideTimer);
+           }
+       }, speed);
+   }
+
+    const scrollOnClickRightTopRated = () => {
+      sideScroll(document.getElementById("suggestion"),'right',10,1500,20); 
+    }
+    const scrollOnClickLeftTopRated = () => { 
+      sideScroll(document.getElementById("suggestion"),'left',10,1500,20);
+    }
+
+    const temp = [1,2,3,4];
     useEffect(() => {
       getData()
     }, []);
@@ -60,7 +86,39 @@ function UserDetails() {
             </div>
 
             <div className="details__tab">
-              <MultipleTab />
+              {
+                userInfo?.userName !== username 
+                ?
+                <MultipleTab />
+                :
+                <div style={{position:"relative"}}>
+                  <p style={{marginBottom:"10px", fontSize:"14px"}}>People you may follow</p>
+                  <div className="details__arrowContainer">
+                    <div onClick={scrollOnClickLeftTopRated}>
+                      <ArrowBackIosNewIcon style={{fontSize:"16px", color:"#fff"}} />
+                    </div>
+                    <div onClick={scrollOnClickRightTopRated}>
+                      <ArrowForwardIosIcon style={{fontSize:"16px", color:"#fff"}} />
+                    </div>
+                  </div>
+                  <div id="suggestion" className="details__suggestionContainer">
+                  {temp.map((ele) => (
+                    <div className="details__suggestion">
+                    <div style={{marginLeft:"25px", marginBottom:"10px"}}>
+                      <Avatar style={{width:"80px", height:"80px"}} src="https://flxt.tmsimg.com/assets/p12991665_b_v13_am.jpg" />
+                    </div>
+                    <div className="details__suggestionName">
+                      <p>name namesjfkajsfkasjnkav sdnskdv</p>
+                      <span>100 followers</span>
+                    </div>
+                    <div className="details__suggestButton">
+                      <Button>Follow</Button>
+                    </div>
+                  </div>
+                  ))}
+                  </div>
+                </div>
+                }
             </div>
 
             <div className="details__button">
