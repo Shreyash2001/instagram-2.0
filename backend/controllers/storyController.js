@@ -59,34 +59,6 @@ const getStories = asyncHandler(async(req, res) => {
         }
         map.push(myData);
 
-        users.followers.map((follower) => {
-            var data = {};
-            const list = [];
-
-            follower.stories.map((story) => {
-                var myDate = new Date(story.updatedAt);
-                var result = myDate.getTime();
-                if(follower._id.toString() === story.user.toString()) {
-                    list.push({
-                        url: story.file,
-                        header: {
-                            heading: follower.firstName + " " + follower.lastName,
-                            subheading: moment(result).fromNow(),
-                            profileImage: follower.profilePic
-                        }
-                    }
-                    )
-                }
-                
-            })
-            data = {
-                _id : follower._id,
-                list: list,
-                name: follower.firstName + " " + follower.lastName,
-                image: follower.profilePic
-            }
-            map.push(data);
-        });
 
         users.following.map((ele) => {
             var data = {};

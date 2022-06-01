@@ -122,7 +122,13 @@ function UserDetails() {
             </div>
 
             <div className="details__button">
-              <Button>Follow</Button>
+              {
+                userInfo?.userName !== username 
+                ?
+                <Button>Follow</Button>
+                :
+                <Button>Edit</Button>
+                }
             </div>
 
           </div>

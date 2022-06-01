@@ -37,7 +37,6 @@ const getPost = asyncHandler(async(req, res) => {
                         });
 
     const data = [];
-
     if(posts) {
         posts.map((post) => {
             var temp = {};

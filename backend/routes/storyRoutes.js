@@ -4,7 +4,7 @@ const router = express.Router();
 const { addStories, getStories } = require("../controllers/storyController");
 const protect = require("../middleware/authMiddleware");
 
-router.route("/create").put(protect, addStories);
+router.route("/create").post(protect, addStories);
 router.route("/all").get(protect, getStories);
 
 module.exports = router;
