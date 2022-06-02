@@ -38,10 +38,10 @@ function UserDetails() {
    }
 
     const scrollOnClickRightTopRated = () => {
-      sideScroll(document.getElementById("suggestion"),'right',10,1500,20); 
+      sideScroll(document.getElementById("suggestion"),'right',10,120,20); 
     }
     const scrollOnClickLeftTopRated = () => { 
-      sideScroll(document.getElementById("suggestion"),'left',10,1500,20);
+      sideScroll(document.getElementById("suggestion"),'left',10,120,20);
     }
 
     const temp = [1,2,3,4];

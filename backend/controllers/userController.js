@@ -176,4 +176,82 @@ const getUserDetails = asyncHandler(async(req, res) => {
     }
 });
 
-module.exports = {login, register, getTopUser, followUnfollowUser, getSearchedUsers, getUserDetails};
+const check = (user, follow) => {
+    if(user._id.toString() === follow.toString()) return false;
+    user.followers.forEach(follower => {
+        if(follower._id.toString() === follow.toString()) return false;
+    });
+    return true;
+};
+
+
+const getSuggestion = asyncHandler(async(req, res) => {
+    const user = await User.findById(req.user._id).populate("followers following");
+    if(user) {
+        if(user.followers.length === 0 && user.following.length === 0) {
+            const suggest = await User.find({$and: [{isPrivate: false}, {_id: {$ne: user._id}}]}).select("-password");
+            if(suggest) {
+                res.status(200).json(suggest);
+                return;
+            } else {
+                res.status(404).json({message: "No data found"});
+                return;
+            }
+        }
+
+        const followers = user.followers;
+        const following = user.following;
+        const differences = [];
+        
+        if(following.length === 0) {
+            followers.forEach(follower => {
+                differences.push(follower);
+            });
+        } else {
+            followers.forEach(follower => {
+                following.forEach(ele => {
+                    if(ele.userName === follower.userName) differences.push(follower);
+                });
+            });
+        }
+
+        const suggestions = new Set();
+        differences.forEach(difference => {
+            difference.followers.forEach(follower => {
+                if(check(user, follower)) {
+                    suggestions.add(follower.toString());
+                }
+            });
+        });
+
+        if(suggestions.size === 0) {
+            const suggest = await User.find({$and: [{isPrivate: false}, {_id: {$ne: user._id}}]}).select("-password");
+            if(suggest) {
+                res.status(200).json(suggest);
+                return;
+            } else {
+                res.status(404).json({message: "No data found"});
+                return;
+            }
+        } else {
+            const populatedSuggestions = [];
+            for (const id of suggestions) {
+                const user = await User.findById(id).select("-password");
+                populatedSuggestions.push(user);
+            }
+            res.status(200).json(populatedSuggestions); 
+        }
+    } else {
+        res.status(404).json({message: "Not found"})
+    }
+});
+
+module.exports = {
+                    login, 
+                    register, 
+                    getTopUser, 
+                    followUnfollowUser, 
+                    getSearchedUsers, 
+                    getUserDetails,
+                    getSuggestion
+};
