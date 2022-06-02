@@ -22,6 +22,8 @@ function UserDetails() {
       dispatch(getUserDetailsAction(username));
     }
 
+    const suggestedUsers = JSON.parse(sessionStorage.getItem("Instagram-User_Suggestions"));
+
     function sideScroll(element,direction,speed,distance,step){
       var scrollAmount = 0;
        var slideTimer = setInterval(function(){
@@ -102,14 +104,14 @@ function UserDetails() {
                     </div>
                   </div>
                   <div id="suggestion" className="details__suggestionContainer">
-                  {temp.map((ele) => (
+                  {suggestedUsers.map((ele) => (
                     <div className="details__suggestion">
                     <div style={{marginLeft:"25px", marginBottom:"10px"}}>
-                      <Avatar style={{width:"80px", height:"80px"}} src="https://flxt.tmsimg.com/assets/p12991665_b_v13_am.jpg" />
+                      <Avatar style={{width:"80px", height:"80px"}} src={ele?.profilePic} />
                     </div>
                     <div className="details__suggestionName">
-                      <p>name namesjfkajsfkasjnkav sdnskdv</p>
-                      <span>100 followers</span>
+                      <p>{ele?.firstName + " " + ele?.lastName}</p>
+                      <span>{ele?.followers?.length} followers</span>
                     </div>
                     <div className="details__suggestButton">
                       <Button>Follow</Button>

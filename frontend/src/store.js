@@ -1,7 +1,7 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
-import { getSearchedUserReducer, getTopUser, getUserDetailsReducer, userLoginReducer, userLogoutReducer } from "./reducers/userReducer";
+import { getSearchedUserReducer, getTopUser, getUserDetailsReducer, getUserSuggestionsReducer, userLoginReducer, userLogoutReducer } from "./reducers/userReducer";
 import { addPreferencesReducer, countPreferences } from "./reducers/preferencesReducer";
 import { addStoriesReducer, getStoriesReducer } from "./reducers/storiesReducer";
 import { addPostReducer, commentReducer, getPostReducer, likeReducer } from "./reducers/postsReducer";
@@ -20,6 +20,7 @@ const reducer = combineReducers({
     likeAdded: likeReducer,
     commentAdded: commentReducer,
     userDetails: getUserDetailsReducer,
+    suggestedUsers: getUserSuggestionsReducer
 });
 
 const userInfoFromStorage = localStorage.getItem("Instagram-UserInfo") ? JSON.parse(localStorage.getItem("Instagram-UserInfo")) : {};

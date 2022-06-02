@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getSuggestionAction } from '../actions/userActions';
 import "./Home.css";
 import HomeLeft from './HomeLeft';
 import HomeMiddle from './HomeMiddle';
 import HomeRight from './HomeRight';
 
 function Home() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if(sessionStorage.getItem("Instagram-User_Suggestions") === undefined || sessionStorage.getItem("Instagram-User_Suggestions") === null)
+        dispatch(getSuggestionAction());
+    }, []);
     
     return (
         <div className="home">

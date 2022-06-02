@@ -15,6 +15,9 @@ import {
     GET_USER_DETAILS_REQUEST,
     GET_USER_DETAILS_SUCCESS,
     GET_USER_DETAILS_FAIL,
+    GET_USER_SUGGESTIONS_REQUEST,
+    GET_USER_SUGGESTIONS_SUCCESS,
+    GET_USER_SUGGESTIONS_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -72,10 +75,9 @@ export const loginUser = (userName, email, password) => async (dispatch) => {
 
 export const userLogout = () => async(dispatch) => {
     localStorage.removeItem("Instagram-UserInfo");
-    localStorage.removeItem("Instagram-Stories");
-    localStorage.removeItem("Instagram-Posts");
     sessionStorage.removeItem("Instagram-Posts");
     sessionStorage.removeItem("Instagram-Stories");
+    sessionStorage.removeItem("Instagram-User_Suggestions");
     dispatch({
         type : USER_LOGOUT
     });
@@ -151,6 +153,31 @@ export const getUserDetailsAction = (username) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: GET_USER_DETAILS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        });
+    }
+};
+
+export const getSuggestionAction = () => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: GET_USER_SUGGESTIONS_REQUEST
+        });
+        const {userLogin: {userInfo}} = getState();
+        const config = {
+            headers: {
+                "Authorization" : `Bearer ${userInfo.token}`
+            }
+        };
+        const {data} = await axios.get("/api/users/suggest", config);
+        dispatch({
+            type: GET_USER_SUGGESTIONS_SUCCESS,
+            payload: data
+        });
+        sessionStorage.setItem("Instagram-User_Suggestions", JSON.stringify(data));
+    } catch (error) {
+        dispatch({
+            type: GET_USER_SUGGESTIONS_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         });
     }

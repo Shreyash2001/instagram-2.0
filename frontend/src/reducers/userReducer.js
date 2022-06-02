@@ -15,6 +15,9 @@ import {
     GET_USER_DETAILS_REQUEST,
     GET_USER_DETAILS_SUCCESS,
     GET_USER_DETAILS_FAIL,
+    GET_USER_SUGGESTIONS_REQUEST,
+    GET_USER_SUGGESTIONS_SUCCESS,
+    GET_USER_SUGGESTIONS_FAIL,
 } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -137,6 +140,27 @@ export const getUserDetailsReducer = (state = {}, action) => {
                 error : action.payload
             };
     
+        default:
+            return state;
+    }
+};
+
+export const getUserSuggestionsReducer = (state = [], action) => {
+    switch (action.payload) {
+        case GET_USER_SUGGESTIONS_REQUEST:
+            return {
+                loading: true
+            };
+        case GET_USER_SUGGESTIONS_SUCCESS:
+            return {
+                loading: false,
+                suggestions: action.payload
+            };
+        case GET_USER_SUGGESTIONS_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            };
         default:
             return state;
     }
