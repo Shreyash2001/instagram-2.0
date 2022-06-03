@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./UserDetails.css";
 import { getUserDetailsAction } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,8 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Link } from 'react-router-dom';
+import PostById from '../Screens/PostById';
 
 function UserDetails() {
     const username = window.location.pathname.split("/")[3];
@@ -18,9 +20,6 @@ function UserDetails() {
     const {users, loading} = useSelector(state => state.userDetails);
     const {userInfo} = useSelector(state => state.userLogin);
 
-    const getData = () => {
-      dispatch(getUserDetailsAction(username));
-    }
 
     const suggestedUsers = JSON.parse(sessionStorage.getItem("Instagram-User_Suggestions"));
 
@@ -46,9 +45,15 @@ function UserDetails() {
       sideScroll(document.getElementById("suggestion"),'left',10,120,20);
     }
 
-    const temp = [1,2,3,4];
+    const [open, setOpen] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
+    const openPostById = (id) => {
+      setOpen(true)
+      setSelectedId(id);
+    }
+
     useEffect(() => {
-      getData()
+      dispatch(getUserDetailsAction(username));
     }, []);
 
   return (
@@ -138,7 +143,7 @@ function UserDetails() {
 
         <div className="details__right">
           {users?.posts?.map((post) => (
-            <div key={post?._id} className="details__card">
+            <div onClick={() => openPostById(post?._id)} key={post?._id} className="details__card">
             <Carousel 
             navButtonsAlwaysVisible 
             indicators={false}
@@ -153,7 +158,12 @@ function UserDetails() {
             </div>
           ))}
         </div>
-
+        
+        <div>
+          {
+            open && <PostById incomingFrom={{name: "user_details", id: selectedId}} />
+          }
+        </div>
       </div>
       :
       <div className="details">

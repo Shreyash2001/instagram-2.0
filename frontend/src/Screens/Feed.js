@@ -1,8 +1,8 @@
 import { Button } from '@mui/material';
 import React, {useState} from 'react';
+import "./Feed.css"
 import { useSelector } from 'react-redux';
 import FeedCard from '../Components/FeedCard';
-import "./Feed.css"
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -69,6 +69,7 @@ function Feed() {
         <div className="feed__cards">
         {
           posts?.map((post) => (
+            <>
             <FeedCard 
               key={post?.id}
               id={post?.id}
@@ -83,10 +84,10 @@ function Feed() {
               comments = {post?.comments}
               time = {post?.time}
             />
+            </>
           ))
         }
-            
-            
+        
         </div>
     </div>
     

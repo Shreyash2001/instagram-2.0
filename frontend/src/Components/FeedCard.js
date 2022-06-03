@@ -23,6 +23,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
   const [showPostButton, setShowPostButton] = useState(false);
+
   var trimmedCaption = caption;
   if(caption?.length >= 100) {
     trimmedCaption = caption.substr(0, 100) + "...";

@@ -30,7 +30,7 @@ function App() {
         <Home />
       </Route>
       <Route path="/post/:id">
-        <PostById />
+        <PostById incomingFrom={"feed"} />
         <Home />
       </Route>
       <Route path="/register">

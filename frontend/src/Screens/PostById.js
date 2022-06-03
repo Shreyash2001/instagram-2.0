@@ -9,7 +9,6 @@ import { Avatar, IconButton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SendIcon from '@mui/icons-material/Send';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Picker from 'emoji-picker-react';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -19,13 +18,14 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import moment from "moment";
 
-function PostById() {
+function PostById({incomingFrom}) {
+
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
     const [comment, setComment] = useState("");
     const [showPostButton, setShowPostButton] = useState(false);
     const history = useHistory();
-    const id = window.location.pathname.split("/")[2];
+    const id = incomingFrom.name !== "user_details" ? (window.location.pathname.split("/")[2]) : incomingFrom.id;
 
     const posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
 
@@ -95,6 +95,7 @@ function PostById() {
       }
       const handleClose = () => {
           setOpen(false);
+          if(incomingFrom.name !== "user_details")
           history.push('/');
         }
 
