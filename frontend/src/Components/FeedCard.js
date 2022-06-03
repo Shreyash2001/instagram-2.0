@@ -16,7 +16,7 @@ import Carousel from 'react-material-ui-carousel';
 import { Link, useHistory } from 'react-router-dom';
 
 
-function FeedCard({id, name, username, images, likes, user_info, caption, location, comments, profilePic, time}) {
+function FeedCard({id, name, username, images, likes, user_info, caption, location, comments, profilePic, time, currUserId}) {
   const [like, setLike] = useState(likes?.includes(user_info._id));
   const [countLike, setCountLike] = useState(likes?.length);
   const [bookmark, setBookmark] = useState(false);
@@ -36,6 +36,9 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     setLike(!like);
     dispatch(addLikeAction(id));
     setCountLike(countLike + 1);
+      const find = posts.find((post) => post.id === id);
+      find?.likes.push(currUserId);
+      sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
   };
 
   const handleLikeRemoveClick = () => {

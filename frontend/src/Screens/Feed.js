@@ -69,7 +69,6 @@ function Feed() {
         <div className="feed__cards">
         {
           posts?.map((post) => (
-            <>
             <FeedCard 
               key={post?.id}
               id={post?.id}
@@ -83,8 +82,8 @@ function Feed() {
               location = {post?.location}
               comments = {post?.comments}
               time = {post?.time}
+              currUserId = {userInfo?._id}
             />
-            </>
           ))
         }
         

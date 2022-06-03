@@ -65,6 +65,9 @@ function PostById({incomingFrom}) {
       setLike(!like);
       dispatch(addLikeAction(id));
       setCountLike(countLike + 1);
+      const find = posts.find((post) => post.id === id);
+      find?.likes.push(userInfo?._id);
+      sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
     };
   
     const handleLikeRemoveClick = () => {
@@ -124,6 +127,11 @@ function PostById({incomingFrom}) {
       useEffect(() => {
         handleOpen();
       }, []);
+
+      useEffect(() => {
+        if(incomingFrom.openCurr === true)
+        handleOpen();
+      }, [incomingFrom]);
 
       
 

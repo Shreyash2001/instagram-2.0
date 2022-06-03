@@ -161,7 +161,7 @@ function UserDetails() {
         
         <div>
           {
-            open && <PostById incomingFrom={{name: "user_details", id: selectedId}} />
+            open && <PostById incomingFrom={{name: "user_details", id: selectedId, openCurr: true}} />
           }
         </div>
       </div>
