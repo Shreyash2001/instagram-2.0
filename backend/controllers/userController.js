@@ -246,6 +246,21 @@ const getSuggestion = asyncHandler(async(req, res) => {
     }
 });
 
+const getMutualSuggestion = async(req, res) => {
+    const otherUser = await User.findById(req.body._id).populate({path:"followers", select: "-password -likes"});
+    const mutual = [];
+
+    otherUser.followers.forEach(otherFollower => {
+        req.user.followers.forEach(myFollower => {
+            if(otherFollower._id.toString() === myFollower.toString()) {
+                mutual.push(otherFollower);
+            }
+        })
+    });
+
+    res.status(200).json(mutual);
+}
+
 module.exports = {
                     login, 
                     register, 
@@ -253,5 +268,6 @@ module.exports = {
                     followUnfollowUser, 
                     getSearchedUsers, 
                     getUserDetails,
-                    getSuggestion
+                    getSuggestion,
+                    getMutualSuggestion
 };

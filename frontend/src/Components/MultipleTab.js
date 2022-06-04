@@ -50,8 +50,8 @@ export default function MultipleTab() {
     <Box sx={{ width: '100%' }}>
       <Box>
         <Tabs TabIndicatorProps={{ sx: { backgroundColor: "#FF4949"}}}  value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Top" style={{color: "#FF4949", fontSize:"14px", textTransform:"inherit"}} {...a11yProps(0)} />
-          <Tab label="Mutual" style={{color: "#FF4949", fontSize:"14px", textTransform:"inherit"}} {...a11yProps(1)} />
+          <Tab label="Mutual" style={{color: "#FF4949", fontSize:"14px", textTransform:"inherit"}} {...a11yProps(0)} />
+          <Tab label="Top" style={{color: "#FF4949", fontSize:"14px", textTransform:"inherit"}} {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel className="multipleTab__itemOne" value={value} index={0}>

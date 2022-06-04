@@ -6,11 +6,13 @@ const {
     followUnfollowUser,
     getSearchedUsers,
     getUserDetails,
-    getSuggestion
+    getSuggestion,
+    getMutualSuggestion
 } = require("../controllers/userController");
 const protect = require("../middleware/authMiddleware");
 const router = express.Router();
 
+router.route("/suggest/mutual").get(protect, getMutualSuggestion);
 router.route("/suggest").get(protect, getSuggestion);
 router.route("/details?").get(protect, getUserDetails);
 router.route("/search?").get(protect, getSearchedUsers);
