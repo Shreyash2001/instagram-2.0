@@ -18,6 +18,9 @@ import {
     GET_USER_SUGGESTIONS_REQUEST,
     GET_USER_SUGGESTIONS_SUCCESS,
     GET_USER_SUGGESTIONS_FAIL,
+    GET_USER_MUTUAL_SUGGESTIONS_REQUEST,
+    GET_USER_MUTUAL_SUGGESTIONS_SUCCESS,
+    GET_USER_MUTUAL_SUGGESTIONS_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -177,6 +180,31 @@ export const getSuggestionAction = () => async(dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: GET_USER_SUGGESTIONS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        });
+    }
+};
+
+export const getMutualUsersAction = (username) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: GET_USER_MUTUAL_SUGGESTIONS_REQUEST
+        });
+        const {userLogin: {userInfo}} = getState();
+        const config = {
+            headers: {
+                "Authorization" : `Bearer ${userInfo.token}`
+            }
+        };
+        const {data} = await axios.get(`/api/users/suggest/mutual?params=${username}`, config);
+        console.log(data)
+        dispatch({
+            type: GET_USER_MUTUAL_SUGGESTIONS_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_USER_MUTUAL_SUGGESTIONS_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         });
     }

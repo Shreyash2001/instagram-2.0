@@ -18,7 +18,7 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import moment from "moment";
 
-function PostById({incomingFrom}) {
+function PostById({incomingFrom, temp}) {
 
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
@@ -98,6 +98,7 @@ function PostById({incomingFrom}) {
       }
       const handleClose = () => {
           setOpen(false);
+          temp(false);
           if(incomingFrom.name !== "user_details")
           history.push('/');
         }

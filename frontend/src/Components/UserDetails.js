@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./UserDetails.css";
-import { getUserDetailsAction } from '../actions/userActions';
+import { getMutualUsersAction, getUserDetailsAction } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Button } from '@mui/material';
 import TopBar from './TopBar';
@@ -10,7 +10,6 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Link } from 'react-router-dom';
 import PostById from '../Screens/PostById';
 
 function UserDetails() {
@@ -19,6 +18,7 @@ function UserDetails() {
 
     const {users, loading} = useSelector(state => state.userDetails);
     const {userInfo} = useSelector(state => state.userLogin);
+    const {mutual_suggestions} = useSelector(state => state.mutualUsers);
 
 
     const suggestedUsers = JSON.parse(sessionStorage.getItem("Instagram-User_Suggestions"));
@@ -52,9 +52,17 @@ function UserDetails() {
       setSelectedId(id);
     }
 
+    const temp = (val) => {
+      setOpen(val);
+    }
+
     useEffect(() => {
       dispatch(getUserDetailsAction(username));
+
+      if(userInfo?.userName !== username)
+        dispatch(getMutualUsersAction(username));
     }, []);
+
 
   return (
     <div>
@@ -96,7 +104,7 @@ function UserDetails() {
               {
                 userInfo?.userName !== username 
                 ?
-                <MultipleTab />
+                <MultipleTab mutual={mutual_suggestions} />
                 :
                 <div style={{position:"relative"}}>
                   <p style={{marginBottom:"10px", fontSize:"14px"}}>People you may follow</p>
@@ -110,7 +118,7 @@ function UserDetails() {
                   </div>
                   <div id="suggestion" className="details__suggestionContainer">
                   {suggestedUsers.map((ele) => (
-                    <div className="details__suggestion">
+                    <div key={ele._id} className="details__suggestion">
                     <div style={{marginLeft:"25px", marginBottom:"10px"}}>
                       <Avatar style={{width:"80px", height:"80px"}} src={ele?.profilePic} />
                     </div>
@@ -161,7 +169,7 @@ function UserDetails() {
         
         <div>
           {
-            open && <PostById incomingFrom={{name: "user_details", id: selectedId, openCurr: true}} />
+            open && <PostById incomingFrom={{name: "user_details", id: selectedId, openCurr: true}} temp={temp} />
           }
         </div>
       </div>

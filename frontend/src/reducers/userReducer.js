@@ -18,6 +18,9 @@ import {
     GET_USER_SUGGESTIONS_REQUEST,
     GET_USER_SUGGESTIONS_SUCCESS,
     GET_USER_SUGGESTIONS_FAIL,
+    GET_USER_MUTUAL_SUGGESTIONS_REQUEST,
+    GET_USER_MUTUAL_SUGGESTIONS_SUCCESS,
+    GET_USER_MUTUAL_SUGGESTIONS_FAIL,
 } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -145,8 +148,8 @@ export const getUserDetailsReducer = (state = {}, action) => {
     }
 };
 
-export const getUserSuggestionsReducer = (state = [], action) => {
-    switch (action.payload) {
+export const getUserSuggestionsReducer = (state = {}, action) => {
+    switch (action.type) {
         case GET_USER_SUGGESTIONS_REQUEST:
             return {
                 loading: true
@@ -157,6 +160,27 @@ export const getUserSuggestionsReducer = (state = [], action) => {
                 suggestions: action.payload
             };
         case GET_USER_SUGGESTIONS_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            };
+        default:
+            return state;
+    }
+};
+
+export const getUserMutualSuggestionsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case GET_USER_MUTUAL_SUGGESTIONS_REQUEST:
+            return {
+                loading: true
+            };
+        case GET_USER_MUTUAL_SUGGESTIONS_SUCCESS:
+            return {
+                loading: false,
+                mutual_suggestions: action.payload
+            };
+        case GET_USER_MUTUAL_SUGGESTIONS_FAIL:
             return {
                 loading: false,
                 error: action.payload
