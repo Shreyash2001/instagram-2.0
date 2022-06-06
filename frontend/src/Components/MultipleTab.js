@@ -57,7 +57,7 @@ export default function MultipleTab({mutual}) {
       </Box>
       <TabPanel className="multipleTab__itemOne" value={value} index={0}>
         {mutual?.map((user) => ( 
-            <MouseOverPopover key={user?._id} user={user} />
+            <MouseOverPopover user={user} />
         ))}
       </TabPanel>
       <TabPanel className="multipleTab__itemOne" value={value} index={1}>

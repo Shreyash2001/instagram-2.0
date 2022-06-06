@@ -24,7 +24,13 @@ export default function MouseOverPopover({user}) {
         onMouseEnter={handlePopoverOpen}
         onMouseLeave={handlePopoverClose}
       >
+      {
+          user?.profilePic !== undefined 
+          ?
         <img className="multipleTab__image" src={user?.profilePic} alt={user?.userName} />
+          :
+        <img className="multipleTab__image" src="https://res.cloudinary.com/cqn/image/upload/v1654538191/user-512_hgnuqd.png" alt="img" />
+      }
       </div>
       <Popover
         id="mouse-over-popover"
@@ -52,9 +58,9 @@ export default function MouseOverPopover({user}) {
                     </div>
                     <div>
                         <div>
-                            <p style={{margin:"0 0 5px 5px"}}>{user?.userName}</p>
+                            <h3 style={{margin:"0 0 5px 10px"}}>{user?.userName}</h3>
                         </div>
-                        <div style={{display:"flex", alignItems:"center", marginBottom:"10px"}}>
+                        <div style={{display:"flex", alignItems:"center", marginBottom:"10px", marginLeft:"10px"}}>
                             <div style={{marginRight:"8px"}}>
                             <span>
                                 {user?.posts?.length} posts
