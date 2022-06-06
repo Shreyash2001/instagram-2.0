@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import MouseOverPopover from './Popover';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,8 +56,8 @@ export default function MultipleTab({mutual}) {
         </Tabs>
       </Box>
       <TabPanel className="multipleTab__itemOne" value={value} index={0}>
-        {mutual?.map((user) => (
-          <img className="multipleTab__image" src={user?.profilePic} alt={user?.userName} />
+        {mutual?.map((user) => ( 
+            <MouseOverPopover key={user?._id} user={user} />
         ))}
       </TabPanel>
       <TabPanel className="multipleTab__itemOne" value={value} index={1}>

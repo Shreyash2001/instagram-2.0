@@ -3,8 +3,9 @@
     flex-wrap: wrap;
 }
 
-.multipleTab__itemOne > div {
-    padding: 4px;
+.multipleTab__itemOne > div > p {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .multipleTab__image {

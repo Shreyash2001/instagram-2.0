@@ -247,7 +247,14 @@ const getSuggestion = asyncHandler(async(req, res) => {
 });
 
 const getMutualSuggestion = async(req, res) => {
-    const otherUser = await User.findOne({userName: req.query.params}).populate({path:"followers", select: "-password -likes"});
+    const otherUser = await User.findOne({userName: req.query.params}).populate({path:"followers", 
+    select: "-password -likes",
+    populate: {
+        path: "posts",
+        model: "Post"
+    }
+});
+
     if(otherUser) {
         const mutual = [];
         otherUser.followers.forEach(otherFollower => {
