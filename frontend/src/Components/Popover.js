@@ -61,7 +61,7 @@ export default function MouseOverPopover({user}) {
                             <h3 style={{margin:"0 0 5px 10px"}}>{user?.userName}</h3>
                         </div>
                         <div style={{display:"flex", alignItems:"center", marginBottom:"10px", marginLeft:"10px"}}>
-                            <div style={{marginRight:"8px"}}>
+                            <div style={{marginRight:"10px"}}>
                             <span>
                                 {user?.posts?.length} posts
                             </span>

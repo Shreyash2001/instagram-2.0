@@ -19,7 +19,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import moment from "moment";
 
 function PostById({incomingFrom, temp}) {
-
+    console.log(incomingFrom)
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
     const [comment, setComment] = useState("");
