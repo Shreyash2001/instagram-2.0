@@ -19,7 +19,6 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import moment from "moment";
 
 function PostById({incomingFrom, temp}) {
-    console.log(incomingFrom)
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
     const [comment, setComment] = useState("");
@@ -98,9 +97,10 @@ function PostById({incomingFrom, temp}) {
       }
       const handleClose = () => {
           setOpen(false);
-          temp(false);
-          if(incomingFrom.name !== "user_details")
+          if(incomingFrom.name === "feed")
           history.push('/');
+          if(incomingFrom.name === "user_details")
+          temp(false);
         }
 
         const onEmojiClick = (event, emojiObject) => {

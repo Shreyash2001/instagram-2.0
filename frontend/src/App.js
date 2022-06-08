@@ -30,7 +30,7 @@ function App() {
         <Home />
       </Route>
       <Route path="/post/:id">
-        <PostById incomingFrom={"feed"} />
+        <PostById incomingFrom={{name:"feed"}} />
         <Home />
       </Route>
       <Route path="/register">
