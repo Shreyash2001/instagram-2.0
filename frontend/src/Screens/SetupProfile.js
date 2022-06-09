@@ -20,7 +20,7 @@ function SetupProfile() {
           </div>
         </div>
         <div className="addButton">
-          <Button outlined>Add</Button>
+          <Button variant="outlined">Next</Button>
         </div>
     </div>
   )
