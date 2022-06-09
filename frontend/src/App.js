@@ -12,6 +12,7 @@ import PostById from './Screens/PostById';
 import AddStory from './Components/AddStory';
 import AddPost from './Components/AddPost';
 import UserDetails from './Components/UserDetails';
+import SetupProfile from './Screens/SetupProfile';
 
 
 function App() {
@@ -33,14 +34,17 @@ function App() {
         <PostById incomingFrom={{name:"feed"}} />
         <Home />
       </Route>
+      <Route path="/setup">
+        <SetupProfile />
+      </Route>
+      <Route path="/preferences">
+        <Preferences />
+      </Route>
       <Route path="/register">
         <Registration />
       </Route>
       <Route path="/login">
         <Login />
-      </Route>
-      <Route path="/preferences">
-        <Preferences />
       </Route>
       <Route path="/">
         <Home />
