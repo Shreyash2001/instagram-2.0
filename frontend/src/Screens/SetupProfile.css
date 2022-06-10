@@ -1,6 +1,6 @@
 .setupProfile {
     position: absolute;
-    top: 10%;
+    top: 8%;
     left: 32%;
     max-width: 550px;
     text-align: center;
@@ -36,7 +36,8 @@
 
 .input > textarea {
     width: 450px;
-    height: 130px;
+    height: 120px;
+    padding: 10px;
     font-size: 16px;
     border: 1px sold lightgray;
     outline-width: 0;

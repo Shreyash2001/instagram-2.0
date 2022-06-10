@@ -49,7 +49,7 @@ function AddStory() {
             dispatch(getStoriesAction());
         });
         
-        };
+    };
     
     useEffect(() => {
         setOpen(true)
