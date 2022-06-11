@@ -246,7 +246,7 @@ const getSuggestion = asyncHandler(async(req, res) => {
     }
 });
 
-const getMutualSuggestion = async(req, res) => {
+const getMutualSuggestion = asyncHandler(async(req, res) => {
     const otherUser = await User.findOne({userName: req.query.params}).populate({path:"followers", 
     select: "-password -likes",
     populate: {
@@ -268,7 +268,30 @@ const getMutualSuggestion = async(req, res) => {
     } else {
         res.status(404).json({message: "User Not found"});
     }
-}
+});
+
+const updateProfilePicOrBio = asyncHandler(async(req, res) => {
+    const {profilePic, bio} = req.body;
+    const successful = {};
+
+    if(profilePic !== undefined || profilePic !== null || profilePic !== "") {
+       const success = await User.findByIdAndUpdate(req.user._id, {profilePic: profilePic});
+       if(success) {
+            successful.profile = true
+        } else {
+            successful.profile = false
+        }
+    }
+    if(bio !== undefined && bio !== "") {
+       const success = await User.findByIdAndUpdate(req.user._id, {bio: bio});
+       if(success) {
+        successful.bio = true
+       } else {
+        successful.bio = false
+       }
+    }
+    return res.status(200).json(successful);
+});
 
 module.exports = {
                     login, 
@@ -278,5 +301,6 @@ module.exports = {
                     getSearchedUsers, 
                     getUserDetails,
                     getSuggestion,
-                    getMutualSuggestion
+                    getMutualSuggestion,
+                    updateProfilePicOrBio
 };

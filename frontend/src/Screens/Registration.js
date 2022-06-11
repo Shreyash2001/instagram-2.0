@@ -53,7 +53,7 @@ function Registration() {
     const history = useHistory();
     useEffect(() => {
         if(data?.success || data?._id !== undefined) {
-            history.push("/preferences");
+            history.push("/setup");
         }
     }, [data, history]);
 

@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import "./SetupProfile.css";
 
 function SetupProfile() {
+  const [bio, setBio] = useState("");
   const [url, setUrl] = useState("");
   const inputRef = useRef();
   const triggerFileSelectPopup = () => inputRef.current.click();
@@ -56,7 +57,7 @@ function SetupProfile() {
             <span>Enter your Bio</span>
           </div>
           <div className="input">
-            <textarea />
+            <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
           </div>
         </div>
         <div className="addButton">

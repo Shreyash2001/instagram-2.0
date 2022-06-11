@@ -7,7 +7,8 @@ const {
     getSearchedUsers,
     getUserDetails,
     getSuggestion,
-    getMutualSuggestion
+    getMutualSuggestion,
+    updateProfilePicOrBio
 } = require("../controllers/userController");
 const protect = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -18,6 +19,7 @@ router.route("/details?").get(protect, getUserDetails);
 router.route("/search?").get(protect, getSearchedUsers);
 router.route("/follow").post(protect, followUnfollowUser);
 router.get("/preferences", getTopUser);
+router.route("/update/profiledetails").put(protect, updateProfilePicOrBio);
 router.post("/register", register);
 router.post("/login", login);
 

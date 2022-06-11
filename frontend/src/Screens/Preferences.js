@@ -34,7 +34,7 @@ function Preferences() {
 
     useEffect(() => {
         if(success) {
-            history.push("/")
+            history.push("/");
         } 
     }, [success, history]);
 
