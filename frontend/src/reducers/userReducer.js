@@ -21,6 +21,9 @@ import {
     GET_USER_MUTUAL_SUGGESTIONS_REQUEST,
     GET_USER_MUTUAL_SUGGESTIONS_SUCCESS,
     GET_USER_MUTUAL_SUGGESTIONS_FAIL,
+    USER_PROFILE_DETAILS_REQUEST,
+    USER_PROFILE_DETAILS_SUCCESS,
+    USER_PROFILE_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -40,6 +43,28 @@ export const userRegisterReducer = (state = {}, action) => {
                 loading : false,
                 error : action.payload
             };
+    
+        default:
+            return state;
+    }
+}
+
+export const userProfileDetailsReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_PROFILE_DETAILS_REQUEST:
+            return {
+                loading : true
+            }
+        case USER_PROFILE_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+        case USER_PROFILE_DETAILS_FAIL:
+            return {
+                loading: false,
+                error: action.payload 
+            }
     
         default:
             return state;

@@ -21,6 +21,9 @@ import {
     GET_USER_MUTUAL_SUGGESTIONS_REQUEST,
     GET_USER_MUTUAL_SUGGESTIONS_SUCCESS,
     GET_USER_MUTUAL_SUGGESTIONS_FAIL,
+    USER_PROFILE_DETAILS_REQUEST,
+    USER_PROFILE_DETAILS_SUCCESS,
+    USER_PROFILE_DETAILS_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -48,6 +51,29 @@ export const registerUser = (firstName, lastName, userName, email, password) => 
             type : USER_REGISTER_FAIL,
             payload : error.response && error.response.data.message ? error.response.data.message : error.message
         });
+    }
+};
+
+export const userProfileDetailsAction = (bio, profilePic) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_PROFILE_DETAILS_REQUEST
+        });
+        const {userLogin: {userInfo}} = getState();
+        const config = {
+            headers: {
+                "Authorization" : `Bearer ${userInfo.token}`
+            }
+        };
+        await axios.put("/api/users/update/profiledetails", {bio, profilePic}, config);
+        dispatch({
+            type: USER_PROFILE_DETAILS_SUCCESS
+        })
+    } catch (error) {
+        dispatch({
+            type: USER_PROFILE_DETAILS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message 
+        })
     }
 };
 

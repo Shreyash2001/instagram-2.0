@@ -1,6 +1,10 @@
 import { Avatar, Button } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { userProfileDetailsAction } from '../actions/userActions';
 import "./SetupProfile.css";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SetupProfile() {
   const [bio, setBio] = useState("");
@@ -34,6 +38,20 @@ function SetupProfile() {
     }).catch((error) => console.log("error here")); 
 };
 
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(userProfileDetailsAction(bio, url));
+  }
+
+  const history = useHistory()
+  const {success, loading} = useSelector(state => state.profileDetails);
+
+  useEffect(() => {
+    if(success) {
+      history.push("/preferences");
+    }
+  }, [success, history]);
+
   return (
     <div className="setupProfile">
         <div className="heading">
@@ -60,8 +78,20 @@ function SetupProfile() {
             <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
           </div>
         </div>
-        <div className="addButton">
-          <Button variant="outlined">Next</Button>
+        <div className="addButtonContainer">
+          <div>
+          {
+            bio === "" && url === ""
+            ?
+            <Button className="disabled" disabled={true} variant="contained">Next</Button>
+            :
+            <Button className="addButton" onClick={handleClick}>{loading ? <CircularProgress style={{color:"#fff"}} /> : "Next"}</Button>
+          }
+            
+          </div>
+          <div style={{marginLeft:"250px", marginTop:"10px"}}>
+            <Link style={{fontSize:"18px", color:"gray"}} to="/preferences">skip</Link>
+          </div>
         </div>
     </div>
   )

@@ -274,7 +274,7 @@ const updateProfilePicOrBio = asyncHandler(async(req, res) => {
     const {profilePic, bio} = req.body;
     const successful = {};
 
-    if(profilePic !== undefined || profilePic !== null || profilePic !== "") {
+    if(profilePic !== undefined && profilePic !== "") {
        const success = await User.findByIdAndUpdate(req.user._id, {profilePic: profilePic});
        if(success) {
             successful.profile = true

@@ -8,7 +8,8 @@ import {
     getUserMutualSuggestionsReducer, 
     getUserSuggestionsReducer, 
     userLoginReducer, 
-    userLogoutReducer } from "./reducers/userReducer";
+    userLogoutReducer, 
+    userProfileDetailsReducer} from "./reducers/userReducer";
 import { addPreferencesReducer, countPreferences } from "./reducers/preferencesReducer";
 import { addStoriesReducer, getStoriesReducer } from "./reducers/storiesReducer";
 import { addPostReducer, commentReducer, getPostReducer, likeReducer } from "./reducers/postsReducer";
@@ -16,6 +17,7 @@ import { addPostReducer, commentReducer, getPostReducer, likeReducer } from "./r
 const reducer = combineReducers({
     userLogin : userLoginReducer,
     userLogout : userLogoutReducer,
+    profileDetails: userProfileDetailsReducer,
     topUsers : getTopUser,
     countPreferences : countPreferences,
     preferencesData : addPreferencesReducer,
