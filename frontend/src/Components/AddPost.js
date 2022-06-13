@@ -388,7 +388,7 @@ function AddPost() {
 
                             <div className="post__location">
                                 <AddLocationAltOutlinedIcon />
-                                <input maxLength="20" onChange={(e) => setDestination(e.target.value)} placeholder="Add Your Destination" />
+                                <input maxLength="50" onChange={(e) => setDestination(e.target.value)} placeholder="Add Your Destination" />
                             </div>
 
                             <div>

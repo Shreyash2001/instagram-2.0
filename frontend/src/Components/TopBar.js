@@ -5,14 +5,15 @@ import SendIcon from '@mui/icons-material/Send';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 function TopBar() {
     const [showNotificationIcon, setNotificationIcon] = useState(false);
   return (
     <div className="topBar">
-        <div className="topBar__image">
+        <Link to={"/"} className="topBar__image">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" alt="logo" />
-        </div>
+        </Link>
         <div className="topBar__search">
             <SearchIcon style={{color:"rgb(189, 186, 186)"}} />
             <input type="text" placeholder="Search"  />

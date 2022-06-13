@@ -68,7 +68,12 @@ export const userProfileDetailsAction = (bio, profilePic) => async(dispatch, get
         await axios.put("/api/users/update/profiledetails", {bio, profilePic}, config);
         dispatch({
             type: USER_PROFILE_DETAILS_SUCCESS
-        })
+        });
+
+        var val = JSON.parse(localStorage.getItem("Instagram-UserInfo"));
+        val.profilePic = profilePic;
+        localStorage.setItem("Instagram-UserInfo", JSON.stringify(val));
+        
     } catch (error) {
         dispatch({
             type: USER_PROFILE_DETAILS_FAIL,

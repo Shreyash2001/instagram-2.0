@@ -75,7 +75,7 @@ function SetupProfile() {
             <span>Enter your Bio</span>
           </div>
           <div className="input">
-            <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
+            <textarea maxLength="250" placeholder="Add upto 250 words" value={bio} onChange={(e) => setBio(e.target.value)} />
           </div>
         </div>
         <div className="addButtonContainer">
@@ -87,7 +87,6 @@ function SetupProfile() {
             :
             <Button className="addButton" onClick={handleClick}>{loading ? <CircularProgress style={{color:"#fff"}} /> : "Next"}</Button>
           }
-            
           </div>
           <div style={{marginLeft:"250px", marginTop:"10px"}}>
             <Link style={{fontSize:"18px", color:"gray"}} to="/preferences">skip</Link>
