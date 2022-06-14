@@ -5,12 +5,22 @@ import { useSelector } from 'react-redux';
 import FeedCard from '../Components/FeedCard';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import InfiniteScroll from 'react-infinite-scroller';
 
 function Feed() {
-  var {loading, error, posts} = useSelector(state => state.allPosts);
+  var {loading, error} = useSelector(state => state.allPosts);
   const {userInfo} = useSelector(state => state.userLogin);
-  posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+  var currPosts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+  const[posts, setPosts] = useState([]);
+  var tmpPosts = [];
   const [loaders, setLoaders] = useState(["1", "2", "3"]);
+  const loadFunc = () => {
+    for (let index = tmpPosts.length; index < 4; index++) {
+      const element = currPosts[index];
+      tmpPosts.push(element);
+    }
+    setPosts(tmpPosts);
+  };
   return (
     <>
     {
@@ -67,6 +77,13 @@ function Feed() {
         </div>
         </div>
         <div className="feed__cards">
+        <InfiniteScroll
+    pageStart={0}
+    loadMore={() => loadFunc()}
+    hasMore={true || false}
+    threshold={100}
+    loader={<div className="loader" key={0}>Loading ...</div>}
+>
         {
           posts?.map((post) => (
             <FeedCard 
@@ -86,7 +103,7 @@ function Feed() {
             />
           ))
         }
-        
+        </InfiniteScroll>
         </div>
     </div>
     
