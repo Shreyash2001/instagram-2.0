@@ -40,6 +40,15 @@
     border-radius: 22px;
 }
 
+.scroller {
+    overflow-y: scroll;
+    height: 89vh;
+}
+
+.scroller::-webkit-scrollbar{
+    display: none;
+}
+
 .homeMiddle__posts {
     padding: 20px 80px;
 }

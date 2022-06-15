@@ -160,6 +160,8 @@ function HomeMiddle() {
                 <Button onClick={handleClickCreatePost}>+ Create Post</Button>
             </div>
 
+            <div className="scroller">
+
             <div className="homeMiddle__posts">
                 <div className="homeMiddle__postsContainerStories">
                     <div className="homeMiddle__postsContainerStoriesHeading">
@@ -242,8 +244,9 @@ function HomeMiddle() {
             </div>
 
             
-            <div>
-            <Feed />
+                <div>
+                <Feed />
+                </div>
             </div>
 
             <div>

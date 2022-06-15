@@ -11,7 +11,8 @@
 
 .home__middle {
     flex: 0.8;
-    overflow-y: auto;
+    /* overflow-y: auto; */
+    height: 90vh;
 }
 
 .home__middle::-webkit-scrollbar {
