@@ -15,6 +15,7 @@ import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { useHistory } from 'react-router-dom';
 import Feed from './Feed';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 
 function HomeMiddle() {
@@ -148,7 +149,21 @@ function HomeMiddle() {
             }
         }, [dispatch, success]);
 
+//posts
 
+    const {userInfo} = useSelector(state => state.userLogin);
+    var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+    
+    var prev = 1;
+    const temp = [posts[0]];
+    const fetchData = () => {
+        for (let index = prev; index < posts?.length; index++) {
+            const element = posts[index];
+            temp.push(element);
+            prev++;
+        }
+    }
+    console.log(prev);
 
     return (
         <div className="homeMiddle">
@@ -160,7 +175,7 @@ function HomeMiddle() {
                 <Button onClick={handleClickCreatePost}>+ Create Post</Button>
             </div>
 
-            <div className="scroller">
+            <div id="scrollableDiv" className="scroller">
 
             <div className="homeMiddle__posts">
                 <div className="homeMiddle__postsContainerStories">
@@ -245,10 +260,17 @@ function HomeMiddle() {
 
             
                 <div>
-                <Feed />
+                <InfiniteScroll
+                    dataLength={temp?.length} //This is important field to render the next data
+                    next={fetchData}
+                    hasMore={true}
+                    loader={<h4>Loading...</h4>}
+                    scrollableTarget="scrollableDiv"
+                >
+                    <Feed userInfo={userInfo} posts={temp} />
+            </InfiniteScroll>
                 </div>
-            </div>
-
+</div>
             <div>
             <Modal
                 open={open}

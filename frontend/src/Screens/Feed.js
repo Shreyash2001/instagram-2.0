@@ -5,12 +5,9 @@ import { useSelector } from 'react-redux';
 import FeedCard from '../Components/FeedCard';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import InfiniteScroll from 'react-infinite-scroll-component';
 
-function Feed() {
+function Feed({userInfo, posts}) {
   var {loading, error} = useSelector(state => state.allPosts);
-  const {userInfo} = useSelector(state => state.userLogin);
-  var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
   
   const [loaders, setLoaders] = useState(["1", "2", "3"]);
   
