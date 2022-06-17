@@ -152,19 +152,21 @@ function HomeMiddle() {
 //posts
 
     const {userInfo} = useSelector(state => state.userLogin);
-    var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
-    
-    var prev = 1;
-    const temp = [posts[0]];
-    const fetchData = () => {
-        for (let index = prev; index < posts?.length; index++) {
-            const element = posts[index];
-            temp.push(element);
-            prev++;
-        }
-    }
-    console.log(prev);
+    var {posts} = useSelector(state => state.allPosts);
+    posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+    const perPage = 5;
 
+    const [allPosts, setAllPosts] = useState([]);
+    const [lastPosition, setLastPosition] = useState(perPage);
+
+    const fetchData = () => {
+        setTimeout(() => {
+            setAllPosts((prev) => [...prev, ...posts?.slice(lastPosition, lastPosition + perPage)]);
+          }, 2000);
+          console.log("hi")
+          setLastPosition(lastPosition + perPage);
+    }
+    // console.log(posts)
     return (
         <div className="homeMiddle">
             <div className="homeMiddle__search"> 
@@ -257,17 +259,17 @@ function HomeMiddle() {
                     </div>
                 </div>
             </div>
-
+ 
             
                 <div>
                 <InfiniteScroll
-                    dataLength={temp?.length} //This is important field to render the next data
+                    dataLength={posts?.length || 10} //This is important field to render the next data
                     next={fetchData}
                     hasMore={true}
                     loader={<h4>Loading...</h4>}
                     scrollableTarget="scrollableDiv"
                 >
-                    <Feed userInfo={userInfo} posts={temp} />
+                    <Feed userInfo={userInfo} posts={posts} />
             </InfiniteScroll>
                 </div>
 </div>

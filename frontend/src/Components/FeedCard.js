@@ -36,7 +36,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     setLike(!like);
     dispatch(addLikeAction(id));
     setCountLike(countLike + 1);
-      const find = posts.find((post) => post.id === id);
+      const find = posts.find((post) => post._id === id);
       find?.likes.push(currUserId);
       sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
   };
@@ -82,7 +82,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
   useEffect(() => {
     if(success) {
       setComment("");
-      const find = posts.find((post) => post.id === id);
+      const find = posts.find((post) => post._id === id);
       find?.comments.push(info);
       sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
       dispatch(removeCommentData());

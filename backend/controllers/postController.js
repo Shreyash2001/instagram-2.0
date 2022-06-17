@@ -33,26 +33,12 @@ const getPost = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
                             .sort({createdAt : -1}).populate({
-                                path: "postedBy comments"
+                                path: "postedBy comments",
+                                select: "-password"
                         });
 
-    const data = [];
     if(posts) {
-        posts.map((post) => {
-            var temp = {};
-            temp.id = post._id
-            temp.name = post.postedBy.firstName + " " + post.postedBy.lastName;
-            temp.username = post.postedBy.userName;
-            temp.profilePic = post.postedBy.profilePic;
-            temp.images = post.image
-            temp.likes = post.likes
-            temp.comments = post.comments
-            temp.caption = post.caption;
-            temp.location = post.location;
-            temp.time = moment(post.createdAt).fromNow();
-            data.push(temp);
-        });
-        res.status(200).json(data);
+        res.status(200).json(posts);
     } else {
         res.status(400).json({message : "You have not posted anything"});
     }

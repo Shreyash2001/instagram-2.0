@@ -5,16 +5,16 @@ import { useSelector } from 'react-redux';
 import FeedCard from '../Components/FeedCard';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import moment from "moment";
 
 function Feed({userInfo, posts}) {
   var {loading, error} = useSelector(state => state.allPosts);
-  
   const [loaders, setLoaders] = useState(["1", "2", "3"]);
   
   return (
     <>
     {
-      loading 
+      loading
       &&
       <>
       {loaders.map((i) => (
@@ -71,18 +71,18 @@ function Feed({userInfo, posts}) {
         {
           posts?.map((post) => (
             <FeedCard 
-              key={post?.id}
-              id={post?.id}
-              user_info={userInfo}
-              name = {post?.name}
-              username = {post?.username}
-              images = {post?.images}
+              key={post?._id}
+              id={post?._id}
+              user_info={userInfo}  
+              name = {post?.postedBy?.firstName + " " + post?.postedBy?.lastName}
+              username = {post?.postedBy?.userName}
+              images = {post?.image}
               likes = {post?.likes}
-              profilePic = {post?.profilePic}
+              profilePic = {post?.postedBy?.profilePic}
               caption = {post?.caption}
               location = {post?.location}
               comments = {post?.comments}
-              time = {post?.time}
+              time = {moment(post?.updatedAt).fromNow()}
               currUserId = {userInfo?._id}
             />
           ))

@@ -33,7 +33,7 @@ function PostById({incomingFrom, temp}) {
     const {userInfo} = useSelector(state => state.userLogin);
 
     useEffect(() => {
-      setPostData(posts.find((post) => post.id === id));
+      setPostData(posts.find((post) => post._id === id));
   }, [id]);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function PostById({incomingFrom, temp}) {
       setComment("");
       setShowPostButton(false);
       postData?.comments.push(info);
-      const find = posts.find((post) => post.id === id);
+      const find = posts.find((post) => post._id === id);
       find?.comments.push(info);
       sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
       dispatch(removeCommentData());
@@ -64,7 +64,7 @@ function PostById({incomingFrom, temp}) {
       setLike(!like);
       dispatch(addLikeAction(id));
       setCountLike(countLike + 1);
-      const find = posts.find((post) => post.id === id);
+      const find = posts.find((post) => post._id === id);
       find?.likes.push(userInfo?._id);
       sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
     };
@@ -156,7 +156,7 @@ function PostById({incomingFrom, temp}) {
                       cycleNavigation={false} 
                       animation={"slide"}>
                           {
-                              postData?.images?.map( (data, i) => (
+                              postData?.image?.map( (data, i) => (
                                 <img style={{width:"550px", height:"800px"}} 
                                 key={i} src={data} 
                                 alt="img" />))
@@ -168,10 +168,10 @@ function PostById({incomingFrom, temp}) {
                       <div className="post__right">
                         <div className="post__rightTop">
                           <div>
-                            <Avatar src={postData?.profilePic} />
+                            <Avatar src={postData?.postedBy?.profilePic} />
                           </div>
                           <div>
-                            <p style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{postData?.username}</p>
+                            <p style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{postData?.postedBy?.userName}</p>
                             <span style={{fontSize:"12px"}}>{postData?.location}</span>
                           </div>
                           <div>
@@ -191,10 +191,10 @@ function PostById({incomingFrom, temp}) {
                       <div className="post__commentSection">
                       <div style={{display:"flex", padding:"10px"}}>  
                         <div style={{marginRight:"10px"}}>
-                          <Avatar src={postData?.profilePic} />
+                          <Avatar src={postData?.postedBy?.profilePic} />
                         </div>
                         <div>
-                          <span style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{postData?.username}</span>
+                          <span style={{margin:"0", fontSize:"16px", fontWeight:"500"}}>{postData?.postedBy?.userName}</span>
                           <span className="caption">{postData?.caption}</span>
                           <div style={{marginTop:"10px"}}>
                             <span style={{fontSize:"12px"}}>Edited 2d</span>
