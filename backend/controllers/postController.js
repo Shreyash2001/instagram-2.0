@@ -30,8 +30,11 @@ const createPost = asyncHandler(async(req, res) => {
 });
 
 const getPost = asyncHandler(async(req, res) => {
+    const {limitValue, skipValue} = req.body;
     const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
+                            .limit(limitValue)
+                            .skip(skipValue)
                             .sort({createdAt : -1}).populate({
                                 path: "postedBy comments",
                                 select: "-password"
