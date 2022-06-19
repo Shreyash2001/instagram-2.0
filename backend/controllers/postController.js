@@ -30,11 +30,10 @@ const createPost = asyncHandler(async(req, res) => {
 });
 
 const getPost = asyncHandler(async(req, res) => {
-    const {limitValue, skipValue} = req.body;
     const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
-                            .limit(limitValue)
-                            .skip(skipValue)
+                            .skip(req.query.page)
+                            .limit(10)
                             .sort({createdAt : -1}).populate({
                                 path: "postedBy comments",
                                 select: "-password"
@@ -43,7 +42,7 @@ const getPost = asyncHandler(async(req, res) => {
     if(posts) {
         res.status(200).json(posts);
     } else {
-        res.status(400).json({message : "You have not posted anything"});
+        res.status(404).json({message : "You have not posted anything"});
     }
 });
 

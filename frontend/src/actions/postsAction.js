@@ -11,7 +11,7 @@ import { ADD_COMMENT_FAIL, ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_LIKE_FA
     REMOVE_COMMENT_DATA
  } from "../constants/postConstants"
 
-export const getPostsAction = () => async(dispatch, getState) => {
+export const getPostsAction = (skipValue) => async(dispatch, getState) => {
     try {
         dispatch({
             type: GET_POSTS_LOADING
@@ -22,12 +22,28 @@ export const getPostsAction = () => async(dispatch, getState) => {
                 Authorization : `Bearer ${userInfo.token}`
             }
         }
-        const {data} = await axios.get("/api/posts/getUserPosts", config);
-        sessionStorage.setItem("Instagram-Posts", JSON.stringify(data));
+        const page = skipValue === undefined || skipValue === null ? 0 : skipValue
+        var {data} = await axios.get(`/api/posts/getUserPosts?page=${page}`, config);
+        if(data.length > 0) {
+            if(sessionStorage.getItem("Instagram-Posts") === undefined || sessionStorage.getItem("Instagram-Posts") === null) {
+                sessionStorage.setItem("Instagram-Posts", JSON.stringify(data));
+            } else{
+                const arr = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+                data.forEach(element => {
+                    arr.push(element)
+                });
+                sessionStorage.setItem("Instagram-Posts", JSON.stringify(arr));
+            }
+        } else {
+            const message = {message: "You have catchup the feed"}
+            data =  message
+        }
+
         dispatch({
             type: GET_POSTS_SUCCESS,
             payload : data
         });
+        
 
     } catch (error) {
         dispatch({
