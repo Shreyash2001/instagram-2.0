@@ -33,7 +33,7 @@ const getPost = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id);
     const posts = await Post.find({$or: [{postedBy : {$in : user.following}}, {postedBy : {$in : user.followers}}, {_id: {$in : user.posts}}]})
                             .skip(req.query.page)
-                            .limit(10)
+                            .limit(2)
                             .sort({createdAt : -1}).populate({
                                 path: "postedBy comments",
                                 select: "-password"

@@ -155,14 +155,13 @@ function HomeMiddle() {
     var {posts} = useSelector(state => state.allPosts);
     posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
 
-    const [allPosts, setAllPosts] = useState([]);
     const [lastPosition, setLastPosition] = useState(0);
 
     const fetchData = () => {
         setTimeout(() => {
-            dispatch(getPostsAction(lastPosition + 10));
+            dispatch(getPostsAction(lastPosition + 2));
           }, 2000);
-          setLastPosition(lastPosition + 10);
+          setLastPosition(lastPosition + 2);
     }
     // console.log(posts)
     return (

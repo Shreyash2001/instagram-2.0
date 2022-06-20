@@ -13,12 +13,16 @@ import AddStory from './Components/AddStory';
 import AddPost from './Components/AddPost';
 import UserDetails from './Components/UserDetails';
 import SetupProfile from './Screens/SetupProfile';
+import Explore from './Screens/Explore';
 
 
 function App() {
   return (
     <Router>
     <Switch>
+      <Route path="/explore">
+        <Explore />
+      </Route>
       <Route path="/details/user/:username">
         <UserDetails />
       </Route>
