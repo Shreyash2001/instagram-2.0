@@ -1,0 +1,11 @@
+.explore__container {
+    width: 850px;
+    height: 620px;
+    overflow-y: scroll;
+    position: absolute;
+    left: 20%;
+}
+
+.explore__container::-webkit-scrollbar {
+    display: none;
+}

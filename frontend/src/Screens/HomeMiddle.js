@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./HomeMiddle.css";
-import { Avatar, Button } from '@mui/material';
+import { Avatar, Button, CircularProgress } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import Stories from 'react-insta-stories';
@@ -155,7 +155,7 @@ function HomeMiddle() {
     var {posts} = useSelector(state => state.allPosts);
     posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
 
-    const [lastPosition, setLastPosition] = useState(0);
+    const [lastPosition, setLastPosition] = useState(posts !== null ? posts.length : 0);
 
     const fetchData = () => {
         setTimeout(() => {
@@ -260,10 +260,11 @@ function HomeMiddle() {
             
                 <div>
                 <InfiniteScroll
-                    dataLength={posts?.length || 10} //This is important field to render the next data
+                    style={{overflow:"none"}}
+                    dataLength={posts?.length || 2} //This is important field to render the next data
                     next={fetchData}
                     hasMore={true}
-                    loader={<h4>Loading...</h4>}
+                    loader={<CircularProgress style={{color:"#FF4949", width:"30px", height:"30px", marginLeft:"450px"}} />}
                     scrollableTarget="scrollableDiv"
                 >
                     <Feed userInfo={userInfo} posts={posts} />
