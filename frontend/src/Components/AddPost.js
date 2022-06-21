@@ -149,13 +149,13 @@ function AddPost() {
 
         const onSelectFile = (event) => {
             if (event.target.files && event.target.files.length > 0) {
-
                 const tempArr = [];
 
                 [...event.target.files].forEach(file => {
                     tempArr.push({
                     data: file,
-                    url: URL.createObjectURL(file)
+                    url: URL.createObjectURL(file),
+                    type: file.type.split("/")[0]
                     });
                 });
 
@@ -165,7 +165,6 @@ function AddPost() {
 
         useEffect(() => {
         if(cropData){
-            
             const data = new FormData()
                 data.append('file', cropData)
                 data.append('upload_preset', 'insta_clone')
@@ -241,11 +240,6 @@ function AddPost() {
             <Box sx={stylePost}>
             <div className="AddPost">
                     <div className="AddPostTop">
-                    {/* {nextIdx > 0 && <div style={{position:"absolute", left:"10px"}}>
-                        <IconButton onClick={awayFromEnd}>
-                            <ArrowBackIosIcon />
-                        </IconButton>
-                    </div>} */}
 
                     <div>
                         <span>Add New Post</span> 
@@ -268,10 +262,15 @@ function AddPost() {
                         <div style={{position:"relative"}}>
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
                             <div className="uploadPost">
+                                {pictures[postIdx].type === "image" 
+                                ?
                                 <CropImage post={pictures[postIdx].url} getCropData={getCropData} />
-                                {/* {
-                                    cropData && <img src={cropData} alt="" />
-                                } */}
+                                :
+                                <video style={{width:"100%", height:"60vh"}} src={pictures[postIdx].url} 
+                                autoPlay={true} 
+                                controlsList="nodownload nofullscreen"
+                                />
+                                }
                             </div>
                         
                         </div>
@@ -304,7 +303,7 @@ function AddPost() {
                         <PhotoCameraIcon style={{fontSize:"30px", color:"#fff", marginRight:"10px"}} />
                             Add photo
                         </Button>
-                        <input type="file" multiple accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
+                        <input type="file" multiple accept="image/*, video/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
                         </div>
                     }
                     </div>
