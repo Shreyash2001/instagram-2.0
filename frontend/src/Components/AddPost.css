@@ -102,6 +102,10 @@
     width: 400px;
 }
 
+.uploadVideo {
+    width: 100%;
+}
+
 .postArrowButtons {
     position: absolute;
     display: flex;

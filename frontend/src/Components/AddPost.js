@@ -261,12 +261,12 @@ function AddPost() {
                         ?
                         <div style={{position:"relative"}}>
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                            <div className="uploadPost">
+                            <div className={`${pictures[postIdx].type === "image" ? "uploadPost" : "uploadVideo"}`}>
                                 {pictures[postIdx].type === "image" 
                                 ?
                                 <CropImage post={pictures[postIdx].url} getCropData={getCropData} />
                                 :
-                                <video style={{width:"100%", height:"60vh"}} src={pictures[postIdx].url} 
+                                <video style={{width:"100%", height:"65vh"}} src={pictures[postIdx].url} 
                                 autoPlay={true} 
                                 controlsList="nodownload nofullscreen"
                                 />
