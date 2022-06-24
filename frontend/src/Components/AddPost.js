@@ -62,11 +62,11 @@ function AddPost() {
             setnextIdx(nextIdx + 1);
         };
 
-        const[cropData, setCropData] = useState("");
+        const[cropData, setCropData] = useState(null);
         const getCropData = (data) => {
             setCropData(data);
         };
-
+        console.log(cropData)
         const[showEmoji, setShowEmoji] = useState(false);
         const[caption, setCaption] = useState("");
 
@@ -164,7 +164,7 @@ function AddPost() {
           };
 
         useEffect(() => {
-        if(cropData){
+        if(cropData !== null){
             const data = new FormData()
                 data.append('file', cropData)
                 data.append('upload_preset', 'insta_clone')

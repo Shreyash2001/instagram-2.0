@@ -23,15 +23,14 @@ function CropImage({post, getCropData}) {
             post,
             croppedAreaPixels
           )
-          console.log('donee', { croppedImage })
           setCroppedImage(croppedImage)
+          getCropData(croppedImage)
         } catch (e) {
           console.error(e)
         }
       
       setCroppedImage(croppedAreaPixels);
     }, [])
-    console.log(croppedImage)
   return (
 
     <div style={{ width: "100%", padding:"8px", height:"400px" }}>
