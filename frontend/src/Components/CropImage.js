@@ -4,6 +4,7 @@ import React, { useCallback, useState } from 'react';
 import Cropper from 'react-easy-crop'
 import "./CropImage.css";
 import { Button } from '@mui/material';
+import getCroppedImg from '../utils/cropFunction';
 
 function CropImage({post, getCropData}) {
       // const [cropper, setCropper] = useState();
@@ -12,13 +13,25 @@ function CropImage({post, getCropData}) {
       //     getCropData(cropper.getCroppedCanvas().toDataURL());
       //   }
       // };
-  console.log(post)
-    const [crop, setCrop] = useState({ x: 0, y: 0 })
-    const [zoom, setZoom] = useState(1)
-    const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-      console.log(croppedArea, croppedAreaPixels)
-    }, [])
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedImage, setCroppedImage] = useState(null);
 
+    const onCropComplete = useCallback(async(croppedArea, croppedAreaPixels) => {
+        try {
+          const croppedImage = await getCroppedImg(
+            post,
+            croppedAreaPixels
+          )
+          console.log('donee', { croppedImage })
+          setCroppedImage(croppedImage)
+        } catch (e) {
+          console.error(e)
+        }
+      
+      setCroppedImage(croppedAreaPixels);
+    }, [])
+    console.log(croppedImage)
   return (
 
     <div style={{ width: "100%", padding:"8px", height:"400px" }}>
@@ -26,7 +39,8 @@ function CropImage({post, getCropData}) {
           image={post}
           crop={crop}
           zoom={zoom}
-          aspect={4 / 3}
+          aspect={5/ 3}
+          objectFit="horizontal-cover"
           onCropChange={setCrop}
           onCropComplete={onCropComplete}
           onZoomChange={setZoom}

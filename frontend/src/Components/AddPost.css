@@ -2,7 +2,8 @@
     width: 700px;
     min-height: 600px;
     background-color: #fff;
-    border-radius: 22px;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
 }
 
 .AddPostTop {
@@ -100,6 +101,7 @@
 
 .uploadPost {
     width: 400px;
+    height: 555px;
 }
 
 .uploadVideo {
