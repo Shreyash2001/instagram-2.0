@@ -43,10 +43,7 @@ function AddPost() {
     var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
     users = users?.filter(user => user?.userName !== userInfo?.userName);
 
-    const [pictures, setPictures] = useState([{
-        data: [],
-        url: ""
-    }]);
+    const [pictures, setPictures] = useState([]);
 
     const[postIdx, setPostIdx] = useState(0);
         const prevPostPicture = () => {
@@ -66,7 +63,7 @@ function AddPost() {
         const getCropData = (data) => {
             setCropData(data);
         };
-        console.log(cropData)
+
         const[showEmoji, setShowEmoji] = useState(false);
         const[caption, setCaption] = useState("");
 
@@ -137,7 +134,6 @@ function AddPost() {
         setAddedTags(new Map());
         setUploadFileDetails(new Map());
         setUploadPostsData([]);
-        setPictures([]);
         setCaption("");
         setDestination("");
         setnextIdx(0);
@@ -163,32 +159,46 @@ function AddPost() {
             }
           };
 
-        useEffect(() => {
-        if(cropData !== null){
-            const data = new FormData()
-                data.append('file', cropData)
-                data.append('upload_preset', 'insta_clone')
-                data.append('cloud_name', 'cqn')
-        fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
-        method: 'post',
-        body:data,
-        loadingPreview:true,
-        })
-        .then(res=>res.json())
-        .then(imageData => {
+          const[beforeUploadPost, setBeforeUploadPost] = useState(new Map());
+          useEffect(() => {
+            if(cropData != null) {
+                const map = beforeUploadPost;
+                map.set(postIdx, cropData);
+                setBeforeUploadPost(map);
+            }
+            
+          }, [cropData, postIdx]);
+
+          console.log(beforeUploadPost);
+
+          //------- Posting the image to cloudinary
+
+    //     useEffect(() => {
+    //     if(cropData !== null){
+    //         const data = new FormData()
+    //             data.append('file', cropData)
+    //             data.append('upload_preset', 'insta_clone')
+    //             data.append('cloud_name', 'cqn')
+    //     fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
+    //     method: 'post',
+    //     body:data,
+    //     loadingPreview:true,
+    //     })
+    //     .then(res=>res.json())
+    //     .then(imageData => {
         
-        setUrl(imageData.url);
+    //     setUrl(imageData.url);
         
-        const temp = {
-            id : imageData.asset_id,
-            url: imageData.url
-        }
-        const old = uploadFileDetails; 
-        old.set(imageData.asset_id, temp);
-        setUploadFileDetails(old);
-        });
-    }
-    }, [cropData, uploadFileDetails]);
+    //     const temp = {
+    //         id : imageData.asset_id,
+    //         url: imageData.url
+    //     }
+    //     const old = uploadFileDetails; 
+    //     old.set(imageData.asset_id, temp);
+    //     setUploadFileDetails(old);
+    //     });
+    // }
+    // }, [cropData, uploadFileDetails]);
 
     useEffect(() => {
         if(url !== null || url !== undefined) {
@@ -222,6 +232,7 @@ function AddPost() {
         setOpenPost(!openPost);
     }, []);
 
+    console.log(pictures)
   return (
     <div>
         <div>
@@ -244,9 +255,19 @@ function AddPost() {
                     <div>
                         <span>Add New Post</span> 
                     </div>
-                    <div className="nextButtonContainer">
+                    {/* <div className="nextButtonContainer">
                     {(pictures?.length > 1 || pictures[0]?.url.length > 0) && (uploadFileDetails.size === pictures?.length) && nextIdx === 0
                         ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
+                    {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
+                    </div> */}
+
+                    <div className="nextButtonContainer">
+                    {pictures.length > 0
+                        ? 
+                        <Button onClick={towardEnd} className="nextButton">Next</Button>
+                        : 
+                        <div style={{display:"none"}} />
+                    }
                     {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
                     </div>
                     
