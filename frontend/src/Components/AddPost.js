@@ -169,36 +169,35 @@ function AddPost() {
             
           }, [cropData, postIdx]);
 
-          console.log(beforeUploadPost);
 
           //------- Posting the image to cloudinary
 
-    //     useEffect(() => {
-    //     if(cropData !== null){
-    //         const data = new FormData()
-    //             data.append('file', cropData)
-    //             data.append('upload_preset', 'insta_clone')
-    //             data.append('cloud_name', 'cqn')
-    //     fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
-    //     method: 'post',
-    //     body:data,
-    //     loadingPreview:true,
-    //     })
-    //     .then(res=>res.json())
-    //     .then(imageData => {
+        useEffect(() => {
+        if(cropData !== null){
+            const data = new FormData()
+                data.append('file', cropData)
+                data.append('upload_preset', 'insta_clone')
+                data.append('cloud_name', 'cqn')
+        fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
+        method: 'post',
+        body:data,
+        loadingPreview:true,
+        })
+        .then(res=>res.json())
+        .then(imageData => {
         
-    //     setUrl(imageData.url);
+        setUrl(imageData.url);
         
-    //     const temp = {
-    //         id : imageData.asset_id,
-    //         url: imageData.url
-    //     }
-    //     const old = uploadFileDetails; 
-    //     old.set(imageData.asset_id, temp);
-    //     setUploadFileDetails(old);
-    //     });
-    // }
-    // }, [cropData, uploadFileDetails]);
+        const temp = {
+            id : imageData.asset_id,
+            url: imageData.url
+        }
+        const old = uploadFileDetails; 
+        old.set(imageData.asset_id, temp);
+        setUploadFileDetails(old);
+        });
+    }
+    }, [cropData, uploadFileDetails]);
 
     useEffect(() => {
         if(url !== null || url !== undefined) {
@@ -232,7 +231,6 @@ function AddPost() {
         setOpenPost(!openPost);
     }, []);
 
-    console.log(pictures)
   return (
     <div>
         <div>
@@ -262,7 +260,7 @@ function AddPost() {
                     </div> */}
 
                     <div className="nextButtonContainer">
-                    {pictures.length > 0
+                    {pictures.length > 0 && nextIdx !== 1
                         ? 
                         <Button onClick={towardEnd} className="nextButton">Next</Button>
                         : 
@@ -341,7 +339,7 @@ function AddPost() {
                             cycleNavigation={false} 
                             animation={"slide"}>
                                 {
-                                    Array.from(uploadFileDetails.values()).map( (data, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data?.url} alt="img" /> )
+                                    Array.from(uploadFileDetails.values()).map( (data, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data} alt="img" /> )
                                 } 
                             </Carousel>
                             }
