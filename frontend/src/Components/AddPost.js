@@ -43,7 +43,10 @@ function AddPost() {
     var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
     users = users?.filter(user => user?.userName !== userInfo?.userName);
 
-    const [pictures, setPictures] = useState([]);
+    const [pictures, setPictures] = useState([{
+        data: [],
+        url: ""
+    }]);
 
     const[postIdx, setPostIdx] = useState(0);
         const prevPostPicture = () => {
@@ -59,7 +62,7 @@ function AddPost() {
             setnextIdx(nextIdx + 1);
         };
 
-        const[cropData, setCropData] = useState(null);
+        const[cropData, setCropData] = useState("");
         const getCropData = (data) => {
             setCropData(data);
         };
@@ -134,6 +137,7 @@ function AddPost() {
         setAddedTags(new Map());
         setUploadFileDetails(new Map());
         setUploadPostsData([]);
+        setPictures([]);
         setCaption("");
         setDestination("");
         setnextIdx(0);
@@ -159,21 +163,8 @@ function AddPost() {
             }
           };
 
-          const[beforeUploadPost, setBeforeUploadPost] = useState(new Map());
-          useEffect(() => {
-            if(cropData != null) {
-                const map = beforeUploadPost;
-                map.set(postIdx, cropData);
-                setBeforeUploadPost(map);
-            }
-            
-          }, [cropData, postIdx]);
-
-
-          //------- Posting the image to cloudinary
-
         useEffect(() => {
-        if(cropData !== null){
+        if(cropData){
             const data = new FormData()
                 data.append('file', cropData)
                 data.append('upload_preset', 'insta_clone')
@@ -253,19 +244,9 @@ function AddPost() {
                     <div>
                         <span>Add New Post</span> 
                     </div>
-                    {/* <div className="nextButtonContainer">
+                    <div className="nextButtonContainer">
                     {(pictures?.length > 1 || pictures[0]?.url.length > 0) && (uploadFileDetails.size === pictures?.length) && nextIdx === 0
                         ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
-                    {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
-                    </div> */}
-
-                    <div className="nextButtonContainer">
-                    {pictures.length > 0 && nextIdx !== 1
-                        ? 
-                        <Button onClick={towardEnd} className="nextButton">Next</Button>
-                        : 
-                        <div style={{display:"none"}} />
-                    }
                     {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
                     </div>
                     
@@ -280,12 +261,12 @@ function AddPost() {
                         ?
                         <div style={{position:"relative"}}>
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                            <div className={`${pictures[postIdx].type === "image" ? "uploadPost" : "uploadVideo"}`}>
+                            <div className="uploadPost">
                                 {pictures[postIdx].type === "image" 
                                 ?
                                 <CropImage post={pictures[postIdx].url} getCropData={getCropData} />
                                 :
-                                <video style={{width:"100%", height:"65vh"}} src={pictures[postIdx].url} 
+                                <video style={{width:"100%", height:"60vh"}} src={pictures[postIdx].url} 
                                 autoPlay={true} 
                                 controlsList="nodownload nofullscreen"
                                 />
@@ -339,7 +320,7 @@ function AddPost() {
                             cycleNavigation={false} 
                             animation={"slide"}>
                                 {
-                                    Array.from(uploadFileDetails.values()).map( (data, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data} alt="img" /> )
+                                    Array.from(uploadFileDetails.values()).map( (data, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data?.url} alt="img" /> )
                                 } 
                             </Carousel>
                             }

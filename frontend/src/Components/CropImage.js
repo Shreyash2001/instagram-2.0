@@ -11,11 +11,13 @@ function CropImage({post, getCropData}) {
           getCropData(cropper.getCroppedCanvas().toDataURL());
         }
       };
-
   return (
-
     <div>
       <div style={{ width: "100%", padding:"8px" }}>
+        {/* <input type="file" onChange={onChange} />
+        <button>Use default img</button>
+        <br />
+        <br /> */}
         <Cropper
           zoomTo={0.0}
           initialAspectRatio={16 / 9}
@@ -39,7 +41,6 @@ function CropImage({post, getCropData}) {
       </div>
       <br style={{ clear: "both" }} />
     </div>
-
   )
 }
 
