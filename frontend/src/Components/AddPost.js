@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addPostAction, getPostsAction } from '../actions/postsAction';
 import { useHistory } from 'react-router-dom';
 import { ADD_POSTS_REMOVE } from '../constants/postConstants';
+import axios from "axios";
 
 function AddPost() {
     const stylePost = {
@@ -163,6 +164,44 @@ function AddPost() {
             }
           };
 
+
+        const addVideoUrl = (video) => {
+            
+            axios({
+                method: "get",
+                url: video.url, // blob url eg. blob:http://127.0.0.1:8000/e89c5d87-a634-4540-974c-30dc476825cc
+                responseType: "blob",
+              }).then(function (response) {
+                var reader = new FileReader();
+                reader.readAsDataURL(response.data);
+                reader.onloadend = function () {
+                  var base64data = reader.result;
+                  const formData = new FormData();
+                  formData.append("file", base64data);
+                  formData.append('upload_preset', 'insta_clone')
+                  formData.append('cloud_name', 'cqn')
+                  axios({
+                    method: "POST",
+                    url: "https://api.cloudinary.com/v1_1/cqn/auto/upload",
+                    data: formData,
+                  })
+                    .then((res) => {
+                        setUrl(res.data.url);
+                        const temp = {
+                            id : res.data.asset_id,
+                            url: "video - " + res.data.url
+                        }
+                        const old = uploadFileDetails; 
+                        old.set(res.data.asset_id, temp);
+                        setUploadFileDetails(old);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                };
+              });
+        }
+
         useEffect(() => {
         if(cropData){
             const data = new FormData()
@@ -181,7 +220,7 @@ function AddPost() {
         
         const temp = {
             id : imageData.asset_id,
-            url: imageData.url
+            url: "image - " + imageData.url
         }
         const old = uploadFileDetails; 
         old.set(imageData.asset_id, temp);
@@ -245,8 +284,13 @@ function AddPost() {
                         <span>Add New Post</span> 
                     </div>
                     <div className="nextButtonContainer">
-                    {(pictures?.length > 1 || pictures[0]?.url.length > 0) && (uploadFileDetails.size === pictures?.length) && nextIdx === 0
-                        ? <Button onClick={towardEnd} className="nextButton">Next</Button> : <div style={{display:"none"}} />}
+                    {(pictures?.length > 1 || pictures[0]?.url.length > 0) && (uploadFileDetails.size === pictures?.length) 
+                    && 
+                    nextIdx === 0
+                        ? 
+                        <Button onClick={towardEnd} className="nextButton">Next</Button> 
+                        : 
+                        <div style={{display:"none"}} />}
                     {nextIdx === 1 && <Button onClick={uploadPost} className="nextButton">Share</Button>}
                     </div>
                     
@@ -266,10 +310,15 @@ function AddPost() {
                                 ?
                                 <CropImage post={pictures[postIdx].url} getCropData={getCropData} />
                                 :
-                                <video style={{width:"100%", height:"60vh"}} src={pictures[postIdx].url} 
-                                autoPlay={true} 
-                                controlsList="nodownload nofullscreen"
-                                />
+                                <div>
+                                    <video style={{width:"100%", height:"60vh"}} src={pictures[postIdx].url} 
+                                    autoPlay={true} 
+                                    controlsList="nodownload nofullscreen"
+                                    />
+                                    <div>
+                                        <Button className="crop__button" onClick={() => addVideoUrl(pictures[postIdx])}>Save</Button>
+                                    </div>
+                                </div>
                                 }
                             </div>
                         
@@ -414,12 +463,10 @@ function AddPost() {
                                     :
                                     loadingPost && 
                                         <CircularProgress style={{width:"30px", height:"30px", marginLeft:"80px", color:"gray"}} />
-                                    
                                 }
                             </div>
                         </div>
                     </div>
-
                     }
             </div>
             </Box>
