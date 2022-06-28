@@ -116,7 +116,21 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
           cycleNavigation={false} 
           animation={"slide"}>
               {
-                  Array.from(images.values()).map( (data, i) => <img style={{width:"650px", height:"550px"}} key={i} src={data} alt="img" /> )
+                  Array.from(images.values()).map( (data, i) => 
+                  data.split("->")[0].startsWith("I")
+                  ?
+                  <img style={{width:"623px", height:"550px"}} 
+                  key={i} 
+                  src={data.split("->")[1]} 
+                  alt="img" /> 
+                  :
+                  <video style={{width:"623px", height:"550px"}} 
+                    key={i}
+                    src={data.split("->")[1]}
+                    autoPlay={true} 
+                    controls
+                  />
+                  )
               } 
         </Carousel>
       </div>

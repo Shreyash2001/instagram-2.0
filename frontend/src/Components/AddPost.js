@@ -189,7 +189,7 @@ function AddPost() {
                         setUrl(res.data.url);
                         const temp = {
                             id : res.data.asset_id,
-                            url: "video - " + res.data.url
+                            url: "Video -> " + res.data.url
                         }
                         const old = uploadFileDetails; 
                         old.set(res.data.asset_id, temp);
@@ -220,7 +220,7 @@ function AddPost() {
         
         const temp = {
             id : imageData.asset_id,
-            url: "image - " + imageData.url
+            url: "Image -> " + imageData.url
         }
         const old = uploadFileDetails; 
         old.set(imageData.asset_id, temp);
@@ -363,13 +363,29 @@ function AddPost() {
                         <div style={{width:"400px", height:"600px", position:"relative"}}>
                             {
                             <Carousel 
-                            navButtonsAlwaysVisible 
-                            indicators={false}
-                            autoPlay = {false}
-                            cycleNavigation={false} 
-                            animation={"slide"}>
+                                navButtonsAlwaysVisible 
+                                indicators={false}
+                                autoPlay = {false}
+                                cycleNavigation={false} 
+                                animation={"slide"}>
                                 {
-                                    Array.from(uploadFileDetails.values()).map( (data, i) => <img style={{width:"450px", height:"600px", objectFit:"cover"}} key={data?.id} src={data?.url} alt="img" /> )
+                                    Array.from(uploadFileDetails.values()).map( (data, i) => 
+                                     data?.url?.split("->")[0].startsWith("I")
+                                    ?
+                                    <img style={{width:"450px", height:"600px", objectFit:"cover"}} 
+                                    key={data?.id} 
+                                    src={data?.url?.split("->")[1]} 
+                                    alt="img" /> 
+                                    :
+                                    <video 
+                                    style={{width:"450px", height:"600px", objectFit:"cover"}}
+                                    key={data?.id} 
+                                    src={data?.url?.split("->")[1]} 
+                                    autoPlay={true} 
+                                    controlsList="nodownload nofullscreen"
+                                    />
+                                    
+                                    )
                                 } 
                             </Carousel>
                             }
