@@ -128,7 +128,6 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
                     key={i}
                     src={data.split("->")[1]}
                     autoPlay={true} 
-                    controls
                   />
                   )
               } 

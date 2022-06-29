@@ -160,7 +160,22 @@ function UserDetails() {
             animation={"slide"}
             >
               {
-                  Array.from(post?.image.values()).map( (data, i) => <img style={{width:"300px", height:"300px", borderRadius:"12px"}} key={i} src={data} alt="img" /> )
+                  Array.from(post?.image?.values()).map( (data, i) => 
+                  data?.split("->")[0].startsWith("I")
+                  ?
+                  <img style={{width:"300px", height:"300px", borderRadius:"12px"}} 
+                  key={data?.id} 
+                  src={data?.split("->")[1]} 
+                  alt="img" /> 
+                  :
+                  <video 
+                  style={{width:"300px", height:"300px", borderRadius:"12px"}}
+                  key={data?.id} 
+                  src={data?.split("->")[1]} 
+                  autoPlay={true} 
+                  controlsList="nodownload nofullscreen"
+                  />
+                  )
               } 
         </Carousel>
             </div>

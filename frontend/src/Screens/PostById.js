@@ -157,9 +157,19 @@ function PostById({incomingFrom, temp}) {
                       animation={"slide"}>
                           {
                               postData?.image?.map( (data, i) => (
-                                <img style={{width:"550px", height:"800px"}} 
-                                key={i} src={data} 
-                                alt="img" />))
+                                data.split("->")[0].startsWith("I")
+                                ?
+                                <img style={{width:"525px", height:"800px"}} 
+                                key={i} 
+                                src={data.split("->")[1]} 
+                                alt="img" /> 
+                                :
+                                <video style={{width:"500px", height:"800px", marginLeft:"25px"}} 
+                                  key={i}
+                                  src={data.split("->")[1]}
+                                  autoPlay={true} 
+                                />
+                                ))
                           } 
                     </Carousel>
                     </div>
