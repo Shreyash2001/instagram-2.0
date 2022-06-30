@@ -26,7 +26,7 @@ function PostById({incomingFrom, temp}) {
     const history = useHistory();
     const id = incomingFrom.name !== "user_details" ? (window.location.pathname.split("/")[2]) : incomingFrom.id;
 
-    const posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+    const posts = incomingFrom.name !== "user_details" ? JSON.parse(sessionStorage.getItem("Instagram-Posts")) : JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
 
     const dispatch = useDispatch();
     const {info, success, loading} = useSelector(state => state.commentAdded);
@@ -167,6 +167,7 @@ function PostById({incomingFrom, temp}) {
                                 <video style={{width:"500px", height:"800px", marginLeft:"25px"}} 
                                   key={i}
                                   src={data.split("->")[1]}
+                                  muted
                                   autoPlay={true} 
                                 />
                                 ))

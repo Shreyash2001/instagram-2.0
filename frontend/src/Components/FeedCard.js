@@ -127,6 +127,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
                   <video style={{width:"623px", height:"550px"}} 
                     key={i}
                     src={data.split("->")[1]}
+                    muted
                     autoPlay={true} 
                   />
                   )

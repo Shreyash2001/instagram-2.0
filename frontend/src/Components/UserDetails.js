@@ -54,7 +54,7 @@ function UserDetails() {
 
     const temp = (val) => {
       setOpen(val);
-    }
+    };
 
     useEffect(() => {
       dispatch(getUserDetailsAction(username));
@@ -173,6 +173,7 @@ function UserDetails() {
                   key={data?.id} 
                   src={data?.split("->")[1]} 
                   autoPlay={true} 
+                  muted
                   controlsList="nodownload nofullscreen"
                   />
                   )
@@ -184,7 +185,9 @@ function UserDetails() {
         
         <div>
           {
-            open && <PostById incomingFrom={{name: "user_details", id: selectedId, openCurr: true}} temp={temp} />
+            open 
+            && 
+            <PostById incomingFrom={{name: "user_details", id: selectedId, openCurr: true}} temp={temp} />
           }
         </div>
       </div>

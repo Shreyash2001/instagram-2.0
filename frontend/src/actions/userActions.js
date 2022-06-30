@@ -183,6 +183,7 @@ export const getUserDetailsAction = (username) => async(dispatch, getState) => {
             type: GET_USER_DETAILS_SUCCESS,
             payload: data
         });
+        sessionStorage.setItem("Instagram-UserDetails", JSON.stringify(data?.posts));
     } catch (error) {
         dispatch({
             type: GET_USER_DETAILS_FAIL,

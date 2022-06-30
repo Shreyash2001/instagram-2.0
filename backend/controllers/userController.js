@@ -168,7 +168,20 @@ const getSearchedUsers = asyncHandler(async(req, res) => {
 });
 
 const getUserDetails = asyncHandler(async(req, res) => {
-    const user = await User.findOne({userName: req.query.params}).select("-password -likes").populate({path: "posts", options: {sort: {"createdAt": -1}}});
+    const user = await User.findOne({userName: req.query.params})
+                           .select("-password")
+                           .populate({
+                           path: "posts", 
+                           options: {sort: {"createdAt": -1}},
+                           populate: {
+                            path: "postedBy",
+                            model: "User"
+                           },
+                           populate: {
+                            path: "comments",
+                            model: "Comment"
+                           }
+                        });
     if(user) {
         res.status(200).json(user);
     } else {
