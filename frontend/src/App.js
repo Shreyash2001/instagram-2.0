@@ -14,12 +14,16 @@ import AddPost from './Components/AddPost';
 import UserDetails from './Components/UserDetails';
 import SetupProfile from './Screens/SetupProfile';
 import Explore from './Screens/Explore';
+import Reels from './Screens/Reels';
 
 
 function App() {
   return (
     <Router>
     <Switch>
+      <Route path="/reels">
+        <Reels />
+      </Route>
       <Route path="/explore">
         <Explore />
       </Route>

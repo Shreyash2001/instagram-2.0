@@ -172,7 +172,6 @@ const getUserDetails = asyncHandler(async(req, res) => {
                            .select("-password")
                            .populate({
                            path: "posts", 
-                           options: {sort: {"createdAt": -1}},
                            populate: {
                             path: "postedBy",
                             model: "User"
@@ -180,7 +179,8 @@ const getUserDetails = asyncHandler(async(req, res) => {
                            populate: {
                             path: "comments",
                             model: "Comment"
-                           }
+                           },
+                           options: {sort: {"createdAt": -1}}
                         });
     if(user) {
         res.status(200).json(user);
