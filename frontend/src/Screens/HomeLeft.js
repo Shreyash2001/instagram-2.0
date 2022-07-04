@@ -4,8 +4,8 @@ import { Avatar } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import MovieIcon from '@mui/icons-material/Movie';
 import SendIcon from '@mui/icons-material/Send';
-import ComputerIcon from '@mui/icons-material/Computer';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -77,9 +77,9 @@ function HomeLeft() {
                         <span>Explore</span>
                     </Link>
 
-                    <Link to="/favorites">
-                        <BookmarkBorderIcon style={{color:"rgb(189, 186, 186)"}} />
-                        <span>Favorites</span>
+                    <Link to="/reels">
+                        <MovieIcon style={{color:"rgb(189, 186, 186)"}} />
+                        <span>Reels</span>
                     </Link>
 
                     <Link to="/message">
@@ -87,9 +87,9 @@ function HomeLeft() {
                         <span>Direct</span>
                     </Link>
 
-                    <Link to="/live">
-                        <ComputerIcon style={{color:"rgb(189, 186, 186)"}} />
-                        <span>IG TV</span>
+                    <Link to="/favorites">
+                        <BookmarkBorderIcon style={{color:"rgb(189, 186, 186)"}} />
+                        <span>Favorites</span>
                     </Link>
 
                     <Link to="/stats">

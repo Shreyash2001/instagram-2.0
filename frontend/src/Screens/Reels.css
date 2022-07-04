@@ -1,0 +1,11 @@
+.reelsContainer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 85.7vh;
+    overflow-y: scroll;
+}
+
+.reelsContainer::-webkit-scrollbar {
+    display: none;
+}

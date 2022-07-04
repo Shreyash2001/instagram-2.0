@@ -1,12 +1,14 @@
 import React from 'react';
 import "./ReelCard.css";
 
-function ReelCard() {
+function ReelCard({url}) {
   return (
     <div className="reelCard">
         <video 
-        src="http://res.cloudinary.com/cqn/video/upload/v1656440910/ilu7acigvxov8fpjpoke.mp4" 
-        autoPlay={true}
+        src={url} 
+        loop
+        autoPlay
+        muted
         />
     </div>
   )

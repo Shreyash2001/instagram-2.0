@@ -7,8 +7,8 @@ import { addStoryAction, getStoriesAction } from '../actions/storiesAction';
 import { ADD_STORY_REMOVE } from '../constants/storyConstants';
 import SlidingLoader from './SlidingLoader';
 
-function AddStory() {
-    
+function AddReel() {
+
     const style = {
         position: 'absolute',
         top: '49%',
@@ -24,7 +24,7 @@ function AddStory() {
     const history = useHistory();
     const handleClose = () => {
         setOpen(false);
-        history.push("/");
+        // history.push("/");
     }
 
     const dispatch = useDispatch();
@@ -93,8 +93,8 @@ function AddStory() {
                 style={{backgroundColor:"#222"}}
             >
             <Box sx={style}>
-            <div className="addStoryContainer">
-                    <div className="addStory__top">
+            <div className="addReelContainer">
+                    <div className="addReel__top">
                         <span>Add New Story</span>
                     </div>
                     {loading && <div style={{width:"552px"}}>
@@ -103,23 +103,23 @@ function AddStory() {
 
                     {image === null 
                     ?
-                     <div className="addStoryImage">
+                     <div className="addReelImage">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
                     </div>
                     :
                     <div>
-                        <img className="addStorySelectedImage" src={image} alt="" />
+                        <img className="addReelSelectedImage" src={image} alt="" />
                     </div>
                     }
 
                     {image === null 
                     ? 
-                    <div className="addStoryButton">
+                    <div className="addReelButton">
                         <Button onClick={triggerFileSelectPopup}>Select from this device</Button>
                         <input type="file" multiple accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
                     </div>
                     :
-                    <div className="addStoryButtonShare">
+                    <div className="addReelButtonShare">
                         <Button onClick={uploadStory}>Share</Button>
                     </div>
                     }
@@ -130,4 +130,4 @@ function AddStory() {
   )
 }
 
-export default AddStory
+export default AddReel

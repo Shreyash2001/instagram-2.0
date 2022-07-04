@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import "./TopBar.css";
-import { IconButton } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
+import MovieIcon from '@mui/icons-material/Movie';
 import { Link } from 'react-router-dom';
+import AddReel from './AddReel';
 
-function TopBar() {
+function TopBar({usedIn}) {
     const [showNotificationIcon, setNotificationIcon] = useState(false);
+    const [open, setOpen] = useState(false);
+    const addReel = () => {
+        setOpen(!open);
+    }
+
   return (
     <div className="topBar">
         <Link to={"/"} className="topBar__image">
@@ -18,6 +25,14 @@ function TopBar() {
             <SearchIcon style={{color:"rgb(189, 186, 186)"}} />
             <input type="text" placeholder="Search"  />
         </div>
+
+        {usedIn === "reels" && <div className="addReels">
+            <Button onClick={addReel}>
+                <MovieIcon style={{marginRight:"10px"}} />
+                Add Reels
+            </Button>
+        </div>}
+
         <div className="topBar__right">
                 <IconButton>
                     <SendIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
@@ -34,6 +49,9 @@ function TopBar() {
                 <IconButton>
                     <AccountCircleIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
                 </IconButton>
+            </div>
+            <div>
+                {open && <AddReel />}
             </div>
     </div>
   )
