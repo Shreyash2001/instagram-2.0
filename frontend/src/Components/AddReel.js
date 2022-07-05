@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import "./AddStory.css";
+import "./AddReel.css";
 import { Box, Button, Modal } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { addStoryAction, getStoriesAction } from '../actions/storiesAction';
 import { ADD_STORY_REMOVE } from '../constants/storyConstants';
 import SlidingLoader from './SlidingLoader';
 
-function AddReel() {
+function AddReel({setOpen}) {
 
     const style = {
         position: 'absolute',
@@ -19,7 +19,7 @@ function AddReel() {
         outline:'none',
         };
     
-    const [open, setOpen] = useState(false);
+    const [open, setOpenCurr] = useState(false);
     
     const history = useHistory();
     const handleClose = () => {
@@ -30,7 +30,7 @@ function AddReel() {
     const dispatch = useDispatch();
     const uploadStory = () => {
         const data = new FormData()
-                  data.append('file', image)
+                  data.append('file', video)
                   data.append('upload_preset', 'insta_clone')
                   data.append('cloud_name', 'cqn')
         fetch('https://api.cloudinary.com/v1_1/cqn/image/upload', {
@@ -52,10 +52,11 @@ function AddReel() {
     
     useEffect(() => {
         setOpen(true)
+        setOpenCurr(true)
     }, []);
 
     //Selecting files
-    const [image, setImage] = useState(null);
+    const [video, setVideo] = useState(null);
     const inputRef = useRef();
     const triggerFileSelectPopup = () => inputRef.current.click();
 
@@ -64,7 +65,7 @@ function AddReel() {
             const reader = new FileReader();
           reader.readAsDataURL(event.target.files[0]);
           reader.addEventListener("load", () => {
-            setImage(reader.result);
+            setVideo(reader.result);
           });  
         }
       };
@@ -90,33 +91,32 @@ function AddReel() {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
-                style={{backgroundColor:"#222"}}
             >
             <Box sx={style}>
             <div className="addReelContainer">
                     <div className="addReel__top">
-                        <span>Add New Story</span>
+                        <span>Add New Reel</span>
                     </div>
                     {loading && <div style={{width:"552px"}}>
                         <SlidingLoader length={552} />
                     </div>}
 
-                    {image === null 
+                    {video === null 
                     ?
                      <div className="addReelImage">
                         <img src="https://res.cloudinary.com/cqn/image/upload/v1643128901/Screenshot_2022-01-25_221020_v5krhh.png" alt="logo" />
                     </div>
                     :
                     <div>
-                        <img className="addReelSelectedImage" src={image} alt="" />
+                        <video muted autoPlay className="addReelSelectedImage" src={video} alt="" />
                     </div>
                     }
 
-                    {image === null 
+                    {video === null 
                     ? 
                     <div className="addReelButton">
                         <Button onClick={triggerFileSelectPopup}>Select from this device</Button>
-                        <input type="file" multiple accept="image/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
+                        <input type="file" multiple accept="video/*" ref={inputRef} onChange={onSelectFile} style={{display:"none"}} />
                     </div>
                     :
                     <div className="addReelButtonShare">

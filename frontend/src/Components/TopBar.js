@@ -13,7 +13,7 @@ function TopBar({usedIn}) {
     const [showNotificationIcon, setNotificationIcon] = useState(false);
     const [open, setOpen] = useState(false);
     const addReel = () => {
-        setOpen(!open);
+        setOpen(true);
     }
 
   return (
@@ -51,7 +51,7 @@ function TopBar({usedIn}) {
                 </IconButton>
             </div>
             <div>
-                {open && <AddReel />}
+                {open && <AddReel setOpen={setOpen} />}
             </div>
     </div>
   )
