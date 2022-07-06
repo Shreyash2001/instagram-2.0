@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
 const storyRoutes = require("./routes/storyRoutes");
+const reelRoutes = require("./routes/reelRoutes");
 const ImageKit = require('imagekit');
 const cors = require('cors');
 const sse = require("./sse/sse");
@@ -19,6 +20,7 @@ dotenv.config();
 connectDB();
 
 app.use(sseRoute);
+app.use("/api/reels", reelRoutes);
 app.use("/api/stories", storyRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);

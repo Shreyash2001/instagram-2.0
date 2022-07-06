@@ -54,6 +54,10 @@ const userSchema = mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : "Story"
     }],
+    reels : [{
+        type : mongoose.Types.ObjectId,
+        ref : "Reel"
+    }],
     isPrivate : {
         type : Boolean,
         default : false
