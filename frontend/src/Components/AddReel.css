@@ -58,3 +58,27 @@
     margin: 10px 220px;
     text-transform: inherit !important;
 }
+
+.reel__captionContainerInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.reel__captionInput > textarea {
+    width: 250px;
+    height: 130px;
+    font-size: 16px;
+    border: none;
+    outline-width: 0;
+    resize: none;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+}
+
+.UploadReelInfo {
+    display: flex;
+}
+
+.reelCaptionContainer {
+    padding: 10px;
+}
