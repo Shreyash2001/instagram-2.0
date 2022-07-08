@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./AddReel.css";
-import { Avatar, Box, Button, IconButton, Modal } from '@mui/material';
+import { Avatar, Box, Button, CircularProgress, Fade, IconButton, Modal } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import SlidingLoader from './SlidingLoader';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import Picker from 'emoji-picker-react';
-import ReelCard from './ReelCard';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Popper from '@mui/material/Popper';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { searchUsersAction } from '../actions/userActions';
+import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
 
 function AddReel({setOpen}) {
     const {userInfo} = useSelector(state => state.userLogin);
@@ -85,6 +89,55 @@ function AddReel({setOpen}) {
         }
       };
 
+      const[destination, setDestination] = useState("");
+      var timer;
+        var valueSearch = ""
+        const handleChangeTag = (e) => {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+            valueSearch = e.target.value.replace(/\s/g,'');
+                dispatch(searchUsersAction(valueSearch));
+            
+            }, 1000)
+        };
+
+        const [openTag, setOpenTag] = useState(false);
+        const [anchorEl, setAnchorEl] = useState(null);
+
+        const handleClickPopTag = (event) => {
+            setAnchorEl(event.currentTarget);
+            setOpenTag((previousOpen) => !previousOpen);
+        };
+
+
+        const canBeOpen = open && Boolean(anchorEl);
+        const id = canBeOpen ? 'transition-popper' : undefined;
+        
+        const searchRef = useRef();
+        const reset = () => {
+            searchRef.current.value = "";
+        };
+
+        var {loading : loadingPost, users} = useSelector(state => state.searchUserResult);
+        users = users?.filter(user => user?.userName !== userInfo?.userName);
+
+        const[addedTags, setAddedTags] = useState(new Map());
+
+    const handleClickAddTag = (name) => {
+        const old = addedTags;
+        old.set(name.userName, name);
+        setAddedTags(old);
+        
+        reset();
+        dispatch(searchUsersAction(""));
+    };
+
+    const removeTag = (user) => {
+        addedTags.delete(user);
+        setOpenTag(false);
+    };
+
+
   return (
     <div>
         <Modal
@@ -128,9 +181,53 @@ function AddReel({setOpen}) {
                         page === 2
                         &&
                         <div className="UploadReelInfo">
-                        <div>
-                            <ReelCard url={reelInfo.url} />
+                        <div className="uploadReelLeft">
+                            <video muted autoPlay loop src={reelInfo.url} />
                         </div>
+                        {addedTags.size > 0 
+                            && 
+                            <div style={{position:"absolute", 
+                            bottom:"-38px", 
+                            left:"10px", 
+                            zIndex:"100"}}>
+                                <IconButton onClick={handleClickPopTag}>
+                                <AccountCircle className="pulse" />
+                                </IconButton>
+
+                                
+                            </div>}
+                            <div>
+                            <Popper 
+                            style={{position:"absolute", 
+                            zIndex:"1400", 
+                            top:"512px", 
+                            left:"276px"}} 
+                            placement={"top"} 
+                            id={id} 
+                            open={openTag} 
+                            anchorEl={anchorEl} 
+                            transition>
+                                    {({ TransitionProps }) => (
+                                    <Fade {...TransitionProps} timeout={350}>
+                                        <Box sx={{ border: 1, p: 1, bgcolor: '#0e0d0d' }} style={{borderRadius:"10px", marginLeft:"130px"}}>
+                                        <div>
+                                            {
+                                                Array.from(addedTags.values()).map((key, i) => (
+                                                    <div key={i} style={{display:"flex", alignItems:"center"}}>
+                                                        <Avatar src={key?.profilePic} style={{marginRight:"8px", marginBottom:"10px"}} />
+                                                        <span style={{color:"#fff"}}>{key?.userName}</span>
+                                                        <CancelIcon onClick={() => removeTag(key?.userName)} 
+                                                        style={{color:"#fff", cursor:"pointer", marginLeft:"5px"}} />
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                        </Box>
+                                    </Fade>
+                                    )}
+                                </Popper>
+                            </div>
+
                         <div className="reelCaptionContainer">
                         <div className="reel__captionContainerInfo">
                                 <Avatar style={{marginRight:"8px"}} src={userInfo?.profilePic}  />
@@ -158,10 +255,45 @@ function AddReel({setOpen}) {
                                     </div>
                                 }
                             </div>
+                            
+
+                            <div className="reel__location">
+                                <AddLocationAltOutlinedIcon />
+                                <input maxLength="50" onChange={(e) => setDestination(e.target.value)} placeholder="Add Your Destination" />
                             </div>
+
+                            <div>
+                                <div className="reel__tag">
+                                <label>Tag:</label>
+                                <input type="text" ref={searchRef} onChange={(e) => handleChangeTag(e)} />
+                                {/* <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button> */}
+                                </div>
+                                
+                                {
+                                    users?.length > 0 
+                                    ?
+                                    <div className="search">
+                                    <ul style={{listStyleType:"none"}}>
+                                    {users?.map((user, i) => (
+                                        <li key={i} onClick={() => handleClickAddTag(user)} className="search__results">
+                                            <Avatar src={user?.profilePic} />
+                                            <span style={{marginLeft:"10px"}}>{user?.userName}</span>
+                                        </li>
+                                    ))}
+                                    </ul>
+                                    
+                                    </div>
+                                    :
+                                    loadingPost && 
+                                        <CircularProgress style={{width:"30px", height:"30px", marginLeft:"80px", color:"gray"}} />
+                                }
+                            </div>
+
+                        </div>
                         </div>
                     }
                 </div>
+                
             </Box>
         </Modal>
     </div>

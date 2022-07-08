@@ -392,7 +392,12 @@ function AddPost() {
                             
 
 
-                            {addedTags.size > 0 && <div style={{position:"absolute", bottom:"10px", left:"10px", zIndex:"100"}}>
+                            {addedTags.size > 0 
+                            && 
+                            <div style={{position:"absolute", 
+                            bottom:"10px", 
+                            left:"10px", 
+                            zIndex:"100"}}>
                                 <IconButton onClick={handleClickPopTag}>
                                 <AccountCircle className="pulse" />
                                 </IconButton>
@@ -400,7 +405,16 @@ function AddPost() {
                                 
                             </div>}
                             <div>
-                            <Popper style={{position:"absolute", zIndex:"1400", top:"512px", left:"276px"}} placement={"top"} id={id} open={openTag} anchorEl={anchorEl} transition>
+                            <Popper 
+                            style={{position:"absolute", 
+                            zIndex:"1400", 
+                            top:"512px", 
+                            left:"276px"}} 
+                            placement={"top"} 
+                            id={id} 
+                            open={openTag} 
+                            anchorEl={anchorEl} 
+                            transition>
                                     {({ TransitionProps }) => (
                                     <Fade {...TransitionProps} timeout={350}>
                                         <Box sx={{ border: 1, p: 1, bgcolor: '#0e0d0d' }} style={{borderRadius:"10px", marginLeft:"130px"}}>
@@ -410,7 +424,8 @@ function AddPost() {
                                                     <div key={i} style={{display:"flex", alignItems:"center"}}>
                                                         <Avatar src={key?.profilePic} style={{marginRight:"8px", marginBottom:"10px"}} />
                                                         <span style={{color:"#fff"}}>{key?.userName}</span>
-                                                        <CancelIcon onClick={() => removeTag(key?.userName)} style={{color:"#fff", cursor:"pointer", marginLeft:"5px"}} />
+                                                        <CancelIcon onClick={() => removeTag(key?.userName)} 
+                                                        style={{color:"#fff", cursor:"pointer", marginLeft:"5px"}} />
                                                     </div>
                                                 ))
                                             }
