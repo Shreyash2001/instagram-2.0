@@ -264,9 +264,8 @@ function AddReel({setOpen}) {
 
                             <div>
                                 <div className="reel__tag">
-                                <label>Tag:</label>
-                                <input type="text" ref={searchRef} onChange={(e) => handleChangeTag(e)} />
-                                {/* <Button variant="outlined" style={{textTransform:"inherit", height:"20px"}}>Add</Button> */}
+                                    <label>Tag:</label>
+                                    <input type="text" ref={searchRef} onChange={(e) => handleChangeTag(e)} />
                                 </div>
                                 
                                 {
@@ -288,9 +287,20 @@ function AddReel({setOpen}) {
                                         <CircularProgress style={{width:"30px", height:"30px", marginLeft:"80px", color:"gray"}} />
                                 }
                             </div>
+                            {caption.length !== 0 && caption.trim().length !== 0
+                            ? 
+                            <div className="post__button">
+                                <Button>Post</Button>
+                            </div>
+                            :
+                            <div className="post__buttonDisabled">
+                                <Button disabled>Post</Button>
+                            </div>
+                            }
+                        </div>
+                        
+                        </div>
 
-                        </div>
-                        </div>
                     }
                 </div>
                 

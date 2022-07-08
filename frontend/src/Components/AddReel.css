@@ -151,3 +151,38 @@
     background-color: rgba(73, 72, 72, 0.11);
     padding-left: 5px;
 }
+
+.post__button {
+    position: relative;
+}
+
+.post__button > button {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
+    color: #fff !important;
+    font-size: 17px !important;
+    width: 120px !important;
+    padding: 6px;
+    position: absolute;
+    top: 155px;
+    left: 82px;
+    text-transform: inherit !important;
+}
+
+.post__buttonDisabled {
+    position: relative;
+}
+
+.post__buttonDisabled > button {
+    background-color: grey;
+    color: #fff !important;
+    font-size: 17px !important;
+    width: 120px !important;
+    padding: 6px;
+    position: absolute;
+    top: 155px;
+    left: 82px;
+    text-transform: inherit !important;
+}
