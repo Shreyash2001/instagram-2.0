@@ -3,7 +3,7 @@ const Reel = require("../model/reelModel");
 const User = require("../model/userModel");
 
 const createReel = asyncHandler(async(req, res) => {
-    const {videoURL, videoID, caption} = req.body;
+    const {videoURL, videoID, caption, destination, tags} = req.body;
 
     if(videoURL.length === 0 || videoID.length === "" || caption === "") {
         res.status(400).json({message: "Please fill all the information"});
@@ -12,7 +12,9 @@ const createReel = asyncHandler(async(req, res) => {
             createdBy: req.user._id,
             video: videoURL,
             cloudinary_video_id: videoID,
-            caption: caption
+            caption: caption,
+            destination: destination,
+            tags: tags
         });
         if(reel) {
             res.status(201).json(reel);

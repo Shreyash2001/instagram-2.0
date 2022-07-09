@@ -10,9 +10,13 @@ import Popper from '@mui/material/Popper';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { searchUsersAction } from '../actions/userActions';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
+import { addReelAction } from '../actions/reelsAction';
+import { ADD_REELS_REMOVE } from '../constants/reelConstants';
 
 function AddReel({setOpen}) {
     const {userInfo} = useSelector(state => state.userLogin);
+    const {loading, success} = useSelector(state => state.addReel);
+
     const style = {
         position: 'absolute',
         top: '49%',
@@ -30,6 +34,9 @@ function AddReel({setOpen}) {
     
     const handleClose = () => {
         setOpen(false);
+        if(success) {
+            dispatch({type: ADD_REELS_REMOVE});
+        }
     }
     const [cloudinaryLoading, setCloudinaryLoading] = useState(false);
     const dispatch = useDispatch();
@@ -56,7 +63,7 @@ function AddReel({setOpen}) {
         });
         
     };
-    console.log(reelInfo)
+
     useEffect(() => {
         setOpen(true)
         setOpenCurr(true)
@@ -137,6 +144,15 @@ function AddReel({setOpen}) {
         setOpenTag(false);
     };
 
+    const uploadReel = () => {
+        dispatch(addReelAction(reelInfo.url, reelInfo.id, caption, destination, Array.from(addedTags.values())))
+    };
+
+    useEffect(() => {
+        if(success) {
+            handleClose();
+        }
+    }, [success])
 
   return (
     <div>
@@ -290,7 +306,7 @@ function AddReel({setOpen}) {
                             {caption.length !== 0 && caption.trim().length !== 0
                             ? 
                             <div className="post__button">
-                                <Button>Post</Button>
+                                <Button onClick={uploadReel}>Post</Button>
                             </div>
                             :
                             <div className="post__buttonDisabled">

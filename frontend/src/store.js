@@ -13,6 +13,7 @@ import {
 import { addPreferencesReducer, countPreferences } from "./reducers/preferencesReducer";
 import { addStoriesReducer, getStoriesReducer } from "./reducers/storiesReducer";
 import { addPostReducer, commentReducer, getPostReducer, likeReducer } from "./reducers/postsReducer";
+import { addReelReducer } from "./reducers/reelsReducer";
 
 const reducer = combineReducers({
     userLogin : userLoginReducer,
@@ -31,6 +32,7 @@ const reducer = combineReducers({
     userDetails: getUserDetailsReducer,
     suggestedUsers: getUserSuggestionsReducer,
     mutualUsers: getUserMutualSuggestionsReducer,
+    addReel: addReelReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("Instagram-UserInfo") ? JSON.parse(localStorage.getItem("Instagram-UserInfo")) : {};

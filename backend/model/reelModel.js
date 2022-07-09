@@ -17,9 +17,13 @@ const ReelSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    likes: [{type: mongoose.Types.ObjectId}],
-    comments: [{type: mongoose.Types.ObjectId}],
-    reports: [{type: mongoose.Types.ObjectId}]
+    destination: {
+        type: String
+    },
+    tags: [{type: mongoose.Types.ObjectId, ref: "User"}],
+    likes: [{type: mongoose.Types.ObjectId, ref: "User"}],
+    comments: [{type: mongoose.Types.ObjectId, ref: "User"}],
+    reports: [{type: mongoose.Types.ObjectId, ref: "User"}]
 }, {
     timestamps: true
 });
