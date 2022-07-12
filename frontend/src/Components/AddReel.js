@@ -10,7 +10,7 @@ import Popper from '@mui/material/Popper';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { searchUsersAction } from '../actions/userActions';
 import AddLocationAltOutlinedIcon from '@mui/icons-material/AddLocationAltOutlined';
-import { addReelAction } from '../actions/reelsAction';
+import { addReelAction, getAllReelsAction } from '../actions/reelsAction';
 import { ADD_REELS_REMOVE } from '../constants/reelConstants';
 
 function AddReel({setOpen}) {
@@ -150,6 +150,7 @@ function AddReel({setOpen}) {
 
     useEffect(() => {
         if(success) {
+            dispatch(getAllReelsAction());
             handleClose();
         }
     }, [success])

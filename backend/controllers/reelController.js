@@ -29,7 +29,7 @@ const getReels = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id);
     const reels = await Reel.find({$or: [{createdBy : {$in : user.following}}, {createdBy : {$in : user.followers}}, {_id: {$in : user.reels}}]})
                             .skip(req.query.page)
-                            .limit(2)
+                            .limit(6)
                             .sort({createdAt : -1}).populate({
                                 path: "createdBy comments",
                                 select: "-password"
