@@ -26,7 +26,12 @@ function Reels() {
         </div>
         <div className="reelsContainer">
           { reels?.map((reel) => (
-            <ReelCard url={reel?.video} />
+            <ReelCard 
+            key={reel?._id} 
+            caption={reel?.caption} 
+            creator={reel?.createdBy} 
+            tags={reel?.tags}
+            url={reel?.video} />
           ))
             
           }

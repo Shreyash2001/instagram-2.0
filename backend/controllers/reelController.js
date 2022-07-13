@@ -31,7 +31,7 @@ const getReels = asyncHandler(async(req, res) => {
                             .skip(req.query.page)
                             .limit(6)
                             .sort({createdAt : -1}).populate({
-                                path: "createdBy comments",
+                                path: "createdBy comments tags",
                                 select: "-password"
                         });
 
