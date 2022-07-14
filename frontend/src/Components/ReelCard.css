@@ -11,10 +11,11 @@
     display: flex;
     margin-left: 12px;
     position: absolute;
-    top: 30px;
+    top: 42px;
+    left: 40px;
 }
 
-.reels_tag > div {
+.reels_tagProfile {
     margin-left: -10px;
 }
 
@@ -47,14 +48,14 @@
     align-items: center;
 }
 
-.reel_follow > button {
+.following_button {
     background-image: linear-gradient(to right,var(--tw-gradient-stops));
     --tw-gradient-from: #f97316;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
     --tw-gradient-to: #ec4899;
     color: #fff !important;
-    font-size: 14px !important;
-    width: 80px !important;
-    padding: 1px;
+    font-size: 13px !important;
+    width: 60px !important;
+    padding: 2px 7px 2px 7px !important;
     text-transform: inherit !important;
 }

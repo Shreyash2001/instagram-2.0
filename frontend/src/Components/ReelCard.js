@@ -1,20 +1,24 @@
 import { Avatar, Button } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import "./ReelCard.css";
 
 function ReelCard({caption, creator, tags, url}) {
+  const {userInfo} = useSelector(state => state.userLogin);
 
   return (
 
       <div className="reelCard">
-        <div className="reels_tag">
-          {
-            tags?.map((tag) => (
-              <div>
-                <Avatar src={tag?.profilePic} />
+        <div>
+            <div className="reels_tag">
+            {tags?.map((tag) => (
+              <div className="reels_tagProfile">
+                <Avatar style={{width:"30px", height:"30px"}} src={tag?.profilePic} />
               </div>
-            ))
-          }
+            ))}
+            </div>
+
+          
         </div>
           <video 
           src={url} 
@@ -36,8 +40,15 @@ function ReelCard({caption, creator, tags, url}) {
                   <span style={{color:"#fff", fontSize:"12px"}}>{creator?.followers?.length} Followers</span>
                 </div>
               </div>
-                <div className="reel_follow">
-                  <Button>Follow</Button>
+                <div>
+                {
+                  userInfo?.following?.includes(creator?._id) 
+                  ?
+                  <Button className="following_button">Following</Button>
+                  :
+                  <Button outlined>Follow</Button>
+                }
+                  
                 </div>
             </div>
           </div>
