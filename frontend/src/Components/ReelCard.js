@@ -5,7 +5,7 @@ import "./ReelCard.css";
 
 function ReelCard({caption, creator, tags, url}) {
   const {userInfo} = useSelector(state => state.userLogin);
-
+  console.log(userInfo?._id !== creator?._id)
   return (
 
       <div className="reelCard">
@@ -42,11 +42,13 @@ function ReelCard({caption, creator, tags, url}) {
               </div>
                 <div>
                 {
+                  userInfo?._id !== creator?._id  
+                  &&
                   userInfo?.following?.includes(creator?._id) 
                   ?
                   <Button className="following_button">Following</Button>
                   :
-                  <Button outlined>Follow</Button>
+                  <Button style={{width:"60px", fontSize:"12px", borderColor:"#fff", color:"#fff", textTransform:"inherit"}} variant = "outlined">Follow</Button>
                 }
                   
                 </div>
