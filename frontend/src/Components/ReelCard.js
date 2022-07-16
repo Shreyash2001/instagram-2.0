@@ -44,11 +44,11 @@ function ReelCard({caption, creator, tags, url}) {
                 {
                   userInfo?._id !== creator?._id  
                   &&
-                  userInfo?.following?.includes(creator?._id) 
+                  (userInfo?.following?.includes(creator?._id) 
                   ?
                   <Button className="following_button">Following</Button>
                   :
-                  <Button style={{width:"60px", fontSize:"12px", borderColor:"#fff", color:"#fff", textTransform:"inherit"}} variant = "outlined">Follow</Button>
+                  <Button style={{width:"60px", fontSize:"12px", borderColor:"#fff", color:"#fff", textTransform:"inherit"}} variant = "outlined">Follow</Button>)
                 }
                   
                 </div>

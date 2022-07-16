@@ -27,14 +27,19 @@ const createReel = asyncHandler(async(req, res) => {
 
 const getReels = asyncHandler(async(req, res) => {
     const user = await User.findById(req.user._id);
-    const reels = await Reel.find({$or: [{createdBy : {$in : user.following}}, {createdBy : {$in : user.followers}}, {_id: {$in : user.reels}}]})
+    var reels = await Reel.find({$or: [{createdBy : {$in : user.following}}, {createdBy : {$in : user.followers}}, {_id: {$in : user.reels}}]})
                             .skip(req.query.page)
                             .limit(6)
                             .sort({createdAt : -1}).populate({
                                 path: "createdBy comments tags",
                                 select: "-password"
-                        });
-
+                            });
+    const allReel = await Reel.find().populate({path: "createdBy tags", match: {private: false}}).sort({createdAt:-1})
+    
+    allReel.forEach(reel => {
+        reels.push(reel);
+    });
+    
     if(reels) {
         res.status(200).json(reels);
     } else {
