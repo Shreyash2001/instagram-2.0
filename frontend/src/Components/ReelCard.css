@@ -36,6 +36,17 @@
     border-bottom-right-radius: 22px;
 }
 
+.reels_caption {
+    height: 50px;
+    width: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+.reels_caption::-webkit-scrollbar {
+    display: none;
+}
+
 .reels_nameContainer {
     width: 300px;
     display: flex;

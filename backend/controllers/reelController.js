@@ -34,14 +34,18 @@ const getReels = asyncHandler(async(req, res) => {
                                 path: "createdBy comments tags",
                                 select: "-password"
                             });
+    const map = new Map();
+    reels.forEach(reel => {
+        map.set(String(reel._id), reel);
+    });
     const allReel = await Reel.find().populate({path: "createdBy tags", match: {private: false}}).sort({createdAt:-1})
     
     allReel.forEach(reel => {
-        reels.push(reel);
+        map.set(String(reel._id), reel);
     });
-    
+
     if(reels) {
-        res.status(200).json(reels);
+        res.status(200).json(Array.from(map.values()));
     } else {
         res.status(404).json({message : "You have not posted anything"});
     }

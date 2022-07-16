@@ -5,7 +5,7 @@ import "./ReelCard.css";
 
 function ReelCard({caption, creator, tags, url}) {
   const {userInfo} = useSelector(state => state.userLogin);
-  console.log(userInfo?._id !== creator?._id)
+
   return (
 
       <div className="reelCard">
@@ -27,7 +27,7 @@ function ReelCard({caption, creator, tags, url}) {
           muted
           />
           <div className="reels__info">
-          <div>
+          <div className="reels_caption">
             <p style={{color:"#fff"}}>{caption}</p>
           </div>
             <div className="reels_nameContainer">
