@@ -9,6 +9,7 @@ import moment from "moment";
 
 function Feed({userInfo, posts}) {
   var {loading, error} = useSelector(state => state.allPosts);
+  var savedPosts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
   const [loaders, setLoaders] = useState(["1", "2", "3"]);
   
   return (
@@ -69,7 +70,27 @@ function Feed({userInfo, posts}) {
         <div className="feed__cards">
         
         {
+          posts !== undefined && posts !== null
+          ?
           posts?.map((post) => (
+            <FeedCard 
+              key={post?._id}
+              id={post?._id}
+              user_info={userInfo}  
+              name = {post?.postedBy?.firstName + " " + post?.postedBy?.lastName}
+              username = {post?.postedBy?.userName}
+              images = {post?.image}
+              likes = {post?.likes}
+              profilePic = {post?.postedBy?.profilePic}
+              caption = {post?.caption}
+              location = {post?.location}
+              comments = {post?.comments}
+              time = {moment(post?.updatedAt).fromNow()}
+              currUserId = {userInfo?._id}
+            />
+          ))
+          :
+          savedPosts?.map((post) => (
             <FeedCard 
               key={post?._id}
               id={post?._id}

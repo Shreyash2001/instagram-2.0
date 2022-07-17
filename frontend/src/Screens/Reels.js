@@ -10,9 +10,11 @@ import "./Reels.css";
 function Reels() {
   const dispatch = useDispatch();
   var {reels, loading} = useSelector(state => state.allReels);
+  var savedReels = [];
   if(sessionStorage.getItem("Instagram-Reels") !== undefined && sessionStorage.getItem("Instagram-Reels") !== null) {
-    reels = JSON.parse(sessionStorage.getItem("Instagram-Reels"));
+    savedReels = JSON.parse(sessionStorage.getItem("Instagram-Reels"));
   }
+
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -35,10 +37,24 @@ function Reels() {
             <Skeleton width={320} height={500} style={{marginBottom:"10px", marginLeft:"50px", borderRadius:"22px"}} />
             <Skeleton width={320} height={500} style={{marginBottom:"10px", marginLeft:"50px", borderRadius:"22px"}} />
             <Skeleton width={320} height={500} style={{marginBottom:"10px", marginLeft:"50px", borderRadius:"22px"}} />
+            <Skeleton width={320} height={500} style={{marginBottom:"10px", marginLeft:"50px", borderRadius:"22px"}} />
+            <Skeleton width={320} height={500} style={{marginBottom:"10px", marginLeft:"50px", borderRadius:"22px"}} />
+            <Skeleton width={320} height={500} style={{marginBottom:"10px", marginLeft:"50px", borderRadius:"22px"}} />
           </div>
         }
         <div className="reelsContainer">
-          { reels?.map((reel) => (
+          {reels !== undefined && reels !== null 
+          ?
+          reels?.map((reel) => (
+            <ReelCard 
+            key={reel?._id} 
+            caption={reel?.caption} 
+            creator={reel?.createdBy} 
+            tags={reel?.tags}
+            url={reel?.video} />
+          )) 
+          :
+           savedReels?.map((reel) => (
             <ReelCard 
             key={reel?._id} 
             caption={reel?.caption} 
@@ -46,8 +62,8 @@ function Reels() {
             tags={reel?.tags}
             url={reel?.video} />
           ))
-            
-          }
+            }
+          
         </div>
         <div>
 

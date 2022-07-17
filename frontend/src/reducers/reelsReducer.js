@@ -18,6 +18,7 @@ export const addReelReducer = (state = {}, action) => {
             return {
                 loading: false,
                 success: true,
+                newReel: action.payload
             }
         case ADD_REELS_FAIL:
             return {

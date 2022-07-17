@@ -171,6 +171,9 @@ function AddReel({setOpen}) {
                     {cloudinaryLoading && <div style={{width:"552px"}}>
                         <SlidingLoader length={552} />
                     </div>}
+                    {loading && <div style={{width:"552px"}}>
+                        <SlidingLoader length={700} />
+                    </div>}
 
                     {video === null && page === 0
                     &&
