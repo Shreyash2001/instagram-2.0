@@ -24,9 +24,28 @@ function PostById({incomingFrom, temp}) {
     const [comment, setComment] = useState("");
     const [showPostButton, setShowPostButton] = useState(false);
     const history = useHistory();
-    const id = incomingFrom.name !== "user_details" ? (window.location.pathname.split("/")[2]) : incomingFrom.id;
 
-    const posts = incomingFrom.name !== "user_details" ? JSON.parse(sessionStorage.getItem("Instagram-Posts")) : JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
+    var id = window.location.pathname.split("/")[2];
+    if(incomingFrom.name === "user_details") {
+      id = incomingFrom.id;
+    };
+
+    if(incomingFrom.name === "reels") {
+      id = incomingFrom.id;
+    }
+
+    // const id = incomingFrom.name !== "user_details" ? (window.location.pathname.split("/")[2]) : incomingFrom.id;
+
+    var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+    if(incomingFrom.name === "user_details") {
+      posts = JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
+    };
+
+    if(incomingFrom.name === "reels") {
+      posts = JSON.parse(sessionStorage.getItem("Instagram-Reels"));
+    }
+
+    // const posts = incomingFrom.name !== "user_details" ? JSON.parse(sessionStorage.getItem("Instagram-Posts")) : JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
 
     const dispatch = useDispatch();
     const {info, success, loading} = useSelector(state => state.commentAdded);

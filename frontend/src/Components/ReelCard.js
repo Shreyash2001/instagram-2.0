@@ -4,10 +4,13 @@ import { useSelector } from 'react-redux';
 import "./ReelCard.css";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import { useHistory } from 'react-router-dom';
+import PostById from '../Screens/PostById';
 
 function ReelCard({caption, creator, tags, url}) {
   const [showMute, setShowMute] = useState(true);
   const {userInfo} = useSelector(state => state.userLogin);
+  const history = useHistory();
   const refVideo = useRef(null);
 
   const handleUnmute = () => {
@@ -20,6 +23,15 @@ function ReelCard({caption, creator, tags, url}) {
     refVideo.current.defaultMuted = true;
     refVideo.current.muted = true;
     setShowMute(true);
+  }
+
+  const gotoUserProfile = () => {
+    history.push(`/details/user/${creator?.userName}`)
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    setOpen(true);
   }
 
   return (
@@ -41,6 +53,7 @@ function ReelCard({caption, creator, tags, url}) {
           loop
           autoPlay
           muted
+          onClick={handleClick}
           />
           <div className="reels__info">
           <div className="reels_caption">
@@ -52,7 +65,7 @@ function ReelCard({caption, creator, tags, url}) {
             }
           </div>
             <div className="reels_nameContainer">
-            <div className="reels_name">
+            <div className="reels_name" onClick = {gotoUserProfile}>
                 <div style={{marginRight:"10px"}}>
                   <Avatar src={creator?.profilePic} />
                 </div>
@@ -75,6 +88,9 @@ function ReelCard({caption, creator, tags, url}) {
                   
                 </div>
             </div>
+            {
+              open && <PostById incomingFrom={{name: "reels", id: creator?._id}} />
+            }
           </div>
       </div>
 
