@@ -18,7 +18,7 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import moment from "moment";
 
-function PostById({incomingFrom, temp}) {
+function PostById({incomingFrom, temp, openCloseReel}) {
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
     const [comment, setComment] = useState("");
@@ -33,7 +33,6 @@ function PostById({incomingFrom, temp}) {
     if(incomingFrom.name === "reels") {
       id = incomingFrom.id;
     }
-
     // const id = incomingFrom.name !== "user_details" ? (window.location.pathname.split("/")[2]) : incomingFrom.id;
 
     var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
@@ -44,17 +43,37 @@ function PostById({incomingFrom, temp}) {
     if(incomingFrom.name === "reels") {
       posts = JSON.parse(sessionStorage.getItem("Instagram-Reels"));
     }
-
     // const posts = incomingFrom.name !== "user_details" ? JSON.parse(sessionStorage.getItem("Instagram-Posts")) : JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
 
     const dispatch = useDispatch();
     const {info, success, loading} = useSelector(state => state.commentAdded);
     const {userInfo} = useSelector(state => state.userLogin);
 
+    const setUpGeneralObject = (post) => {
+      if(incomingFrom.name === "reels") {
+      return {
+        caption: post?.caption,
+        comments: post?.comments,
+        createdAt: post?.createdAt,
+        image: ["Video -> " + post?.video],
+        image_cloudinary_id: post?.cloudinary_video_id,
+        likes: post?.likes,
+        location: post?.destination,
+        postedBy: post?.createdBy,
+        report: post?.reports,
+        tags: post?.tags,
+        updatedAt: post?.updatedAt,
+        _id: post?._id,
+      };
+    } else {
+        return post;
+      }
+    }
     useEffect(() => {
-      setPostData(posts.find((post) => post._id === id));
+      setPostData(setUpGeneralObject(posts.find((post) => post._id === id)));
   }, [id]);
 
+console.log(postData)
   useEffect(() => {
     if(success) {
       setComment("");
@@ -118,8 +137,12 @@ function PostById({incomingFrom, temp}) {
           setOpen(false);
           if(incomingFrom.name === "feed")
           history.push('/');
+
           if(incomingFrom.name === "user_details")
           temp(false);
+
+          if(incomingFrom.name === "reels")
+          openCloseReel(false);
         }
 
         const onEmojiClick = (event, emojiObject) => {
@@ -153,8 +176,6 @@ function PostById({incomingFrom, temp}) {
         handleOpen();
       }, [incomingFrom]);
 
-      
-
 
   return (
     <div>
@@ -183,7 +204,7 @@ function PostById({incomingFrom, temp}) {
                                 src={data.split("->")[1]} 
                                 alt="img" /> 
                                 :
-                                <video style={{width:"500px", height:"800px", marginLeft:"25px"}} 
+                                <video style={{width:"525px", height:"800px", objectFit:"fill"}} 
                                   key={i}
                                   src={data.split("->")[1]}
                                   muted

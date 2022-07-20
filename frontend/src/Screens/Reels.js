@@ -48,6 +48,7 @@ function Reels() {
           reels?.map((reel) => (
             <ReelCard 
             key={reel?._id} 
+            _id={reel?._id}
             caption={reel?.caption} 
             creator={reel?.createdBy} 
             tags={reel?.tags}
@@ -57,6 +58,7 @@ function Reels() {
            savedReels?.map((reel) => (
             <ReelCard 
             key={reel?._id} 
+            _id={reel?._id}
             caption={reel?.caption} 
             creator={reel?.createdBy} 
             tags={reel?.tags}

@@ -7,7 +7,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { useHistory } from 'react-router-dom';
 import PostById from '../Screens/PostById';
 
-function ReelCard({caption, creator, tags, url}) {
+function ReelCard({_id, caption, creator, tags, url}) {
   const [showMute, setShowMute] = useState(true);
   const {userInfo} = useSelector(state => state.userLogin);
   const history = useHistory();
@@ -32,7 +32,11 @@ function ReelCard({caption, creator, tags, url}) {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(true);
-  }
+  };
+
+  const openCloseReel = (bool) => {
+    setOpen(bool);
+  };
 
   return (
 
@@ -60,7 +64,7 @@ function ReelCard({caption, creator, tags, url}) {
             <p style={{color:"#fff"}}>{caption}</p>
             {
               tags?.map((tag) => (
-                <span style={{color:"#fff"}}>@{tag?.userName + " "}</span>
+                <span key={tag?._id} style={{color:"#fff"}}>@{tag?.userName + " "}</span>
               ))
             }
           </div>
@@ -89,7 +93,7 @@ function ReelCard({caption, creator, tags, url}) {
                 </div>
             </div>
             {
-              open && <PostById incomingFrom={{name: "reels", id: creator?._id}} />
+              open && <PostById incomingFrom={{name: "reels", id: _id}} openCloseReel={openCloseReel} />
             }
           </div>
       </div>
