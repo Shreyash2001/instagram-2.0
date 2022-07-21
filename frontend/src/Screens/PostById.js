@@ -1,4 +1,4 @@
-import {React, useEffect, useState} from 'react';
+import {React, useEffect, useRef, useState} from 'react';
 import "./PostbyId.css";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -17,6 +17,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import moment from "moment";
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 
 function PostById({incomingFrom, temp, openCloseReel}) {
     const [postData, setPostData] = useState({});
@@ -68,7 +70,23 @@ function PostById({incomingFrom, temp, openCloseReel}) {
     } else {
         return post;
       }
-    }
+    };
+
+  const [showMute, setShowMute] = useState(true);
+  const refVideo = useRef(null);
+
+  const handleUnmute = () => {
+    refVideo.current.defaultMuted = false;
+    refVideo.current.muted = false;
+    setShowMute(false);
+  };
+
+  const handleMute = () => {
+    refVideo.current.defaultMuted = true;
+    refVideo.current.muted = true;
+    setShowMute(true);
+  }
+
     useEffect(() => {
       setPostData(setUpGeneralObject(posts.find((post) => post._id === id)));
   }, [id]);
@@ -196,7 +214,7 @@ console.log(postData)
                       cycleNavigation={false} 
                       animation={"slide"}>
                           {
-                              postData?.image?.map( (data, i) => (
+                              postData?.image?.map((data, i) => (
                                 data.split("->")[0].startsWith("I")
                                 ?
                                 <img style={{width:"525px", height:"800px"}} 
@@ -204,12 +222,26 @@ console.log(postData)
                                 src={data.split("->")[1]} 
                                 alt="img" /> 
                                 :
+                                <>
+                                {
+                                showMute 
+                                ? 
+                                <VolumeOffIcon 
+                                className="volume"
+                                onClick={handleUnmute} />
+                                :
+                                <VolumeUpIcon 
+                                className="volume" 
+                                onClick={handleMute} />
+                                }
                                 <video style={{width:"525px", height:"800px", objectFit:"fill"}} 
                                   key={i}
                                   src={data.split("->")[1]}
                                   muted
-                                  autoPlay={true} 
+                                  autoPlay={true}
+                                  ref={refVideo} 
                                 />
+                                </>
                                 ))
                           } 
                     </Carousel>
