@@ -19,6 +19,8 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import moment from "moment";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import OpenModal from '../Components/OpenModal';
 
 function PostById({incomingFrom, temp, openCloseReel}) {
     const [postData, setPostData] = useState({});
@@ -85,13 +87,17 @@ function PostById({incomingFrom, temp, openCloseReel}) {
     refVideo.current.defaultMuted = true;
     refVideo.current.muted = true;
     setShowMute(true);
+  };
+
+  const [openTag, setOpenTag] = useState(false);
+  const openTags = () => {
+    setOpenTag(true);
   }
 
     useEffect(() => {
       setPostData(setUpGeneralObject(posts.find((post) => post._id === id)));
   }, [id]);
 
-console.log(postData)
   useEffect(() => {
     if(success) {
       setComment("");
@@ -244,7 +250,10 @@ console.log(postData)
                                 </>
                                 ))
                           } 
-                    </Carousel>
+                      </Carousel>
+                      <div onClick={openTags} className="showTags">
+                        <AccountCircleIcon style={{color:"#fff"}} />
+                      </div>
                     </div>
                     
                   <div className="post__rightContainer">
@@ -304,7 +313,6 @@ console.log(postData)
                         ))}
                       </div>
                       </div>
-
 
                       
                       <div className="post__downContainer">
@@ -404,6 +412,10 @@ console.log(postData)
 
 
                   </div>
+
+                  {
+                    openTag && <OpenModal  />
+                  }
                   </div>
                 </Box>
               </Modal>

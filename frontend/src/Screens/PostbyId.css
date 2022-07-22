@@ -5,10 +5,19 @@
 .post__leftImageContainer {
     width: 1500px;
     height: 100% !important;
+    position: relative;
 }
 
 .post__leftImageContainer > div {
     max-height: 680px !important;
+}
+
+.showTags {
+    position: absolute;
+    bottom: 10px;
+    margin-left: 10px;
+    z-index: 100;
+    cursor: pointer;
 }
 
 .volume {
