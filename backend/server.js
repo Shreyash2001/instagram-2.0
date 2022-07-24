@@ -6,7 +6,6 @@ const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
 const storyRoutes = require("./routes/storyRoutes");
 const reelRoutes = require("./routes/reelRoutes");
-const ImageKit = require('imagekit');
 const cors = require('cors');
 const sse = require("./sse/sse");
 const sseRoute = require("./routes/sseRoute");
@@ -25,11 +24,6 @@ app.use("/api/stories", storyRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 
-const imagekit = new ImageKit({
-    urlEndpoint: process.env.URL_ENDPOINT,
-    publicKey:  process.env.PUBLIC_KEY,
-    privateKey: process.env.PRIVATE_KEY
-  }); 
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

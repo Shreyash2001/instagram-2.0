@@ -4,6 +4,8 @@ const User = require("../model/userModel");
 const moment = require("moment");
 const sse = require("../sse/sse");
 const Comment = require("../model/commentModel");
+const got = require("got");
+
 
 
 const createPost = asyncHandler(async(req, res) => {
@@ -62,6 +64,7 @@ const like = asyncHandler(async(req, res) => {
                 id : post.postedBy
             }
             !isLiked && data.id.toString() !== req.user._id.toString() && sse.send(data, "like");
+            
         } else {
             res.status(400).json({message: "Try to like again"});
         }
@@ -95,6 +98,19 @@ const addComment = asyncHandler(async(req, res) => {
         res.status(400).json({message : "Something went wrong"});
     }
 });
+ 
+const machineLearning = asyncHandler(async(req, res) => {
+    const apiKey = process.env.imagga_api_key;
+    const apiSecret = process.env.imagga_api_secret;
+    const url = 'https://api.imagga.com/v2/tags?image_url=' + encodeURIComponent(req.body.image);
+    try{
+        const response = await got(url, {username: apiKey, password: apiSecret});
+        return res.json(JSON.parse(response.body));
+    } catch(error) {
+        console.log(error.response.body);
+        return {error: "Something went wrong check log for more details"};
+    }
+        
+})
 
-
-module.exports = {createPost, getPost, like, deletePost, addComment};
+module.exports = {createPost, getPost, like, deletePost, addComment, machineLearning};

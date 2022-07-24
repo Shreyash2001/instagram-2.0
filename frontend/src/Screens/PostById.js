@@ -86,12 +86,17 @@ function PostById({incomingFrom, temp, openCloseReel}) {
   const handleMute = () => {
     refVideo.current.defaultMuted = true;
     refVideo.current.muted = true;
-    setShowMute(true);
+    setShowMute(true); 
   };
 
   const [openTag, setOpenTag] = useState(false);
   const openTags = () => {
     setOpenTag(true);
+  }
+
+  const closeTags = (val) => {
+    console.log(val)
+    setOpenTag(val);
   }
 
     useEffect(() => {
@@ -414,7 +419,7 @@ function PostById({incomingFrom, temp, openCloseReel}) {
                   </div>
 
                   {
-                    openTag && <OpenModal  />
+                    openTag && <OpenModal closeTags={closeTags}  />
                   }
                   </div>
                 </Box>
