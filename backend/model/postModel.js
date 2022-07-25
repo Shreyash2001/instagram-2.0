@@ -9,6 +9,9 @@ const PostSchema = mongoose.Schema({
         type : String,
         required : true
     }],
+    processed_image_details: [{
+        type: String
+    }],
     caption : {
         type : String,
         required : true

@@ -38,6 +38,14 @@ const userSchema = mongoose.Schema({
         type : mongoose.Types.ObjectId,
         ref : "Post"
     }],
+    user_preferences : [{
+        imageContent: {
+            type: String
+        },
+        like_count: {
+            type: Number
+        }
+    }],
     likes : [{
         type : mongoose.Types.ObjectId,
         ref : "Post"
