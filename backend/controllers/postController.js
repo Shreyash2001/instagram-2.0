@@ -66,14 +66,21 @@ const like = asyncHandler(async(req, res) => {
             !isLiked && data.id.toString() !== req.user._id.toString() && sse.send(data, "like");
             
             if(isLiked === false) {
-                tempPost.image.forEach((image) => {
-                    const data = processImage(image);
-                    data.result.tags.forEach(async(detail) => {
-                        if(detail.confidence > 14)
-                            await Post.findByIdAndUpdate(req.body.id, {$addToSet: {processed_image_details: detail.tag.en}})
+                tempPost.image.forEach(async(image) => {
+
+                    if(image.startsWith("I") === true) {
+                    const data = await processImage(image.split("->")[1].trim());
+
+                    await data.result.tags.forEach(async(detail) => {
+                        if(detail.confidence > 19) {
+                            await Post.findByIdAndUpdate(req.body.id, {$addToSet: {processed_image_details: detail.tag.en}}, {new: true});
+                            await User.findByIdAndUpdate(req.user._id, {$addToSet: {user_preferences: detail.tag.en}}, {new: true});
+                        }
                     });
+                }
                 });
-            }
+            
+        }
 
         } else {
             res.status(400).json({message: "Try to like again"});
@@ -109,18 +116,19 @@ const addComment = asyncHandler(async(req, res) => {
     }
 });
  
-const processImage = async(image) => {
+const processImage = asyncHandler(async(image) => {
     const apiKey = process.env.imagga_api_key;
     const apiSecret = process.env.imagga_api_secret;
     const url = 'https://api.imagga.com/v2/tags?image_url=' + encodeURIComponent(image);
     try{
         const response = await got(url, {username: apiKey, password: apiSecret});
-        return res.json(JSON.parse(response.body));
+
+        return JSON.parse(response.body);
     } catch(error) {
         console.log(error.response.body);
         return {error: "Something went wrong check log for more details"};
     }
         
-};
+});
 
 module.exports = {createPost, getPost, like, deletePost, addComment};
