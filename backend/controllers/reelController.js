@@ -26,14 +26,13 @@ const createReel = asyncHandler(async(req, res) => {
 });
 
 const getReels = asyncHandler(async(req, res) => {
-    const user = await User.findById(req.user._id);
-    var reels = await Reel.find({$or: [{createdBy : {$in : user.following}}, {createdBy : {$in : user.followers}}, {_id: {$in : user.reels}}]})
+    var reels = await Reel.find({$or: [{createdBy : {$in : req.user.following}}, {createdBy : {$in : req.user.followers}}, {_id: {$in : req.user.reels}}]})
                             .skip(req.query.page)
                             .limit(6)
                             .sort({createdAt : -1}).populate({
                                 path: "createdBy comments tags",
                                 select: "-password"
-                            });
+                            }); 
     const map = new Map();
     reels.forEach(reel => {
         map.set(String(reel._id), reel);
@@ -49,6 +48,6 @@ const getReels = asyncHandler(async(req, res) => {
     } else {
         res.status(404).json({message : "You have not posted anything"});
     }
-})
+});
 
 module.exports = {createReel, getReels}

@@ -4,7 +4,8 @@ const User = require("../model/userModel");
 const moment = require("moment");
 const sse = require("../sse/sse");
 const Comment = require("../model/commentModel");
-const got = require("got");
+const { processImage } = require("../utils/imageProcessing"); 
+const Reel = require("../model/reelModel");
 
 
 const createPost = asyncHandler(async(req, res) => {
@@ -117,20 +118,20 @@ const addComment = asyncHandler(async(req, res) => {
         res.status(400).json({message : "Something went wrong"});
     }
 });
- 
-const processImage = asyncHandler(async(image) => {
-    const apiKey = process.env.imagga_api_key;
-    const apiSecret = process.env.imagga_api_secret;
-    const url = 'https://api.imagga.com/v2/tags?image_url=' + encodeURIComponent(image);
-    try{
-        const response = await got(url, {username: apiKey, password: apiSecret});
 
-        return JSON.parse(response.body);
-    } catch(error) {
-        console.log(error.response.body);
-        return {error: "Something went wrong check log for more details"};
+const explore = asyncHandler(async(req, res) => {
+    const data = {};
+    const images = await Post.find({processed_image_details: {$in: req.user.user_preferences}}).sort({createdAt: -1});
+    if(images) {
+        data.images = images;
     }
-        
+    
+    const reels = await Reel.find({$or: [{createdBy : {$in : req.user.following}}, {createdBy : {$in : req.user.followers}}, {_id: {$in : req.user.reels}}]})
+                            .sort({createdAt : -1})
+    if(reels) {
+        data.reels = reels;
+    }
+    res.json(data);
 });
 
-module.exports = {createPost, getPost, like, deletePost, addComment};
+module.exports = {createPost, getPost, like, deletePost, addComment, explore};
