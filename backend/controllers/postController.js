@@ -7,7 +7,6 @@ const Comment = require("../model/commentModel");
 const got = require("got");
 
 
-
 const createPost = asyncHandler(async(req, res) => {
     const {image, caption, location, tags, image_cloudinary_id} = req.body;
 
@@ -66,21 +65,24 @@ const like = asyncHandler(async(req, res) => {
             !isLiked && data.id.toString() !== req.user._id.toString() && sse.send(data, "like");
             
             if(isLiked === false) {
-                tempPost.image.forEach(async(image) => {
+                if(tempPost.processed_image_details === undefined || tempPost.processed_image_details.length === 0) {
+                
+                    if(tempPost.image[0].startsWith("I") === true) {
+                        const data = await processImage(tempPost.image[0].split("->")[1].trim());
 
-                    if(image.startsWith("I") === true) {
-                    const data = await processImage(image.split("->")[1].trim());
-
-                    await data.result.tags.forEach(async(detail) => {
-                        if(detail.confidence > 19) {
-                            await Post.findByIdAndUpdate(req.body.id, {$addToSet: {processed_image_details: detail.tag.en}}, {new: true});
-                            await User.findByIdAndUpdate(req.user._id, {$addToSet: {user_preferences: detail.tag.en}}, {new: true});
-                        }
-                    });
+                        await data.result.tags.forEach(async(detail) => {
+                            if(detail.confidence > 10) {
+                                await Post.findByIdAndUpdate(req.body.id, {$addToSet: {processed_image_details: detail.tag.en}}, {new: true});
+                                await User.findByIdAndUpdate(req.user._id, {$addToSet: {user_preferences: detail.tag.en}}, {new: true});
+                            }
+                        });
                 }
+            } else {
+                tempPost.processed_image_details.forEach(async(data) => {
+                    await User.findByIdAndUpdate(req.user._id, {$addToSet: {user_preferences: data}}, {new: true});
                 });
-            
-        }
+            }
+        } 
 
         } else {
             res.status(400).json({message: "Try to like again"});
