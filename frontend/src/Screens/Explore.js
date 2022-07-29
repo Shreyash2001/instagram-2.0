@@ -10,16 +10,18 @@ import Carousel from 'react-material-ui-carousel';
 
 function Explore() {
   const dispatch = useDispatch();
-  var posts = useSelector(state => state.explorePosts);
-  posts = JSON.parse(sessionStorage.getItem("Explore-Posts"));
-console.log(posts)
+  var {posts} = useSelector(state => state.explorePosts);
+  if(posts === undefined) {
+    posts = JSON.parse(sessionStorage.getItem("Explore-Posts"));
+  };
+
   useEffect(() => {
     if(sessionStorage.getItem("Explore-Posts") === undefined || sessionStorage.getItem("Explore-Posts") === null) {
       dispatch(getExploreData());
     }
     
   }, [])
-
+console.log(posts)
   return (
     <div className="explore">
     <div>
@@ -30,23 +32,18 @@ console.log(posts)
       <ImageList variant="masonry" cols={2} gap={30}>
         {posts?.images?.map((post) => (
           <ImageListItem key={post?._id}>
-          <Carousel 
-          navButtonsAlwaysVisible 
-          indicators={false}
-          autoPlay = {false}
-          cycleNavigation={false} 
-          animation={"slide"}>
-            {/* <img
-              src={`${item.image[0].split("->")[1]}?w=248&fit=crop&auto=format`}
-              srcSet={`${item.image[0]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+          
+            <img
+              src={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format`}
+              srcSet={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={""}
               loading="lazy"
-            /> */}
-            {
+            />
+            {/* {
                   Array.from(post?.image?.values()).map( (data, i) => 
                   data.split("->")[0].startsWith("I")
                   ?
-                  <img style={{width:"623px", height:"550px"}} 
+                  <img 
                   key={i} 
                   src={`${data.split("->")[1]}?w=248&fit=crop&auto=format`}
                   srcSet={`${data.split("->")[1]}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -61,8 +58,8 @@ console.log(posts)
                     autoPlay={true} 
                   />
                   )
-              } 
-          </Carousel>
+              }  */}
+          
           </ImageListItem>
         ))}
       </ImageList>
