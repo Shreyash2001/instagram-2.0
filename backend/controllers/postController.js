@@ -119,6 +119,15 @@ const addComment = asyncHandler(async(req, res) => {
     }
 });
 
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
 const explore = asyncHandler(async(req, res) => {
     const data = [];
     const images = await Post.find({processed_image_details: {$in: req.user.user_preferences}}).sort({createdAt: -1});
@@ -133,7 +142,8 @@ const explore = asyncHandler(async(req, res) => {
         reels.forEach(reel => {
             data.push(reel);
         });
-    }
+    };
+    shuffleArray(data);
     res.json(data);
 });
 

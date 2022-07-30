@@ -6,7 +6,6 @@ import ImageListItem from '@mui/material/ImageListItem';
 import TopBar from '../Components/TopBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExploreData } from '../actions/postsAction';
-import Carousel from 'react-material-ui-carousel';
 
 function Explore() {
   const dispatch = useDispatch();
@@ -20,10 +19,8 @@ function Explore() {
       dispatch(getExploreData());
     }
     
-  }, [])
-  posts.forEach(post => {
-    console.log(post?.image)
-  });
+  }, []);
+  
   return (
     <div className="explore">
     <div>
@@ -31,11 +28,11 @@ function Explore() {
     </div>
     <div>
     <Box className="explore__container">
-      <ImageList variant="masonry" cols={2} gap={30}>
+      <ImageList variant="masonry" cols={2} gap={20}>
         {posts?.map((post) => (
           <ImageListItem key={post?._id}>
           {
-            post?.image !== undefined && post?.image !== null
+            post?.image !== undefined
             ?
             <img
               src={`${post?.image[0].split("->")[1]}?w=248&fit=crop&auto=format`}
@@ -45,10 +42,14 @@ function Explore() {
             />
             :
             <video 
-              src={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format`}
-              srcSet={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              src={`${post.video}?w=248&fit=crop&auto=format`}
+              srcSet={`${post.video}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={""}
               loading="lazy"
+              muted
+              autoPlay
+              loop
+              style={{width:"410px", height:"600px", objectFit:"fill"}}
             />
           }
           
