@@ -21,7 +21,9 @@ function Explore() {
     }
     
   }, [])
-console.log(posts)
+  posts.forEach(post => {
+    console.log(post?.image)
+  });
   return (
     <div className="explore">
     <div>
@@ -30,35 +32,25 @@ console.log(posts)
     <div>
     <Box className="explore__container">
       <ImageList variant="masonry" cols={2} gap={30}>
-        {posts?.images?.map((post) => (
+        {posts?.map((post) => (
           <ImageListItem key={post?._id}>
-          
+          {
+            post?.image !== undefined && post?.image !== null
+            ?
             <img
+              src={`${post?.image[0].split("->")[1]}?w=248&fit=crop&auto=format`}
+              srcSet={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              alt={""}
+              loading="lazy"
+            />
+            :
+            <video 
               src={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format`}
               srcSet={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={""}
               loading="lazy"
             />
-            {/* {
-                  Array.from(post?.image?.values()).map( (data, i) => 
-                  data.split("->")[0].startsWith("I")
-                  ?
-                  <img 
-                  key={i} 
-                  src={`${data.split("->")[1]}?w=248&fit=crop&auto=format`}
-                  srcSet={`${data.split("->")[1]}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={""}
-                  loading="lazy"
-                  /> 
-                  :
-                  <video style={{width:"623px", height:"550px"}} 
-                    key={i}
-                    src={data.split("->")[1]}
-                    muted
-                    autoPlay={true} 
-                  />
-                  )
-              }  */}
+          }
           
           </ImageListItem>
         ))}
