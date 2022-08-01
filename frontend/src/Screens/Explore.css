@@ -9,3 +9,15 @@
 .explore__container::-webkit-scrollbar {
     display: none;
 }
+
+.explore_images {
+    cursor: pointer;
+}
+
+.explore_reels {
+    width: 410px;
+    height: 600px;
+    object-fit: fill;
+    border-radius: 22px;
+    cursor: pointer;
+}

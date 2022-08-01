@@ -6,6 +6,8 @@ import ImageListItem from '@mui/material/ImageListItem';
 import TopBar from '../Components/TopBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getExploreData } from '../actions/postsAction';
+import MovieIcon from '@mui/icons-material/Movie';
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded';
 
 function Explore() {
   const dispatch = useDispatch();
@@ -39,8 +41,12 @@ function Explore() {
               srcSet={`${post.image[0].split("->")[1]}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={""}
               loading="lazy"
+              className="explore_images"
             />
+
             :
+            <div style={{position:"relative"}}>
+            <MovieIcon style={{position:"absolute", top:"10px", left:"10px", color:"#fff"}} />
             <video 
               src={`${post.video}?w=248&fit=crop&auto=format`}
               srcSet={`${post.video}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -49,8 +55,9 @@ function Explore() {
               muted
               autoPlay
               loop
-              style={{width:"410px", height:"600px", objectFit:"fill"}}
+              className="explore_reels"
             />
+            </div>
           }
           
           </ImageListItem>
