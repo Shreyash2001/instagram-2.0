@@ -130,14 +130,19 @@ function shuffleArray(array) {
 
 const explore = asyncHandler(async(req, res) => {
     const data = [];
-    const images = await Post.find({processed_image_details: {$in: req.user.user_preferences}}).sort({createdAt: -1});
+    const images = await Post.find({processed_image_details: {$in: req.user.user_preferences}})
+                        .sort({createdAt: -1})
+                        .populate("postedBy comments");
     if(images) {
         images.forEach(image => {
             data.push(image);
         });
     }
-    const reels = await Reel.find({$or: [{createdBy : {$in : req.user.following}}, {createdBy : {$in : req.user.followers}}, {_id: {$in : req.user.reels}}]})
-                            .sort({createdAt : -1}) 
+    const reels = await Reel.find({$or: [{createdBy : {$in : req.user.following}}, 
+                        {createdBy : {$in : req.user.followers}}, 
+                        {_id: {$in : req.user.reels}}]})
+                        .sort({createdAt : -1}) 
+                        .populate("createdBy comments")
     if(reels) { 
         reels.forEach(reel => {
             data.push(reel);

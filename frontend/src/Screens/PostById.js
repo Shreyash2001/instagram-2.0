@@ -22,7 +22,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OpenModal from '../Components/OpenModal';
 
-function PostById({incomingFrom, temp, openCloseReel}) {
+function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
     const [comment, setComment] = useState("");
@@ -37,6 +37,11 @@ function PostById({incomingFrom, temp, openCloseReel}) {
     if(incomingFrom.name === "reels") {
       id = incomingFrom.id;
     }
+
+    if(incomingFrom.name === "explore") {
+      id = incomingFrom.id;
+    }
+
     // const id = incomingFrom.name !== "user_details" ? (window.location.pathname.split("/")[2]) : incomingFrom.id;
 
     var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
@@ -47,6 +52,10 @@ function PostById({incomingFrom, temp, openCloseReel}) {
     if(incomingFrom.name === "reels") {
       posts = JSON.parse(sessionStorage.getItem("Instagram-Reels"));
     }
+
+    if(incomingFrom.name === "explore") {
+      posts = JSON.parse(sessionStorage.getItem("Explore-Posts"));
+    }
     // const posts = incomingFrom.name !== "user_details" ? JSON.parse(sessionStorage.getItem("Instagram-Posts")) : JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
 
     const dispatch = useDispatch();
@@ -54,7 +63,7 @@ function PostById({incomingFrom, temp, openCloseReel}) {
     const {userInfo} = useSelector(state => state.userLogin);
 
     const setUpGeneralObject = (post) => {
-      if(incomingFrom.name === "reels") {
+      if(incomingFrom.name === "reels" || (incomingFrom.name === "explore" && post?.video !== undefined)) {
       return {
         caption: post?.caption,
         comments: post?.comments,
@@ -167,12 +176,17 @@ function PostById({incomingFrom, temp, openCloseReel}) {
           if(incomingFrom.name === "feed")
           history.push('/');
 
-          if(incomingFrom.name === "user_details")
-          temp(false);
+          if(incomingFrom.name === "user_details") {
+            temp(false);
+          }
 
-          if(incomingFrom.name === "reels")
-          openCloseReel(false);
-        }
+          if(incomingFrom.name === "reels") {
+            openCloseReel(false);
+          }
+          if(incomingFrom.name === "explore") {
+            openExplore(false);
+          }
+        };
 
         const onEmojiClick = (event, emojiObject) => {
           if(emojiObject !== null) {
