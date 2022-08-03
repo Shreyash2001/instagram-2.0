@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getExploreData } from '../actions/postsAction';
 import MovieIcon from '@mui/icons-material/Movie';
 import PostById from "./PostById";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 function Explore() {
   const dispatch = useDispatch();
-  var {posts} = useSelector(state => state.explorePosts);
+  var {posts, loading} = useSelector(state => state.explorePosts);
   if(posts === undefined) {
     posts = JSON.parse(sessionStorage.getItem("Explore-Posts"));
   };
@@ -40,6 +42,31 @@ function Explore() {
     </div>
     <div>
     <Box className="explore__container">
+    <div>
+      {loading 
+      &&
+      <div>
+      <div style={{marginLeft:"10px", marginBottom:"20px", display: "flex"}}>
+        <div style={{marginRight:"20px"}}>
+        <Skeleton width={300} height={400} style={{marginBottom:"10px"}} />
+        <Skeleton width={300} height={200} />
+        </div>
+        <div>
+        <Skeleton width={400} height={600} style={{borderRadius:"22px"}} />
+        </div>
+      </div>
+      <div style={{marginLeft:"10px", display: "flex"}}>
+        <div>
+        <Skeleton width={400} height={600} style={{borderRadius:"22px"}} />
+        </div>
+        <div style={{marginLeft:"20px"}}>
+        <Skeleton width={300} height={400} style={{marginBottom:"10px"}} />
+        <Skeleton width={300} height={200} />
+        </div>
+      </div>
+      </div>
+      }
+    </div>
       <ImageList variant="masonry" cols={2} gap={20}>
         {posts?.map((post) => (
           <ImageListItem key={post?._id}>

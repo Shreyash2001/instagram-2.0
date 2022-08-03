@@ -61,7 +61,7 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
     const dispatch = useDispatch();
     const {info, success, loading} = useSelector(state => state.commentAdded);
     const {userInfo} = useSelector(state => state.userLogin);
-
+ 
     const setUpGeneralObject = (post) => {
       if(incomingFrom.name === "reels" || (incomingFrom.name === "explore" && post?.video !== undefined)) {
       return {
