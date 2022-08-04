@@ -142,6 +142,9 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
       setCountLike(countLike + 1);
       const find = posts.find((post) => post._id === id);
       find?.likes.push(userInfo?._id);
+      if(incomingFrom.name === "explore") {
+        sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
+      }
       sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
     };
   
