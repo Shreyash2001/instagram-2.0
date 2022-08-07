@@ -268,7 +268,7 @@ function HomeMiddle() {
                     scrollableTarget="scrollableDiv"
                 >
                     <Feed userInfo={userInfo} posts={posts} />
-            </InfiniteScroll>
+                </InfiniteScroll>
                 </div>
 </div>
             <div>

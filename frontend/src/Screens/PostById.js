@@ -46,7 +46,7 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
 
     var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
     if(incomingFrom.name === "user_details") {
-      posts = JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
+      posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
     };
 
     if(incomingFrom.name === "reels") {
@@ -116,13 +116,13 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
     if(success) {
       setComment("");
       setShowPostButton(false);
-      postData?.comments.push(info);
-      const find = posts.find((post) => post._id === id);
-      find?.comments.push(info);
-      sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      // postData?.comments.push(info);
+      // const find = posts.find((post) => post._id === id);
+      // find?.comments.push(info);
+      // sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
       dispatch(removeCommentData());
     }
-  }, [success, postData, info, posts]);
+  }, [success]);
 
 
     const [like, setLike] = useState(false);
@@ -221,17 +221,22 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
           data.userName = user?.userName
           return data;
         }
+        
         const addComment = () => { 
           comment.split(' ').filter(word => word).join(' ');
-          const find = posts.find((post) => post._id === id);
-          find?.comments.push(setupCommentObject(userInfo, find));
-          console.log(find);
           if(incomingFrom.name === "explore") {
+            const find = posts.find((post) => post._id === id);
+            find?.comments.push(setupCommentObject(userInfo, find));
             sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
-          }
+          };
+
           if(incomingFrom.name === "user_details") {
+            console.log(incomingFrom)
+            const find = posts.find((post) => post._id === id);
+            find?.comments.push(setupCommentObject(userInfo, find));
             sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
-          }
+          };
+
           dispatch(addCommentAction(id, comment));
         };
 
