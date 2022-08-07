@@ -145,7 +145,9 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
       if(incomingFrom.name === "explore") {
         sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
       }
-      sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      if(incomingFrom.name === "user_details") {
+        sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      }
     };
   
     const handleLikeRemoveClick = () => {
@@ -208,8 +210,28 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
           setComment(str);
         };
 
-        const addComment = () => {
+        const setupCommentObject = (user, post) => {
+          const data = {};
+          data.comment = comment;
+          data.createdAt = moment(new Date()).fromNow;
+          data.name = user.firstName + " " + user.lastName;
+          data.post = post?._id;
+          data.profilePic = user?.profilePic;
+          data.report = [];
+          data.userName = user?.userName
+          return data;
+        }
+        const addComment = () => { 
           comment.split(' ').filter(word => word).join(' ');
+          const find = posts.find((post) => post._id === id);
+          find?.comments.push(setupCommentObject(userInfo, find));
+          console.log(find);
+          if(incomingFrom.name === "explore") {
+            sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
+          }
+          if(incomingFrom.name === "user_details") {
+            sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+          }
           dispatch(addCommentAction(id, comment));
         };
 
