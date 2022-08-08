@@ -6,12 +6,20 @@ import FeedCard from '../Components/FeedCard';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import moment from "moment";
+import PostById from './PostById';
 
 function Feed({userInfo, posts}) {
   var {loading, error} = useSelector(state => state.allPosts);
   var savedPosts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
   const [loaders, setLoaders] = useState(["1", "2", "3"]);
-  
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState(null);
+
+  const handleClick = (currId) => {
+    setOpen(true);
+    setId(currId);
+  };
+
   return (
     <>
     {
@@ -73,6 +81,7 @@ function Feed({userInfo, posts}) {
           posts !== undefined && posts !== null
           ?
           posts?.map((post) => (
+            <div>
             <FeedCard 
               key={post?._id}
               id={post?._id}
@@ -88,9 +97,11 @@ function Feed({userInfo, posts}) {
               time = {moment(post?.updatedAt).fromNow()}
               currUserId = {userInfo?._id}
             />
+            </div>
           ))
           :
           savedPosts?.map((post) => (
+            <div>
             <FeedCard 
               key={post?._id}
               id={post?._id}
@@ -106,8 +117,14 @@ function Feed({userInfo, posts}) {
               time = {moment(post?.updatedAt).fromNow()}
               currUserId = {userInfo?._id}
             />
+            </div>
           ))
         }
+        </div>
+        <div>
+          {
+            open && <PostById incomingFrom={{name: "feed"}} />
+          }
         </div>
     </div>
     

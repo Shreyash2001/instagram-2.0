@@ -168,7 +168,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
             </IconButton>
           </div>
           <div>
-            <span>22.5k Comments</span>
+            <span>{comments?.length} Comments</span>
           </div>
         </div>
 
@@ -208,10 +208,10 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
           <span style={{lineHeight:"25px", fontSize:"16px"}}>{trimmedCaption}</span>
           {caption?.length >= 100 
           && 
-          <Link to={`/post/${id}`} style={{color:"gray", cursor:"pointer", textDecoration:"none"}}>See more</Link>
+          <div style={{color:"gray", cursor:"pointer"}}>See more</div>
           }
           <div>
-            <Link to={`/post/${id}`} style={{color:"gray", textDecoration:"none", fontSize:"14px"}}>View all {comments.length} comments</Link>
+            <div style={{color:"gray",  fontSize:"14px", cursor:"pointer"}}>View all {comments.length} comments</div>
           </div>
           <div>
             <span>{time}</span>

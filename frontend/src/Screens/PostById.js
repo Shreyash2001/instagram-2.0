@@ -116,13 +116,18 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
     if(success) {
       setComment("");
       setShowPostButton(false);
-      // postData?.comments.push(info);
-      // const find = posts.find((post) => post._id === id);
-      // find?.comments.push(info);
-      // sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      postData?.comments.push(info);
+      const find = posts.find((post) => post._id === id);
+      find?.comments.push(info);
+      if(incomingFrom.name === "explore") {
+        sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
+      }
+      if(incomingFrom.name === "user_details") {
+        sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      }
       dispatch(removeCommentData());
     }
-  }, [success]);
+  }, [success, postData, id, incomingFrom, info, posts]);
 
 
     const [like, setLike] = useState(false);
@@ -145,7 +150,7 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
       if(incomingFrom.name === "explore") {
         sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
       }
-      if(incomingFrom.name === "user_details") {
+      if(incomingFrom.name === "feed") {
         sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
       }
     };
@@ -224,18 +229,17 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
         
         const addComment = () => { 
           comment.split(' ').filter(word => word).join(' ');
-          if(incomingFrom.name === "explore") {
-            const find = posts.find((post) => post._id === id);
-            find?.comments.push(setupCommentObject(userInfo, find));
-            sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
-          };
+          // if(incomingFrom.name === "explore") {
+          //   const find = posts.find((post) => post._id === id);
+          //   find?.comments.push(setupCommentObject(userInfo, find));
+          //   sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
+          // };
 
-          if(incomingFrom.name === "user_details") {
-            console.log(incomingFrom)
-            const find = posts.find((post) => post._id === id);
-            find?.comments.push(setupCommentObject(userInfo, find));
-            sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
-          };
+          // if(incomingFrom.name === "user_details") {
+          //   const find = posts.find((post) => post._id === id);
+          //   find?.comments.push(setupCommentObject(userInfo, find));
+          //   sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+          // };
 
           dispatch(addCommentAction(id, comment));
         };

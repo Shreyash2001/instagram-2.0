@@ -38,10 +38,10 @@ function App() {
         <AddPost />
         <Home />
       </Route>
-      <Route path="/post/:id">
+      {/* <Route path="/post/:id">
         <PostById incomingFrom={{name:"feed"}} />
         <Home />
-      </Route>
+      </Route> */}
       <Route path="/setup">
         <SetupProfile />
       </Route>
