@@ -16,7 +16,7 @@ import Carousel from 'react-material-ui-carousel';
 import { Link, useHistory } from 'react-router-dom';
 
 
-function FeedCard({id, name, username, images, likes, user_info, caption, location, comments, profilePic, time, currUserId}) {
+function FeedCard({id, name, username, images, likes, user_info, caption, location, comments, profilePic, time, currUserId, selectedPostId}) {
   const [like, setLike] = useState(likes?.includes(user_info._id));
   const [countLike, setCountLike] = useState(likes?.length);
   const [bookmark, setBookmark] = useState(false);
@@ -74,10 +74,9 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
     dispatch(addCommentAction(id, comment));
   };
 
-  const history = useHistory();
-  const openComments = () => {
-    history.push(`/post/${id}`);
-  }
+  const openComments = (currId) => {
+    selectedPostId(currId);
+  };
 
   useEffect(() => {
     if(success) {
@@ -163,7 +162,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
         <div className="feed__comment">
           <div>
-            <IconButton onClick={openComments}>
+            <IconButton onClick={() => openComments(id)}>
               <AddCommentOutlinedIcon style={{color:"#222"}} />
             </IconButton>
           </div>
@@ -211,7 +210,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
           <div style={{color:"gray", cursor:"pointer"}}>See more</div>
           }
           <div>
-            <div style={{color:"gray",  fontSize:"14px", cursor:"pointer"}}>View all {comments.length} comments</div>
+            <div onClick={() => openComments(id)} style={{color:"gray",  fontSize:"14px", cursor:"pointer"}}>View all {comments.length} comments</div>
           </div>
           <div>
             <span>{time}</span>

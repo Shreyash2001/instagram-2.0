@@ -22,7 +22,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import OpenModal from '../Components/OpenModal';
 
-function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
+function PostById({incomingFrom, temp, openCloseReel, openExplore, openFeed}) {
     const [postData, setPostData] = useState({});
     const [show, setShow] = useState(false);
     const [comment, setComment] = useState("");
@@ -30,6 +30,10 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
     const history = useHistory();
 
     var id = window.location.pathname.split("/")[2];
+    if(incomingFrom.name === "feed") {
+      id = incomingFrom.id;
+    };
+
     if(incomingFrom.name === "user_details") {
       id = incomingFrom.id;
     };
@@ -45,8 +49,12 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
     // const id = incomingFrom.name !== "user_details" ? (window.location.pathname.split("/")[2]) : incomingFrom.id;
 
     var posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
-    if(incomingFrom.name === "user_details") {
+    if(incomingFrom.name === "feed") {
       posts = JSON.parse(sessionStorage.getItem("Instagram-Posts"));
+    };
+
+    if(incomingFrom.name === "user_details") {
+      posts = JSON.parse(sessionStorage.getItem("Instagram-UserDetails"));
     };
 
     if(incomingFrom.name === "reels") {
@@ -119,11 +127,14 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
       postData?.comments.push(info);
       const find = posts.find((post) => post._id === id);
       find?.comments.push(info);
+      if(incomingFrom.name === "feed") {
+        sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+      }
       if(incomingFrom.name === "explore") {
         sessionStorage.setItem("Explore-Posts", JSON.stringify(posts));
       }
       if(incomingFrom.name === "user_details") {
-        sessionStorage.setItem("Instagram-Posts", JSON.stringify(posts));
+        sessionStorage.setItem("Instagram-UserDetails", JSON.stringify(posts));
       }
       dispatch(removeCommentData());
     }
@@ -183,8 +194,9 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore}) {
       }
       const handleClose = () => {
           setOpen(false);
-          if(incomingFrom.name === "feed")
-          history.push('/');
+          if(incomingFrom.name === "feed") {
+            openFeed(false)
+          }
 
           if(incomingFrom.name === "user_details") {
             temp(false);

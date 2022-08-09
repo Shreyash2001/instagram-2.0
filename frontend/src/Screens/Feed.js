@@ -15,9 +15,13 @@ function Feed({userInfo, posts}) {
   const [open, setOpen] = useState(false);
   const [id, setId] = useState(null);
 
-  const handleClick = (currId) => {
+  const selectedPostId = (currId) => {
     setOpen(true);
     setId(currId);
+  };
+ 
+  const openFeed = (bool) => {
+    setOpen(bool);
   };
 
   return (
@@ -96,6 +100,7 @@ function Feed({userInfo, posts}) {
               comments = {post?.comments}
               time = {moment(post?.updatedAt).fromNow()}
               currUserId = {userInfo?._id}
+              selectedPostId={selectedPostId}
             />
             </div>
           ))
@@ -116,6 +121,7 @@ function Feed({userInfo, posts}) {
               comments = {post?.comments}
               time = {moment(post?.updatedAt).fromNow()}
               currUserId = {userInfo?._id}
+              selectedPostId={selectedPostId}
             />
             </div>
           ))
@@ -123,7 +129,7 @@ function Feed({userInfo, posts}) {
         </div>
         <div>
           {
-            open && <PostById incomingFrom={{name: "feed"}} />
+            open && <PostById incomingFrom={{name: "feed", id: id}} openFeed={openFeed} />
           }
         </div>
     </div>
