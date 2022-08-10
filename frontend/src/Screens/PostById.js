@@ -479,7 +479,7 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore, openFeed}) {
                   </div>
 
                   {
-                    openTag && <OpenModal closeTags={closeTags}  />
+                    openTag && <OpenModal closeTags={closeTags} tags={posts?.find((post) => post?._id === id)}  />
                   }
                   </div>
                 </Box>

@@ -132,7 +132,7 @@ const explore = asyncHandler(async(req, res) => {
     const data = [];
     const images = await Post.find({processed_image_details: {$in: req.user.user_preferences}})
                         .sort({createdAt: -1})
-                        .populate("postedBy comments");
+                        .populate("postedBy comments tags");
     if(images) {
         images.forEach(image => {
             data.push(image);
@@ -142,7 +142,7 @@ const explore = asyncHandler(async(req, res) => {
                         {createdBy : {$in : req.user.followers}}, 
                         {_id: {$in : req.user.reels}}]})
                         .sort({createdAt : -1}) 
-                        .populate("createdBy comments")
+                        .populate("createdBy comments tags")
     if(reels) { 
         reels.forEach(reel => {
             data.push(reel);

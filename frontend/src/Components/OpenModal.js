@@ -3,13 +3,14 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 
-function OpenModal({closeTags}) {
+function OpenModal({closeTags, tags}) {
+  console.log(tags)
     const style = {
       position: 'absolute',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: 400,
+      width: 500,
       bgcolor: 'background.paper',
       border: 'none',
       boxShadow: 24,
@@ -39,7 +40,7 @@ function OpenModal({closeTags}) {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">Tagged</h2>
+          <h2 id="child-modal-title">People Tagged:</h2>
           <p id="child-modal-description">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit.
           </p>
