@@ -316,9 +316,12 @@ function PostById({incomingFrom, temp, openCloseReel, openExplore, openFeed}) {
                                 ))
                           } 
                       </Carousel>
-                      <div onClick={openTags} className="showTags">
+                      {
+                        postData?.tags?.length > 0 
+                        &&
+                        <div onClick={openTags} className="showTags">
                         <AccountCircleIcon style={{color:"#fff"}} />
-                      </div>
+                      </div>}
                     </div>
                     
                   <div className="post__rightContainer">
