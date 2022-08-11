@@ -1,0 +1,35 @@
+.modal_container {
+    width: 450px;
+    min-height: 250px;
+    max-height: 500px;
+    background-color: #fff;
+    position: absolute;
+    left: 35%;
+    top: 25%;
+}
+
+.tag_container {
+    overflow-y: scroll;
+}
+
+.tag_container::-webkit-scrollbar {
+    display: none;
+}
+
+.tag_info {
+    display: flex;
+    justify-content: space-around
+}
+
+.button {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
+    color: #fff !important;
+    font-size: 15px !important;
+    width: 100px !important;
+    padding: 5px !important;
+    text-transform: inherit !important;
+    border-radius: 22px !important;
+}

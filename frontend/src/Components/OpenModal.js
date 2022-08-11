@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
+import "./OpenModal.css";
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
+import { Avatar, Button, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 function OpenModal({closeTags, tags}) {
   console.log(tags)
-    const style = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 500,
-      bgcolor: 'background.paper',
-      border: 'none',
-      boxShadow: 24,
-      p: 4,
-      };
+    
       const [open, setOpen] = useState(false);
       const handleOpen = () => {
         setOpen(true);
@@ -39,13 +30,36 @@ function OpenModal({closeTags, tags}) {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">People Tagged:</h2>
-          <p id="child-modal-description">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          </p>
-          <Button onClick={handleClose}>Close Child Modal</Button>
-        </Box>
+        <div className="modal_container">
+          <div style={{display:"flex", justifyContent:"space-between"}}>
+            <div style={{padding:"10px"}}>
+              <h2>Tags:</h2>
+            </div>
+            <div>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+            </div>
+          </div>
+          <div className="tag_container">
+            {
+              tags?.tags?.map((tag) => (
+                <div className="tag_info">
+                  <div>
+                    <Avatar style={{width:"60px", height:"60px", marginTop:"20px"}} src={tag?.profilePic} />
+                  </div>
+                  <div>
+                    <h4 style={{marginBottom:"3px", fontSize:"18px"}}>{tag?.userName}</h4>
+                    <span style={{fontSize:"14px"}}>{tag?.firstName + " " + tag?.lastName}</span>
+                  </div>
+                  <div style={{marginTop:"20px"}}>
+                    <Button className="button">Follow</Button>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </Modal>
     </div>
   )
