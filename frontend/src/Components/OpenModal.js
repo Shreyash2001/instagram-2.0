@@ -5,8 +5,6 @@ import { Avatar, Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 function OpenModal({closeTags, tags}) {
-  console.log(tags)
-    
       const [open, setOpen] = useState(false);
       const handleOpen = () => {
         setOpen(true);

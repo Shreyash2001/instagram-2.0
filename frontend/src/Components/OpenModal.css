@@ -1,24 +1,27 @@
 .modal_container {
     width: 450px;
     min-height: 250px;
-    max-height: 500px;
+    max-height: 350px;
     background-color: #fff;
     position: absolute;
     left: 35%;
     top: 25%;
 }
 
-.tag_container {
+.modal_container {
     overflow-y: scroll;
 }
 
-.tag_container::-webkit-scrollbar {
+.modal_container::-webkit-scrollbar {
     display: none;
 }
 
 .tag_info {
     display: flex;
-    justify-content: space-around
+    justify-content: space-around;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
 }
 
 .button {
