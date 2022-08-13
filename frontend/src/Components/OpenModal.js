@@ -3,8 +3,10 @@ import "./OpenModal.css";
 import Modal from '@mui/material/Modal';
 import { Avatar, Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useSelector } from 'react-redux';
 
 function OpenModal({closeTags, tags}) {
+      const {userInfo} = useSelector(state => state.userLogin);
       const [open, setOpen] = useState(false);
       const handleOpen = () => {
         setOpen(true);
@@ -39,6 +41,7 @@ function OpenModal({closeTags, tags}) {
               </IconButton>
             </div>
           </div>
+
           <div className="tag_container">
             {
               tags?.tags?.map((tag) => (
@@ -50,13 +53,22 @@ function OpenModal({closeTags, tags}) {
                     <h4 style={{marginBottom:"3px", fontSize:"18px"}}>{tag?.userName}</h4>
                     <span style={{fontSize:"14px"}}>{tag?.firstName + " " + tag?.lastName}</span>
                   </div>
-                  <div style={{marginTop:"20px"}}>
-                    <Button className="button">Follow</Button>
-                  </div>
+                  
+                  { userInfo?.following?.includes(tag?._id)
+                  ?
+                    <div style={{marginTop:"20px"}}>
+                      <Button className="button_following">Following</Button>
+                    </div>
+                  :
+                    <div style={{marginTop:"20px"}}>
+                      <Button className="button_follow">Follow</Button>
+                    </div>
+                  }
                 </div>
               ))
             }
           </div>
+
         </div>
       </Modal>
     </div>

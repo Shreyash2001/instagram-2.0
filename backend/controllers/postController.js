@@ -37,7 +37,7 @@ const getPost = asyncHandler(async(req, res) => {
                             .skip(req.query.page)
                             .limit(2)
                             .sort({createdAt : -1}).populate({
-                                path: "postedBy comments",
+                                path: "postedBy comments tags",
                                 select: "-password"
                         });
 

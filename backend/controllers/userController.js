@@ -173,7 +173,7 @@ const getUserDetails = asyncHandler(async(req, res) => {
                            .populate({
                            path: "posts", 
                            populate: [{
-                            path: "postedBy",
+                            path: "postedBy tags",
                             model: "User"
                            },
                            {
