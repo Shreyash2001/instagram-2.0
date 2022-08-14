@@ -24,6 +24,9 @@ import {
     USER_PROFILE_DETAILS_REQUEST,
     USER_PROFILE_DETAILS_SUCCESS,
     USER_PROFILE_DETAILS_FAIL,
+    FOLLOW_UNFOLLOW_USER_REQUEST,
+    FOLLOW_UNFOLLOW_USER_SUCCESS,
+    FOLLOW_UNFOLLOW_USER_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -230,7 +233,7 @@ export const getMutualUsersAction = (username) => async(dispatch, getState) => {
             }
         };
         const {data} = await axios.get(`/api/users/suggest/mutual?params=${username}`, config);
-        console.log(data)
+
         dispatch({
             type: GET_USER_MUTUAL_SUGGESTIONS_SUCCESS,
             payload: data
@@ -238,6 +241,31 @@ export const getMutualUsersAction = (username) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: GET_USER_MUTUAL_SUGGESTIONS_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        });
+    }
+}; 
+ 
+export const followUnfollowAction = (userId) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: FOLLOW_UNFOLLOW_USER_REQUEST
+        });
+        const {userLogin: {userInfo}} = getState();
+        const config = {
+            headers: {
+                "Authorization" : `Bearer ${userInfo?.token}`
+            }
+        };
+        console.log(userId);
+        const data = await axios.post("/api/users/follow", userId, config);
+        dispatch({
+            type: FOLLOW_UNFOLLOW_USER_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: FOLLOW_UNFOLLOW_USER_FAIL,
             payload: error.response && error.response.data.message ? error.response.data.message : error.message
         });
     }

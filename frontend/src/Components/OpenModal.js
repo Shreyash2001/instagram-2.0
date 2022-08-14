@@ -3,17 +3,24 @@ import "./OpenModal.css";
 import Modal from '@mui/material/Modal';
 import { Avatar, Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { followUnfollowAction } from '../actions/userActions';
 
 function OpenModal({closeTags, tags}) {
+      const dispatch = useDispatch();
       const {userInfo} = useSelector(state => state.userLogin);
       const [open, setOpen] = useState(false);
       const handleOpen = () => {
         setOpen(true);
       };
+
      const handleClose = () => {
         setOpen(false);
         closeTags(false);
+     };
+
+     const followUnfollow = (id) => {
+      dispatch(followUnfollowAction(id));
      };
 
      useEffect(() => {
@@ -45,7 +52,7 @@ function OpenModal({closeTags, tags}) {
           <div className="tag_container">
             {
               tags?.tags?.map((tag) => (
-                <div className="tag_info">
+                <div key={tag?._id} className="tag_info">
                   <div>
                     <Avatar style={{width:"60px", height:"60px", marginTop:"20px"}} src={tag?.profilePic} />
                   </div>
@@ -57,11 +64,11 @@ function OpenModal({closeTags, tags}) {
                   { userInfo?.following?.includes(tag?._id)
                   ?
                     <div style={{marginTop:"20px"}}>
-                      <Button className="button_following">Following</Button>
+                      <Button onClick={() => followUnfollow(tag?._id)} className="button_following">Following</Button>
                     </div>
                   :
                     <div style={{marginTop:"20px"}}>
-                      <Button className="button_follow">Follow</Button>
+                      <Button onClick={() => followUnfollow(tag?._id)} className="button_follow">Follow</Button>
                     </div>
                   }
                 </div>

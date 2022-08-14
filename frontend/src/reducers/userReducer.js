@@ -24,6 +24,9 @@ import {
     USER_PROFILE_DETAILS_REQUEST,
     USER_PROFILE_DETAILS_SUCCESS,
     USER_PROFILE_DETAILS_FAIL,
+    FOLLOW_UNFOLLOW_USER_FAIL,
+    FOLLOW_UNFOLLOW_USER_REQUEST,
+    FOLLOW_UNFOLLOW_USER_SUCCESS,
 } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -208,6 +211,29 @@ export const getUserMutualSuggestionsReducer = (state = {}, action) => {
         case GET_USER_MUTUAL_SUGGESTIONS_FAIL:
             return {
                 loading: false,
+                error: action.payload
+            };
+        default:
+            return state;
+    }
+};
+
+export const followUnfollowUserReducer = (state = {}, action) => {
+    switch (action.type) {
+        case FOLLOW_UNFOLLOW_USER_REQUEST:
+            return {
+                loading: true
+            };
+        case FOLLOW_UNFOLLOW_USER_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                followUnfollow: action.payload
+            };
+        case FOLLOW_UNFOLLOW_USER_FAIL:
+            return {
+                loading: false,
+                success: false,
                 error: action.payload
             };
         default:

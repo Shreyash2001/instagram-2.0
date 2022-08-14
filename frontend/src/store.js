@@ -2,6 +2,7 @@ import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import { 
+    followUnfollowUserReducer,
     getSearchedUserReducer, 
     getTopUser, 
     getUserDetailsReducer, 
@@ -34,7 +35,8 @@ const reducer = combineReducers({
     mutualUsers: getUserMutualSuggestionsReducer,
     addReel: addReelReducer,
     allReels: getAllReels,
-    explorePosts: exploreReducer
+    explorePosts: exploreReducer,
+    followUnfollow: followUnfollowUserReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("Instagram-UserInfo") ? JSON.parse(localStorage.getItem("Instagram-UserInfo")) : {};
