@@ -257,8 +257,20 @@ export const followUnfollowAction = (userId) => async(dispatch, getState) => {
                 "Authorization" : `Bearer ${userInfo?.token}`
             }
         };
-        console.log(userId);
-        const data = await axios.post("/api/users/follow", userId, config);
+
+        const isFollow = userInfo?.following?.includes(userId);
+        if(isFollow) {
+            let user = JSON.parse(localStorage.getItem("Instagram-UserInfo"));
+            const currFollowing = user.following.filter((ele) => String(ele) !== String(userId));
+            user.following = currFollowing
+            localStorage.setItem("Instagram-UserInfo", JSON.stringify(user));
+        } else {
+            let user = JSON.parse(localStorage.getItem("Instagram-UserInfo"));
+            user.following.push(userId);
+            localStorage.setItem("Instagram-UserInfo", JSON.stringify(user));
+        }
+
+        const data = await axios.post("/api/users/follow", {userId}, config);
         dispatch({
             type: FOLLOW_UNFOLLOW_USER_SUCCESS,
             payload: data
