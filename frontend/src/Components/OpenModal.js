@@ -5,11 +5,14 @@ import { Avatar, Button, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { followUnfollowAction } from '../actions/userActions';
+import { getPostsAction } from '../actions/postsAction';
+import { getStoriesAction } from '../actions/storiesAction';
 
 function OpenModal({closeTags, tags}) {
       const dispatch = useDispatch();
       const {userInfo} = useSelector(state => state.userLogin);
       const [open, setOpen] = useState(false);
+      const [showFollow, setShowFollow] = useState(false);
       const handleOpen = () => {
         setOpen(true);
       };
@@ -20,7 +23,10 @@ function OpenModal({closeTags, tags}) {
      };
 
      const followUnfollow = (id) => {
+      setShowFollow(!showFollow);
       dispatch(followUnfollowAction(id));
+      dispatch(getPostsAction());
+      dispatch(getStoriesAction());
      };
 
      useEffect(() => {
@@ -61,7 +67,7 @@ function OpenModal({closeTags, tags}) {
                     <span style={{fontSize:"14px"}}>{tag?.firstName + " " + tag?.lastName}</span>
                   </div>
                   
-                  { userInfo?.following?.includes(tag?._id)
+                  { (userInfo?.following?.includes(tag?._id)) || (showFollow === true)
                   ?
                     <div style={{marginTop:"20px"}}>
                       <Button onClick={() => followUnfollow(tag?._id)} className="button_following">Following</Button>

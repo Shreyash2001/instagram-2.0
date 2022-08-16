@@ -34,6 +34,20 @@
     border: 1px solid #ec4899 !important;
 }
 
+.button_follow:hover {
+    background-image: linear-gradient(to right,var(--tw-gradient-stops));
+    --tw-gradient-from: #f97316;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(249, 115, 22, 0));
+    --tw-gradient-to: #ec4899;
+    color: #fff !important;
+    font-size: 15px !important;
+    width: 100px !important;
+    padding: 5px !important;
+    text-transform: inherit !important;
+    border-radius: 22px !important;
+    border: 1px solid #ec4899 !important;
+}
+
 .button_following {
     background-image: linear-gradient(to right,var(--tw-gradient-stops));
     --tw-gradient-from: #f97316;
