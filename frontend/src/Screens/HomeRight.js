@@ -12,6 +12,9 @@ function HomeRight() {
     const [showNotificationIcon, setNotificationIcon] = useState(false);
     const {userInfo} = useSelector(state => state.userLogin);
 
+    const {suggestions} = useSelector(state => state.suggestedUsers);
+    const data = JSON.parse(sessionStorage.getItem("Instagram-User_Suggestions"));
+    console.log(data)
     return (
         <div className="homeRight">
             <div className="homeRight__top">
@@ -52,18 +55,35 @@ function HomeRight() {
                     <Notification setNotificationIcon={setNotificationIcon} />
                 </div>
                 <div className="homeRight__Suggestions">
-                {elements.map((element, i) => 
-                <Link key={i} to={`/profile/${element}`} className="homeRight__SuggestionsList">
+                {
+                    data === undefined || data === null
+                    ?
+                    suggestions?.map((element) => 
+                    <Link key={element?._id} to={`/profile/${element?.userName}`} className="homeRight__SuggestionsList">
                         <div className="homeRight__SuggestionsListAvatar">
-                            <Avatar />
+                            <Avatar src={element?.profilePic} />
                             <div className="homeRight__SuggestionsListName">
-                                <h4>First Last Name</h4>
-                                <span>@username</span>
+                                <h4>{element?.firstName + " " + element?.lastName}</h4>
+                                <span>{element?.userName}</span>
                             </div>
                             
                         </div>
                         
-                    </Link>)}
+                    </Link>)
+                    :
+                    data?.map((element) => 
+                    <Link key={element?._id} to={`/profile/${element?.userName}`} className="homeRight__SuggestionsList">
+                        <div className="homeRight__SuggestionsListAvatar">
+                            <Avatar src={element?.profilePic} />
+                            <div className="homeRight__SuggestionsListName">
+                                <h4>{element?.firstName + " " + element?.lastName}</h4>
+                                <span>{element?.userName}</span>
+                            </div>
+                            
+                        </div>
+                        
+                    </Link>)
+                    }
                     
                 </div>
             </div>
