@@ -3,9 +3,10 @@ import "./HomeRight.css";
 import SendIcon from '@mui/icons-material/Send';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Avatar, IconButton, Link } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import Notification from '../Components/Notification';
 import { useSelector } from 'react-redux';
+import {Link} from "react-router-dom";
 
 function HomeRight() {
     const elements = [1, 2, 3, 4, 5];
@@ -59,7 +60,7 @@ function HomeRight() {
                     data === undefined || data === null
                     ?
                     suggestions?.map((element) => 
-                    <Link key={element?._id} to={`/profile/${element?.userName}`} className="homeRight__SuggestionsList">
+                    <Link key={element?._id} to={`/details/user/${element?.userName}`} className="homeRight__SuggestionsList">
                         <div className="homeRight__SuggestionsListAvatar">
                             <Avatar src={element?.profilePic} />
                             <div className="homeRight__SuggestionsListName">
@@ -72,7 +73,7 @@ function HomeRight() {
                     </Link>)
                     :
                     data?.map((element) => 
-                    <Link key={element?._id} to={`/profile/${element?.userName}`} className="homeRight__SuggestionsList">
+                    <Link key={element?._id} to={`/details/user/${element?.userName}`} className="homeRight__SuggestionsList">
                         <div className="homeRight__SuggestionsListAvatar">
                             <Avatar src={element?.profilePic} />
                             <div className="homeRight__SuggestionsListName">
