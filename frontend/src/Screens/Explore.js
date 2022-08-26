@@ -38,7 +38,7 @@ function Explore() {
   return (
     <div className="explore">
     <div>
-        <TopBar />
+        <TopBar usedIn={"explore"} />
     </div>
     <div>
     <Box className="explore__container">

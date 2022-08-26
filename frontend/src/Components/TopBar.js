@@ -26,12 +26,15 @@ function TopBar({usedIn}) {
             <input type="text" placeholder="Search"  />
         </div>
 
-        {usedIn === "reels" && <div className="addReels">
+        {usedIn === "reels" 
+        && 
+        <>
+        <div className="addReels">
             <Button onClick={addReel}>
                 <MovieIcon style={{marginRight:"10px"}} />
                 Add Reels
             </Button>
-        </div>}
+        </div>
 
         <div className="topBar__right">
                 <IconButton>
@@ -53,6 +56,31 @@ function TopBar({usedIn}) {
             <div>
                 {open && <AddReel setOpen={setOpen} />}
             </div>
+            </>
+            }
+            {
+                usedIn === "explore"
+                &&
+                <>
+                <div className="topBar__right">
+                <IconButton>
+                    <SendIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
+                </IconButton>
+                <IconButton style={{position:"relative"}}>
+                    <NotificationsNoneIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
+                    {showNotificationIcon && 
+                    <div className="notify">
+                        <div>
+                        <span>1</span>
+                        </div>
+                    </div>}
+                </IconButton>
+                <IconButton>
+                    <AccountCircleIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
+                </IconButton>
+            </div>
+                </>
+            }
     </div>
   )
 }
