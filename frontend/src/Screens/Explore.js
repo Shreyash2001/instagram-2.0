@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getExploreData } from '../actions/postsAction';
 import MovieIcon from '@mui/icons-material/Movie';
 import PostById from "./PostById";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 function Explore() {
   const dispatch = useDispatch();
