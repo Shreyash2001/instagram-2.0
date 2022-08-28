@@ -306,6 +306,19 @@ const updateProfilePicOrBio = asyncHandler(async(req, res) => {
     return res.status(200).json(successful);
 });
 
+const addBookmark = asyncHandler(async(req, res) => {
+    const isBookmarked = req.user.bookmark.includes(req.body._id);
+    const options = isBookmarked ? "$pull" : "$addToSet"; 
+    const data = await User.findByIdAndUpdate(req.user._id, {[options]: {bookmark : req.body._id}}, {new: true});
+    if(data) {
+        res.status(201).json(data);
+        return;
+    } else {
+        res.status(400).json({"message": "Please try again"});
+        return;
+    }
+});
+
 module.exports = {
                     login, 
                     register, 
@@ -315,5 +328,6 @@ module.exports = {
                     getUserDetails,
                     getSuggestion,
                     getMutualSuggestion,
-                    updateProfilePicOrBio
+                    updateProfilePicOrBio,
+                    addBookmark
 };
