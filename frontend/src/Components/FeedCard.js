@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCommentAction, addLikeAction, removeCommentData } from '../actions/postsAction';
 import Carousel from 'react-material-ui-carousel';
 import { Link, useHistory } from 'react-router-dom';
+import { addBookmarkAction } from '../actions/userActions';
 
 
 function FeedCard({id, name, username, images, likes, user_info, caption, location, comments, profilePic, time, currUserId, selectedPostId}) {
@@ -49,6 +50,7 @@ function FeedCard({id, name, username, images, likes, user_info, caption, locati
 
   const handleClickBookmark = () => {
     setBookmark(!bookmark);
+    dispatch(addBookmarkAction(id));
   };
 
   const onEmojiClick = (event, emojiObject) => {

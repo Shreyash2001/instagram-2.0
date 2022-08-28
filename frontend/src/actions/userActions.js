@@ -27,6 +27,9 @@ import {
     FOLLOW_UNFOLLOW_USER_REQUEST,
     FOLLOW_UNFOLLOW_USER_SUCCESS,
     FOLLOW_UNFOLLOW_USER_FAIL,
+    BOOKMARK_POST_REQUEST,
+    BOOKMARK_POST_SUCCESS,
+    BOOKMARK_POST_FAIL,
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -282,3 +285,27 @@ export const followUnfollowAction = (userId) => async(dispatch, getState) => {
         });
     }
 };
+
+export const addBookmarkAction = (_id) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: BOOKMARK_POST_REQUEST
+        });
+        const {userLogin: {userInfo}} = getState();
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${userInfo?.token}`
+            }
+        };
+        const {data} = await axios.post("/api/users/bookmark/add", {_id}, config);
+        dispatch({
+            type: BOOKMARK_POST_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: BOOKMARK_POST_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message
+        });
+    }
+}

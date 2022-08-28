@@ -2,6 +2,7 @@ import {createStore, combineReducers, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import { 
+    addbookmarkReducer,
     followUnfollowUserReducer,
     getSearchedUserReducer, 
     getTopUser, 
@@ -37,6 +38,7 @@ const reducer = combineReducers({
     allReels: getAllReels,
     explorePosts: exploreReducer,
     followUnfollow: followUnfollowUserReducer,
+    addBookmark: addbookmarkReducer
 });
 
 const userInfoFromStorage = localStorage.getItem("Instagram-UserInfo") ? JSON.parse(localStorage.getItem("Instagram-UserInfo")) : {};

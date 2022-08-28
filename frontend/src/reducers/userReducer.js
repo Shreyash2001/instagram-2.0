@@ -27,6 +27,9 @@ import {
     FOLLOW_UNFOLLOW_USER_FAIL,
     FOLLOW_UNFOLLOW_USER_REQUEST,
     FOLLOW_UNFOLLOW_USER_SUCCESS,
+    BOOKMARK_POST_REQUEST,
+    BOOKMARK_POST_SUCCESS,
+    BOOKMARK_POST_FAIL,
 } from "../constants/userConstants";
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -235,6 +238,28 @@ export const followUnfollowUserReducer = (state = {}, action) => {
                 loading: false,
                 success: false,
                 error: action.payload
+            };
+        default:
+            return state;
+    }
+};
+
+export const addbookmarkReducer = (state = {}, action) => {
+    switch (action.type) {
+        case BOOKMARK_POST_REQUEST:
+            return {
+                loading: true
+            };
+        case BOOKMARK_POST_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                data: action.payload
+            };
+        case BOOKMARK_POST_FAIL:
+            return {
+                loading: false,
+                success: false
             };
         default:
             return state;
