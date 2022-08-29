@@ -15,12 +15,16 @@ import UserDetails from './Components/UserDetails';
 import SetupProfile from './Screens/SetupProfile';
 import Explore from './Screens/Explore';
 import Reels from './Screens/Reels';
+import Favourites from './Screens/Favourites';
 
 
 function App() {
   return (
     <Router>
     <Switch>
+      <Route path="/favourites">
+        <Favourites />
+      </Route>
       <Route path="/reels">
         <Reels />
       </Route>

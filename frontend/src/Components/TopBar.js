@@ -81,6 +81,29 @@ function TopBar({usedIn}) {
             </div>
                 </>
             }
+            {
+                usedIn === "userDetails"
+                &&
+                <>
+                <div className="topBar__right">
+                <IconButton>
+                    <SendIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
+                </IconButton>
+                <IconButton style={{position:"relative"}}>
+                    <NotificationsNoneIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
+                    {showNotificationIcon && 
+                    <div className="notify">
+                        <div>
+                        <span>1</span>
+                        </div>
+                    </div>}
+                </IconButton>
+                <IconButton>
+                    <AccountCircleIcon style={{color:"rgb(189, 186, 186)", fontSize:"30px"}} />
+                </IconButton>
+            </div>
+                </>
+            }
     </div>
   )
 }

@@ -87,9 +87,9 @@ function HomeLeft() {
                         <span>Direct</span>
                     </Link>
 
-                    <Link to="/favorites">
+                    <Link to="/favourites">
                         <BookmarkBorderIcon style={{color:"rgb(189, 186, 186)"}} />
-                        <span>Favorites</span>
+                        <span>Favourites</span>
                     </Link>
 
                     <Link to="/stats">

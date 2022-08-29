@@ -66,7 +66,7 @@ function UserDetails() {
 
   return (
     <div>
-        <TopBar />
+        <TopBar usedIn="userDetails" />
         {!loading 
         ?
         <div className="details">
