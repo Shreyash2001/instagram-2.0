@@ -61,7 +61,16 @@ function Notification({setNotificationIcon}) {
         setOpen(true);
         setNotificationIcon(true);
       }
-  })
+    });
+
+    es.addEventListener ("reel", (e) => {
+      const data = JSON.parse(e.data);
+      console.log(data);
+      if(data?.postId === userInfo?._id) {
+        setOpen(true);
+        setNotificationIcon(true);
+      }
+    });
 
   }, [userInfo]);
   return (

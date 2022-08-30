@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Reel = require("../model/reelModel");
 const User = require("../model/userModel");
+const sse = require("../sse/sse");
 
 const createReel = asyncHandler(async(req, res) => {
     const {videoURL, videoID, caption, destination, tags} = req.body;
@@ -18,7 +19,8 @@ const createReel = asyncHandler(async(req, res) => {
         });
         if(reel) {
             res.status(201).json(reel);
-            await User.findByIdAndUpdate(req.user._id, {$addToSet: {reels: reel._id}}, {new: true})
+            await User.findByIdAndUpdate(req.user._id, {$addToSet: {reels: reel._id}}, {new: true});
+            sse.send(reel, "reel");
         } else {
             res.status(400).json({message: "Reel not created. Please try again"});
         }
