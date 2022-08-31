@@ -52,4 +52,16 @@ const getReels = asyncHandler(async(req, res) => {
     }
 });
 
-module.exports = {createReel, getReels}
+const addLike = asyncHandler(async(req, res) => {
+    const isLiked = await req.user.likes.includes(req.body._id);
+    const options = isLiked ? "$pull" : "$addToSet";
+    const user = await User.findByIdAndUpdate(req.user._id, {[options] : {likes: req.body._id}}, {new: true});
+    const reel = await Reel.findByIdAndUpdate(req.body._id, {[options] : {likes: req.user._id}}, {new: true});
+    if(user && reel) {
+        res.status(201).json(reel);
+    } else {
+        res.status(400).json({message: "Something went wrong. Please try again"});
+    }
+});
+
+module.exports = {createReel, getReels, addLike}
