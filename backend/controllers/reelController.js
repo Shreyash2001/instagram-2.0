@@ -3,7 +3,7 @@ const Reel = require("../model/reelModel");
 const User = require("../model/userModel");
 const sse = require("../sse/sse");
 
-const createReel = asyncHandler(async(req, res) => {
+const createReel = asyncHandler(async(req, res) => { 
     const {videoURL, videoID, caption, destination, tags} = req.body;
 
     if(videoURL.length === 0 || videoID.length === "" || caption === "") {
@@ -63,5 +63,9 @@ const addLike = asyncHandler(async(req, res) => {
         res.status(400).json({message: "Something went wrong. Please try again"});
     }
 });
+
+const addComment = asyncHandler(async(req, res) => {
+    const data = await Reel.findByIdAndUpdate(req.body._id, {$addToSet: {comments: req.body.comment}})
+})
 
 module.exports = {createReel, getReels, addLike}

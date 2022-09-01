@@ -14,6 +14,10 @@ const CommentSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Post"
     },
+    reel: {
+        type: mongoose.Types.ObjectId,
+        ref: "Reel"
+    },
     comment: {
         type: String,
         required: true
