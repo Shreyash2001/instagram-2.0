@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Reel = require("../model/reelModel");
 const User = require("../model/userModel");
+const Comment = require("../model/commentModel");
 const sse = require("../sse/sse");
 
 const createReel = asyncHandler(async(req, res) => { 
@@ -65,7 +66,23 @@ const addLike = asyncHandler(async(req, res) => {
 });
 
 const addComment = asyncHandler(async(req, res) => {
-    const data = await Reel.findByIdAndUpdate(req.body._id, {$addToSet: {comments: req.body.comment}})
-})
+    const comment = await Comment.create({
+        name: req.user.firstName + " " + req.user.lastName,
+        profilePic: req.user.profilePic,
+        username: req.user.userName,
+        reel: req.body._id,
+        comment: req.body.comment
+    });
+    if(comment) {
+        const data = await Reel.findByIdAndUpdate(req.body._id, {$addToSet: {comments: comment._id}}, {new: true});
+        if(data) {
+            res.status(201).json(data);
+        } else {
+            res.status(400).json({message: "Something went wrong!!!"});
+        }
+    } else {
+        res.status(400).json({message: "Please try to comment again!!!"});
+    }
+});
 
-module.exports = {createReel, getReels, addLike}
+module.exports = {createReel, getReels, addLike, addComment}
