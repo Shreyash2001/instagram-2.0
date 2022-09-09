@@ -1,0 +1,26 @@
+.favourites_container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 85vh;
+    overflow-y: scroll;
+    margin-left: 120px;
+}
+
+.favourites_container::-webkit-scrollbar {
+    display: none;
+}
+
+.image_container {
+    width: 400px;
+    height: 500px;
+    padding: 10px 10px;
+    border-radius: 22px;
+}
+
+.image > img {
+    width: 400px;
+    height: 500px;
+    border-radius: 22px;
+    object-fit: fill;
+}
