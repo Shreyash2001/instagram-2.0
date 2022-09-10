@@ -12,10 +12,12 @@
 }
 
 .image_container {
+    position: relative;
     width: 400px;
     height: 500px;
     padding: 10px 10px;
     border-radius: 22px;
+    cursor: pointer;
 }
 
 .image > img {
@@ -23,4 +25,18 @@
     height: 500px;
     border-radius: 22px;
     object-fit: fill;
+}
+
+.user_information {
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.10);
+    border-radius: 22px;
+}
+
+.user_infonames {
+    margin-left: 10px;
 }
