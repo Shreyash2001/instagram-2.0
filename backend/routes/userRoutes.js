@@ -15,6 +15,7 @@ const protect = require("../middleware/authMiddleware");
 const router = express.Router();
 
 router.route("/bookmark/add").post(protect, addBookmark);
+router.route("/bookmark").get(protect, addBookmark);
 router.route("/suggest/mutual").get(protect, getMutualSuggestion);
 router.route("/suggest").get(protect, getSuggestion);
 router.route("/details?").get(protect, getUserDetails);

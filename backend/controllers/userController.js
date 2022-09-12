@@ -319,6 +319,15 @@ const addBookmark = asyncHandler(async(req, res) => {
     }
 });
 
+const getBookmark = asyncHandler(async(req, res) => {
+    const data = await User.findById(req.user._id).populate("bookmark");
+    if(data) {
+        res.status(200).json(data);
+    } else {
+        res.status(401).json({message: "Something went wrong"})
+    }
+})
+
 module.exports = {
                     login, 
                     register, 
@@ -329,5 +338,6 @@ module.exports = {
                     getSuggestion,
                     getMutualSuggestion,
                     updateProfilePicOrBio,
-                    addBookmark
+                    addBookmark,
+                    getBookmark
 };
